@@ -1,0 +1,12 @@
+.resend-otp {
+  color: #ff0000b8;
+  font-size: 19px;
+  font-weight: 700;
+  text-align: left;
+  padding: 0px 20px;
+  cursor: pointer;
+}
+.back {
+  font-size: 20px;
+  padding: 10px;
+}
