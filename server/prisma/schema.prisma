@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  isVerified Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  progresses UserProgress[]
+}
+
+model AlgorithmCategory {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+
+  algorithms  Algorithm[]
+}
+
+model Algorithm {
+  id              Int        @id @default(autoincrement())
+  title           String
+  slug            String     @unique
+  description     String     @db.Text
+  pseudoCode      String     @db.Text
+  timeComplexity  String?
+  spaceComplexity String?
+  difficulty      Difficulty @default(EASY)
+
+  categoryId      Int
+  category        AlgorithmCategory @relation(fields: [categoryId], references: [id])
+
+  exercises       Exercise[]
+  progresses      UserProgress[]
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Exercise {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String     @db.Text
+  difficulty  Difficulty @default(EASY)
+
+  algorithmId Int
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model UserProgress {
+  id          Int      @id @default(autoincrement())
+  isCompleted Boolean  @default(false)
+
+  userId      Int
+  user        User @relation(fields: [userId], references: [id])
+
+  algorithmId Int
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, algorithmId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}

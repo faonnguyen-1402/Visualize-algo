@@ -1,0 +1,22 @@
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #1e3a5f;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateX(-4px);
+  color: #0f172a;
+}
+.register-form {
+  position: relative;
+}
