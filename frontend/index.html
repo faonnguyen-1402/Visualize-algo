@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAME U LATER</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a class="logo" onclick="showHomepage()">
+                AlgoViz
+                <span class="logo-subtitle">Algorithm Visualizer</span>
+            </a>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main id="homepage" style="display: block;">
+        <!-- Hero Section -->
+        <article class="hero">
+            <h1>Learn Algorithms <span>Visually</span></h1>
+            <p>Understand how algorithms work with step-by-step visualizations. Master sorting, searching algorithms through interactive learning.</p>
+        </article>
+
+        <!-- Sorting Algorithms -->
+        <section>
+            <h2><span>📊</span> Sorting Algorithms</h2>
+            <div class="cards-grid" id="sorting-cards"></div>
+        </section>
+
+        <!-- Searching Algorithms -->
+        <section>
+            <h2><span>🔍</span> Searching Algorithms</h2>
+            <div class="cards-grid" id="searching-cards"></div>
+        </section>
+    </main>
+
+    <!-- Modal for Algorithm Detail -->
+    <div class="modal-overlay" id="algorithmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Algorithm Name</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="algorithmDescription"></p>
+
+                <!-- Info Grid -->
+                <div class="algo-info-grid">
+                    <div class="info-card">
+                        <div class="info-label">Độ khó</div>
+                        <div class="info-value" id="infoDifficulty">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Độ phức tạp thời gian</div>
+                        <div class="info-value" id="infoTimeComplexity">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Độ phức tạp không gian</div>
+                        <div class="info-value" id="infoSpaceComplexity">-</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-label">Loại</div>
+                        <div class="info-value" id="infoCategory">-</div>
+                    </div>
+                </div>
+
+                <!-- Visualization -->
+                <div class="visualization-container">
+                    <figure class="visualization-area">
+                        <div class="array-bars" id="arrayBars"></div>
+                    </figure>
+
+                    <!-- Controls -->
+                    <div class="controls-panel">
+                        <div class="step-counter">
+                            <div class="step-label">Step</div>
+                            <div class="step-value"><span id="currentStep">0</span> / <span id="totalSteps">0</span></div>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+
+                        <div class="button-group">
+                            <button class="btn-secondary" onclick="resetAlgorithm()">Reset</button>
+                            <button class="btn-secondary" onclick="previousStep()">← Back</button>
+                            <button class="btn-primary" id="playBtn" onclick="togglePlay()">▶ Play</button>
+                            <button class="btn-secondary" onclick="nextStep()">Next →</button>
+                        </div>
+
+                        <div class="speed-control">
+                            <label class="speed-label">Speed:</label>
+                            <input type="range" id="speedSlider" min="0.5" max="3" step="0.5" value="1" onchange="updateSpeed()">
+                            <span class="speed-label" id="speedValue">1x</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Code Panel -->
+                <div class="code-panel">
+                    <div class="code-tabs">
+                        <button class="code-tab active" onclick="switchCodeTab('pseudo')">Pseudocode</button>
+                        <button class="code-tab" onclick="switchCodeTab('code')">JavaScript</button>
+                    </div>
+                    <div class="code-content" id="codeContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>AlgoViz © 2024 - Learn algorithms through interactive visualization</p>
+    </footer>
+    <script src="scripts.js"></script>
+</body>
+</html>
