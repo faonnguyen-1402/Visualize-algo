@@ -1,14 +1,21 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { EmailService } from '../email/email.service';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
+import { JwtService } from '@nestjs/jwt';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly emailService: EmailService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async register(data: RegisterDto) {
@@ -218,6 +225,35 @@ export class AuthService {
         username: updatedUser.username,
         email: updatedUser.email,
         isVerified: updatedUser.isVerified,
+      },
+    };
+  }
+
+  async login(data: LoginDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { email: data.email },
+    });
+
+    if (!user || !(await bcrypt.compare(data.password, user.password))) {
+      throw new UnauthorizedException('Wrong email or password');
+    }
+
+    if (!user.isVerified) {
+      throw new UnauthorizedException(
+        'Please verify your email before logging in',
+      );
+    }
+
+    const payload = { sub: user.id, email: user.email };
+
+    return {
+      success: true,
+      message: 'Login successful',
+      access_token: await this.jwtService.signAsync(payload),
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
       },
     };
   }
