@@ -242,11 +242,6 @@ return -1;
         document.getElementById('algorithmModal').classList.add('active');
     }
 
-    function closeModal() {
-        document.getElementById('algorithmModal').classList.remove('active');
-        stopPlayback();
-    }
-
     function showHomepage() {
         document.getElementById('algorithmModal').classList.remove('active');
         stopPlayback();
@@ -407,8 +402,15 @@ return -1;
     }
 
     // Close modal on background click
-    document.getElementById('algorithmModal').addEventListener('click', (e) => {
-        if (e.target.id === 'algorithmModal') {
-            closeModal();
-        }
-    });
+    window.addEventListener('DOMContentLoaded', () => {
+    // 1. Lấy chuỗi ID từ URL (?id=...)
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedId = urlParams.get('id');
+
+    // 2. Nếu có ID, tìm thuật toán trong mảng dữ liệu và hiển thị
+    if (selectedId) {
+        // currentAlgorithm = algorithms.find(a => a.id === selectedId);
+        // Sau đó gọi hàm hiển thị thông tin như bạn đã làm
+        openAlgorithm(selectedId); 
+    }
+});

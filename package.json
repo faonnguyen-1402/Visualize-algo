@@ -1,7 +1,7 @@
 {
   "name": "visualize-algo-server",
   "version": "0.0.1",
-  "description": "",
+  "description": "[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
@@ -29,14 +29,11 @@
     "bcrypt": "^6.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
+    "motion": "^12.38.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
-    "prisma": "^6.19.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1",
-    "prisma": {
-      "seed": "tsx prisma/seed/seed.ts"
-    }
+    "rxjs": "^7.8.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -82,5 +79,18 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faonnguyen-1402/Visualize-algo.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/faonnguyen-1402/Visualize-algo/issues"
+  },
+  "homepage": "https://github.com/faonnguyen-1402/Visualize-algo#readme"
 }
