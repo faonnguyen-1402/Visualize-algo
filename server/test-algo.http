@@ -1,0 +1,26 @@
+### Khai báo biến (Để thay đổi nhanh khi cần)
+@baseUrl = http://localhost:3001
+@algoSlug = linear-search
+
+### 1. Lấy tất cả thuật toán (GET)
+GET {{baseUrl}}/algorithms
+Accept: application/json
+
+###
+
+### 2. Lấy chi tiết một thuật toán (Dùng biến slug)
+GET {{baseUrl}}/algorithms/{{algoSlug}}
+
+###
+
+### 3. Test mô phỏng thuật toán (POST)
+# Dấu ### dùng để phân tách giữa các request
+POST {{baseUrl}}/algorithms/{{algoSlug}}/simulate
+Content-Type: application/json
+
+
+
+{
+    "array": [30, 10, 45, 5, 20],
+    "target": 5
+}
