@@ -187,6 +187,7 @@ return -1;
     let isPlaying = false;
     let animationSpeed = 1;
     let playInterval = null;
+    let steps = [];
 
     // ==================== INITIALIZATION ====================
     document.addEventListener('DOMContentLoaded', () => {
@@ -281,6 +282,7 @@ return -1;
     }
 
     // ==================== ALGORITHM STEPS ====================
+    
     function resetAlgorithm() {
         stopPlayback();
         currentStep = 0;
