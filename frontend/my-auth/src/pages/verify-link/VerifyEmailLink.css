@@ -1,0 +1,10 @@
+.verify-link-text {
+  font-size: 20px;
+  color: #0812fef0;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.verify-link-text:hover {
+  opacity: 0.85;
+}

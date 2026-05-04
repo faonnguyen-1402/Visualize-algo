@@ -1,0 +1,12 @@
+.App {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #684c4c, #0040ffba);
+}
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
