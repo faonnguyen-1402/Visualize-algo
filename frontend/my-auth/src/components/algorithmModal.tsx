@@ -13,9 +13,19 @@ type Props = {
 };
 
 const AlgorithmModal = ({ algorithm, onClose }: Props) => {
-  const { values, steps, step, loadAlgorithm, next, prev } = useAlgorithm();
+  const {
+    values,
+    steps,
+    step,
+    isPlaying,
+    loadAlgorithm,
+    next,
+    prev,
+    play,
+    pause,
+    reset
+  } = useAlgorithm();
 
-  // load algorithm khi mở modal
   useEffect(() => {
     loadAlgorithm(algorithm.id);
   }, [algorithm]);
@@ -57,8 +67,11 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
             <Controls
               step={step}
               total={steps.length}
+              isPlaying={isPlaying}
               onNext={next}
               onPrev={prev}
+              onPlay={isPlaying ? pause : play}
+              onReset={reset}
             />
           </div>
 
