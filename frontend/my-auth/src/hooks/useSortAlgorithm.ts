@@ -6,7 +6,7 @@ type Step =
   | { type: "swap"; indices: number[]; array: number[] }
   | { type: "sorted"; index: number };
 
-export function useAlgorithm() {
+export function useSortAlgorithm() {
   const [values, setValues] = useState<number[]>([]);
   const [steps, setSteps] = useState<Step[]>([]);
   const [step, setStep] = useState(0);
@@ -19,9 +19,6 @@ export function useAlgorithm() {
   const playRef = useRef(false);
   const originalRef = useRef<number[]>([]);
 
-  // ========================
-  // Generate array
-  // ========================
   function generateArray() {
     const arr = Array.from({ length: 7 }, () =>
       Math.floor(Math.random() * 80) + 10
@@ -31,9 +28,6 @@ export function useAlgorithm() {
     return arr;
   }
 
-  // ========================
-  // Load algorithm
-  // ========================
   function loadAlgorithm(id: string) {
     const arr = generateArray();
     const handler = algorithmMap[id];
@@ -48,9 +42,6 @@ export function useAlgorithm() {
     setSorted([]);
   }
 
-  // ========================
-  // Controls
-  // ========================
   function next() {
     setStep(s => Math.min(s + 1, steps.length - 1));
   }
@@ -89,9 +80,6 @@ export function useAlgorithm() {
     playRef.current = false;
   }
 
-  // ========================
-  // APPLY STEP → UI
-  // ========================
   useEffect(() => {
     const current = steps[step];
     if (!current) return;
@@ -118,6 +106,12 @@ export function useAlgorithm() {
 
   return {
     values,
+    treeData: null,
+    activeNode: null,
+    visitedNodes: null,
+    pathNodes: null,
+    currentIndex: null,
+    message: null,
     active,
     swapping,
     sorted,

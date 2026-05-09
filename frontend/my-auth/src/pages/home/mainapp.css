@@ -409,6 +409,20 @@ section h2 span {
     white-space: nowrap;
 }
 
+.tree-svg {
+  background: #1f2937;
+  border-radius: 10px;
+}
+
+.tree-node.active {
+  filter: drop-shadow(0 0 12px #facc15);
+}
+
+.tree-link.active-path {
+  stroke: #f97316 !important;
+  stroke-width: 5 !important;
+}
+
 /* ==================== CONTROLS ==================== */
 .controls-panel {
     background: var(--bg-tertiary);
