@@ -26,6 +26,7 @@ const VisualRender = ({
   if (algorithm.category === "Searching") {
     return (
       <TreeVisualization
+        key={algorithm.id}
         data={treeData}
         activeNode={activeNode}
         visitedNodes={visitedNodes}

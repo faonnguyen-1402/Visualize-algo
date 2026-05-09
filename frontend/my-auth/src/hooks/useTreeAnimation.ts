@@ -7,7 +7,52 @@ export function useTreeAnimation(step: any) {
     if (!step) return;
 
     const nodes = document.querySelectorAll<SVGCircleElement>(".tree-node");
-    const links = document.querySelectorAll<SVGLineElement>(".tree-link");
+    const links = document.querySelectorAll<SVGPathElement>(".tree-link");
+
+    if (
+      !step.activeNode &&
+      (!step.visitedNodes || step.visitedNodes.length === 0)
+    ) {
+
+      nodes.forEach((node) => {
+
+        node.classList.remove(
+          "active",
+          "visited",
+          "found"
+        );
+
+        animate(
+          node,
+          {
+            fill: "#3b82f6",
+            stroke: "#1e293b",
+            scale: 1,
+          },
+          {
+            duration: 0.3
+          }
+        );
+      });
+
+      links.forEach((link) => {
+
+        link.classList.remove("active-path");
+
+        animate(
+          link,
+          {
+            stroke: "#64748b",
+            strokeWidth: 2.5,
+          },
+          {
+            duration: 0.3
+          }
+        );
+      });
+
+      return;
+    }
 
     // RESET tất cả các hiệu ứng trước
     nodes.forEach((node) => {
@@ -33,7 +78,7 @@ export function useTreeAnimation(step: any) {
           activeNodeEl,
           {
             scale: [1, 1.45, 1],
-            fill: "#facc15",
+            fill: "#22c55e",
           },
           {
             duration: 0.7,
@@ -60,7 +105,7 @@ export function useTreeAnimation(step: any) {
               link,
               {
                 stroke: "#f97316",
-                strokeWidth: [2.5, 5.5, 4],
+                strokeWidth:  4,
               },
               {
                 duration: 0.5,
@@ -71,9 +116,6 @@ export function useTreeAnimation(step: any) {
       }
     }
 
-    // =========================
-    // VISITED NODES
-    // =========================
     if (step.visitedNodes && Array.isArray(step.visitedNodes)) {
       step.visitedNodes.forEach((name: string) => {
         const visitedNode = Array.from(nodes).find(
@@ -82,14 +124,19 @@ export function useTreeAnimation(step: any) {
 
         if (visitedNode) {
           visitedNode.classList.add("visited");
-          animate(visitedNode, { fill: "#22c55e" }, { duration: 0.4 });
+          animate(
+            visitedNode,
+            {
+              scale: [1, 1.08, 1],
+            },
+            {
+              duration: 0.4
+            }
+          );
         }
       });
     }
 
-    // =========================
-    // FOUND
-    // =========================
     if (step.type === "found" && step.activeNode) {
       const foundNode = Array.from(nodes).find(
         (node) => node.getAttribute("data-name") === step.activeNode
@@ -102,7 +149,7 @@ export function useTreeAnimation(step: any) {
           foundNode,
           {
             scale: [1, 1.6, 1.2],
-            fill: "#eab308",
+            fill: "#ef4444",
           },
           {
             duration: 0.9,
@@ -111,15 +158,11 @@ export function useTreeAnimation(step: any) {
       }
     }
 
-    // =========================
-    // DONE
-    // =========================
     if (step.type === "done") {
       nodes.forEach((node, index) => {
         animate(
           node,
           {
-            fill: "#22c55e",
             scale: [1, 1.1, 1],
           },
           {

@@ -48,9 +48,7 @@ useEffect(() => {
     algorithm.category === "Searching"
   ) {
 
-    searchHook.loadAlgorithm(
-      algorithm.id
-    );
+    searchHook.loadAlgorithm();
 
   } else {
 
@@ -68,7 +66,6 @@ useEffect(() => {
 const currentStep = steps?.[step] || null;
 
 useAnimation(!isSearching ? currentStep : null);     // Sort
-useTreeAnimation(isSearching ? currentStep : null);  // Tree
 return (
   <div className="modal-overlay active">
     <div className="modal-content">
