@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { EmailModule } from './email/email.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { AlgorithmsModule } from './algorithm/algorithms.module';
+import { ExerciseModule } from './exercise/exercise.module';
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { AuthModule } from './auth/auth.module';
       isGlobal: true,
     }),
     AuthModule,
+    AlgorithmsModule,
+    ExerciseModule,
   ],
   controllers: [AppController],
   providers: [AppService],
