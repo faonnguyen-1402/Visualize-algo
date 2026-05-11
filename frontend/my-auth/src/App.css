@@ -1,6 +1,6 @@
 .App {
   min-height: 100vh;
-  background: black;
+  background: linear-gradient(135deg, #684c4c, #0040ffba);
 }
 html,
 body,
