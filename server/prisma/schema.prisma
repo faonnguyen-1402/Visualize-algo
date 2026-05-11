@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id         Int     @id @default(autoincrement())
+  username   String
+  email      String  @unique
+  password   String
+  role       Role    @default(USER)
+  isVerified Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  progresses  UserProgress[]
+  submissions Submission[]
+}
+
+model AlgorithmCategory {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+
+  algorithms Algorithm[]
+}
+
+model Algorithm {
+  id              Int        @id @default(autoincrement())
+  name            String     @unique
+  title           String
+  slug            String     @unique
+  description     String     @db.Text
+  pseudoCode      String     @db.Text
+  timeComplexity  String?
+  spaceComplexity String?
+  difficulty      Difficulty @default(EASY)
+
+  categoryId Int
+  category   AlgorithmCategory @relation(fields: [categoryId], references: [id])
+
+  exercises  Exercise[]
+  progresses UserProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Exercise {
+  id          Int        @id @default(autoincrement())
+  title       String
+  slug        String     @unique
+  description String     @db.Text
+  constraints String?    @db.Text
+  difficulty  Difficulty @default(EASY)
+
+  algorithmId Int
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id])
+
+  testCases   TestCase[]
+  submissions Submission[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+model TestCase {
+  id             Int     @id @default(autoincrement())
+  input          String  @db.Text
+  expectedOutput String  @db.Text
+  isSample       Boolean @default(false)
+
+  exerciseId Int
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+}
+
+model Submission {
+  id            Int    @id @default(autoincrement())
+  code          String @db.Text
+  language      String @default("javascript")
+  status        String // "ACCEPTED", "WRONG_ANSWER", "TIME_LIMIT_EXCEEDED", "PENDING"
+  executionTime Float?
+  memory        Float?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  exerciseId Int
+  exercise   Exercise @relation(fields: [exerciseId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model UserProgress {
+  id          Int     @id @default(autoincrement())
+  isCompleted Boolean @default(false)
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  algorithmId Int
+  algorithm   Algorithm @relation(fields: [algorithmId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, algorithmId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
