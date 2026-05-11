@@ -1,11 +1,22 @@
 type Props = {
   step: number;
   total: number;
+  isPlaying: boolean;
   onNext: () => void;
   onPrev: () => void;
+  onPlay: () => void;
+  onReset: () => void;
 };
 
-const Controls = ({ step, total, onNext, onPrev }: Props) => {
+const Controls = ({
+  step,
+  total,
+  isPlaying,
+  onNext,
+  onPrev,
+  onPlay,
+  onReset
+}: Props) => {
   return (
     <div className="controls-panel">
       <div className="step-counter">
@@ -21,9 +32,13 @@ const Controls = ({ step, total, onNext, onPrev }: Props) => {
       </div>
 
       <div className="button-group">
-        <button className="btn-secondary">Reset</button>
+        <button className="btn-secondary" onClick={onReset}>Reset</button>
         <button className="btn-secondary" onClick={onPrev}>← Back</button>
-        <button className="btn-primary">▶ Play</button>
+
+        <button className="btn-primary" onClick={onPlay}>
+          {isPlaying ? "⏸ Pause" : "▶ Play"}
+        </button>
+
         <button className="btn-secondary" onClick={onNext}>Next →</button>
       </div>
     </div>

@@ -5,7 +5,7 @@ type TreeNode = {
   children?: TreeNode[];
 };
 
-export function binarySearchTree(
+export function linearSearchTree(
   root: TreeNode,
   target: string
 ): Step[] {
@@ -13,15 +13,10 @@ export function binarySearchTree(
   const steps: Step[] = [];
 
   function dfs(
-    node: TreeNode | undefined,
+    node: TreeNode,
     visited: string[] = [],
     path: string[] = []
-  ): boolean {
-
-    if (!node) return false;
-
-    const currentValue = Number(node.name);
-    const targetValue = Number(target);
+  ) {
 
     const newVisited = [
       ...visited,
@@ -47,7 +42,7 @@ export function binarySearchTree(
     // =========================
     // FOUND
     // =========================
-    if (currentValue === targetValue) {
+    if (node.name === target) {
 
       steps.push({
         type: "found",
@@ -61,33 +56,19 @@ export function binarySearchTree(
     }
 
     // =========================
-    // LEFT
+    // DFS CHILDREN
     // =========================
-    if (
-      targetValue < currentValue &&
-      node.children?.[0]
-    ) {
+    for (const child of node.children || []) {
 
-      return dfs(
-        node.children[0],
+      const found = dfs(
+        child,
         newVisited,
         newPath
       );
-    }
 
-    // =========================
-    // RIGHT
-    // =========================
-    if (
-      targetValue > currentValue &&
-      node.children?.[1]
-    ) {
-
-      return dfs(
-        node.children[1],
-        newVisited,
-        newPath
-      );
+      if (found) {
+        return true;
+      }
     }
 
     return false;
