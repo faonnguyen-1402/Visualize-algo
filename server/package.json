@@ -99,8 +99,8 @@
   "bugs": {
     "url": "https://github.com/faonnguyen-1402/Visualize-algo/issues"
   },
-  "homepage": "https://github.com/faonnguyen-1402/Visualize-algo#readme"
-"prisma": {
-  "seed": "ts-node prisma/seed.ts"
-}
+  "homepage": "https://github.com/faonnguyen-1402/Visualize-algo#readme",
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
 }
