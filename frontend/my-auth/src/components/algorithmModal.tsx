@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import VisualRender from "./VisualRender";
 import { useSearchAlgorithm } from "../hooks/useSearchAlgorithm";
 import { useSortAlgorithm } from "../hooks/useSortAlgorithm";
-import ExerciseDetail from "../pages/practice/ExerciseDetail";
 
 
 type Props = {
@@ -118,7 +117,6 @@ return (
         </div>
 
         <CodePanel algorithm={algorithm} />
-        <ExerciseDetail slug={algorithm.id} difficulty="easy" />
 
       </div>
     </div>

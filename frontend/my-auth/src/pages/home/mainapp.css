@@ -252,6 +252,7 @@ nav {
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 
   animation: gradientFlow 6s linear infinite;
 
@@ -432,6 +433,7 @@ main {
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  background-clip: text;
 
   text-shadow:
     0 0 18px rgba(0, 217, 255, 0.45),
