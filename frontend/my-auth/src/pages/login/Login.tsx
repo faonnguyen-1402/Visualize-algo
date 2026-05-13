@@ -69,7 +69,7 @@ function Login() {
           <button
             type='button'
             className='back-button'
-            onClick={() => navigate('/register')}
+            onClick={() => navigate('/home')}
           >
             ←
           </button>
