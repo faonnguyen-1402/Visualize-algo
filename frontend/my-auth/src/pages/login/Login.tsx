@@ -52,7 +52,7 @@ function Login() {
       // 🔥 toast success
       toast.success('Đăng nhập thành công');
 
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error(error);
       toast.error('Không kết nối được server');
