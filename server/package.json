@@ -37,10 +37,7 @@
     "motion": "^12.38.0",
     "mysql2": "^3.22.2",
     "nodemailer": "^7.0.13",
-<<<<<<< HEAD
     "passport": "^0.7.0",
-=======
->>>>>>> origin/dev
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
