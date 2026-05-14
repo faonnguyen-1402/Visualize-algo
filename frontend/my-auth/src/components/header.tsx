@@ -1,5 +1,6 @@
 import '../pages/home/mainapp.css';
 import logo from '../assets/images/logo.png';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -27,7 +28,7 @@ const Header = () => {
           </li>
 
           <li>
-            <a href='/practice'>Practice</a>
+            <Link to='/practice'>Practice</Link>
           </li>
 
           <li>

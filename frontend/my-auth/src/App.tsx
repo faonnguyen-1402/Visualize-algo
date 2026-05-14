@@ -7,6 +7,7 @@ import VerifyOtp from './pages/verify-otp/VerifyOtp';
 import VerifyEmailLink from './pages/verify-link/VerifyEmailLink';
 import { ToastContainer } from 'react-toastify';
 import Home from './pages/home/mainapp';
+import PracticePage from './pages/practice/PracticePage';
 
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
@@ -36,6 +37,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path='/practice'
+          element={
+            <ProtectedRoute>
+              <PracticePage />
             </ProtectedRoute>
           }
         />
