@@ -81,18 +81,29 @@ export class AuthService {
     }
 
     if (user.isVerified) {
-      throw new BadRequestException('Email is already verified');
+      return {
+        success: true,
+        message: 'Email already verified',
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          isVerified: user.isVerified,
+        },
+      };
     }
 
     const verifyResult = this.emailService.verifyOtp(email, otpInput);
 
     if (!verifyResult.success) {
-      throw new BadRequestException('OTP verification failed or expired');
+      throw new BadRequestException('Invalid or expired OTP');
     }
 
     const updatedUser = await this.prisma.user.update({
       where: { email },
-      data: { isVerified: true },
+      data: {
+        isVerified: true,
+      },
     });
 
     return {
@@ -230,13 +241,26 @@ export class AuthService {
   }
 
   async login(data: LoginDto) {
+    console.log('LOGIN DATA:', data);
+
     const user = await this.prisma.user.findUnique({
       where: { email: data.email },
     });
 
-    if (!user || !(await bcrypt.compare(data.password, user.password))) {
+    console.log('FOUND USER:', user);
+
+    if (!user) {
       throw new UnauthorizedException('Wrong email or password');
     }
+
+    const isPasswordMatch = await bcrypt.compare(data.password, user.password);
+    console.log('PASSWORD MATCH:', isPasswordMatch);
+
+    if (!isPasswordMatch) {
+      throw new UnauthorizedException('Wrong email or password');
+    }
+
+    console.log('IS VERIFIED:', user.isVerified);
 
     if (!user.isVerified) {
       throw new UnauthorizedException(

@@ -117,6 +117,7 @@ return (
         </div>
 
         <CodePanel algorithm={algorithm} />
+
       </div>
     </div>
   </div>
