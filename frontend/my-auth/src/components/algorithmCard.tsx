@@ -1,6 +1,7 @@
 import "../pages/home/mainapp.css";
 import { Algorithm } from "../types/algorithm";
 
+
 type Props = {
   algo: Algorithm;
   index: number;

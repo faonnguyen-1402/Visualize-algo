@@ -11,3 +11,16 @@ export const fetchAlgorithms = async () =>{
         return [];
     }
 };
+
+export const fetchAlgorithmBySlug = async (slug: string) => {
+    try {
+        const response = await axios.get(`${API_URL}/${slug}`);
+        if (!response.data) {
+            throw new Error("Cannot find algorithms data");
+        }
+        return response.data;
+    } catch (error) {
+        console.error(`Error when fetching detail for ${slug}:`, error);
+        throw error; 
+    }
+};
