@@ -2,12 +2,13 @@ import "../pages/home/mainapp.css";
 import Controls from "./controls";
 import CodePanel from "./codepanel";
 import { Algorithm } from "../types/algorithm";
-import { useTreeAnimation } from "../hooks/useTreeAnimation";
+// import { useTreeAnimation } from "../hooks/useTreeAnimation";
 import { useAnimation } from "../hooks/useAnimation";
 import { useEffect } from "react";
 import VisualRender from "./VisualRender";
 import { useSearchAlgorithm } from "../hooks/useSearchAlgorithm";
 import { useSortAlgorithm } from "../hooks/useSortAlgorithm";
+// import TreeVisualization from "./TreeVisualization";
 
 
 type Props = {
@@ -19,22 +20,29 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
 const sortHook = useSortAlgorithm();
 const searchHook = useSearchAlgorithm();
 
-const isSearching = algorithm.category === "Searching";
+// const isSearching = algorithm.category?.name === "Searching";
 
-const visualizer = isSearching ? searchHook : sortHook;
+const isTreeAlgo = ['dfs', 'bfs'].includes(algorithm.slug);
+const isSearchAlgo = algorithm.slug?.includes('search');
+
+const visualizer = isTreeAlgo ? searchHook : sortHook;
 const {
   values,
-  treeData,
-  activeNode,
-  visitedNodes,
-  pathNodes,
-  active,
+  message,
+  // treeData,
+  // activeNode,
+  // visitedNodes,
+  // pathNodes,
+  // active,
+  // swapping,
+  // sorted,
 
   steps = [],
   step=0,
-
+  target,
+  // slug,
   isPlaying,
-  loadAlgorithm,
+  // loadAlgorithm,
   next,
   prev,
   play,
@@ -43,35 +51,24 @@ const {
 } = visualizer as any;
 
 useEffect(() => {
-
-  if (
-    algorithm.category === "Searching"
-  ) {
-
-    searchHook.loadAlgorithm();
-
+  if(isTreeAlgo) {
+    searchHook.loadAlgorithm(algorithm.slug);
   } else {
-
-    sortHook.loadAlgorithm(
-      algorithm.id
-    );
-
+    // const defaultData = [23, 72, 36, 77, 27, 35, 76];
+    sortHook.loadAlgorithm(algorithm.slug);
   }
+}, [algorithm.slug]);
 
-}, [
-  algorithm.id,
-  algorithm.category
-]);
+// const currentStep = steps?.[step] || null;
+// const targetToFind = (visualizer as any).target;
 
-const currentStep = steps?.[step] || null;
-
-useAnimation(!isSearching ? currentStep : null);     // Sort
+useAnimation(!isTreeAlgo ? steps[step] : null, isSearchAlgo? target : null);     // Sort
 return (
   <div className="modal-overlay active">
     <div className="modal-content">
       
       <div className="modal-header">
-        <h2>{algorithm.name}</h2>
+        <h2>{algorithm.title || algorithm.name}</h2>
         <button className="close-btn" onClick={onClose}>×</button>
       </div>
 
@@ -81,16 +78,16 @@ return (
         {/* INFO */}
         <div className="algo-info-grid">
           <div className="info-card">
-            <div className="info-label">Độ khó</div>
+            <div className="info-label">Difficulty</div>
             <div className="info-value">{algorithm.difficulty}</div>
           </div>
           <div className="info-card">
-            <div className="info-label">Độ phức tạp thời gian</div>
-            <div className="info-value">{algorithm.timeComplexity}</div>
+            <div className="info-label">timeComplexity</div>
+            <div className="info-value">{algorithm.timeComplexity || "N/A"}</div>
           </div>
           <div className="info-card">
-            <div className="info-label">Độ phức tạp không gian</div>
-            <div className="info-value">{algorithm.spaceComplexity}</div>
+            <div className="info-label">spaceComplexity</div>
+            <div className="info-value">{algorithm.spaceComplexity || "N/A"}</div>
           </div>
         </div>
 
@@ -98,12 +95,16 @@ return (
         <div className="visualization-container">
           <VisualRender
             algorithm={algorithm}
-            values={values}
-            treeData={treeData}
-            activeNode={activeNode}
-            visitedNodes={visitedNodes}
-            pathNodes={pathNodes}
-            step={currentStep}
+            // values={!isTreeSearch ? values : []}
+            values={sortHook.values}
+            active={sortHook.active}     
+            swapping={sortHook.swapping} 
+            sorted={sortHook.sorted}
+            treeData={searchHook.treeData}
+            activeNode={searchHook.activeNode}
+            visitedNodes={searchHook.visitedNodes}
+            pathNodes={searchHook.pathNodes}
+            step={steps[step]}
           />
           <Controls
             step={step}
@@ -114,7 +115,22 @@ return (
             onPlay={isPlaying ? pause : play}
             onReset={reset}
           />
+
+  <div style={{ 
+    height: '40px', 
+    color: '#00ff00', 
+    fontSize: '18px', 
+    textAlign: 'center',
+    marginBottom: '10px',
+    fontFamily: 'monospace',
+    textShadow: '0 0 10px #00ff00' 
+  }}>
+    {message && <strong>{message}</strong>} 
+  </div>
+
         </div>
+
+        
 
         <CodePanel algorithm={algorithm} />
       </div>

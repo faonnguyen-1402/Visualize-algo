@@ -1,4 +1,5 @@
 import { Difficulty, PrismaClient } from '@prisma/client';
+// import { InlineMath, BlockMath } from 'react-katex'
 
 const prisma = new PrismaClient();
 
@@ -31,13 +32,15 @@ async function main() {
       name: 'bubble_sort',
       title: 'Bubble Sort',
       slug: 'bubble-sort',
-      description: 'Sort the bubbles by swapping adjacent elements.',
+      description:
+        'Bubble Sort compares adjacent elements and swaps them if they are in the wrong order. This process is repeated until the list is sorted, often called "bubbling" the largest element to the end of the list with each pass.',
       pseudoCode: `procedure bubbleSort(list)
         for i from 0 to n-1
             for j from 0 to n-i-1
                 if list[j] > list[j+1]
                     swap(list[j], list[j+1])`,
-      timeComplexity: 'O(n^2)',
+      timeComplexity: 'O(n^2) (Average/Worst)',
+      spaceComplexity: 'O(1) (In-place)',
       categoryId: catSorting.id,
     },
   });
@@ -50,7 +53,7 @@ async function main() {
       title: 'Selection Sort',
       slug: 'selection-sort',
       description:
-        'Sort by continuously searching for the smallest element in the unsorted portion and moving it to the front.',
+        'This algorithm divides the list into a sorted and unsorted region, continuously scanning the unsorted region to find the smallest element and swapping it to the front of the unsorted section.',
       pseudoCode: `procedure selectionSort(list)
       for i from 0 to n-1
         minIndex = i
@@ -58,7 +61,8 @@ async function main() {
           if list[j] < list[minIndex]
           minIndex = j
         swap(list[minIndex], list[i])`,
-      timeComplexity: 'O(n^2)',
+      timeComplexity: 'O(n^2) (Best/Average/Worst)',
+      spaceComplexity: 'O(1) (In-place)',
       categoryId: catSorting.id,
     },
   });
@@ -71,7 +75,7 @@ async function main() {
       title: 'Insertion Sort',
       slug: 'insertion-sort',
       description:
-        'Insert elements into the final array one by one by placing each element in its correct position.',
+        'Similar to organizing playing cards, this algorithm builds a sorted sublist one element at a time. It takes an item from the unsorted portion and inserts it into its correct place within the already sorted part, moving larger values to the right.',
       pseudoCode: `procedure insertionSort(list)
       for i from 1 to n
         key = list[i]
@@ -80,7 +84,8 @@ async function main() {
           list[j+1] = list[j]
           j = j -1
         list[j+1] = key`,
-      timeComplexity: 'O(n^2)',
+      timeComplexity: 'O(n^2) (Worst) | O(n) (Best)',
+      spaceComplexity: 'O(1) (In-place)',
       categoryId: catSorting.id,
     },
   });
@@ -93,13 +98,14 @@ async function main() {
       title: 'Quick Sort',
       slug: 'quick-sort',
       description:
-        'Quick sort uses the divide-and-conquer strategy, selecting a pivot element to split the array.',
+        'Quick sort  is a highly efficient, comparison-based sorting algorithm that uses a divide-and-conquer strategy. It works by selecting a "pivot" element and partitioning the array so that smaller elements are moved to its left and larger ones to its right.',
       pseudoCode: `procedure quickSort(list, low, high)
       if low < high
         p = partition(list, low, high)
         quickSort(list, low, p - 1)
         quickSort(list, p + 1, high)`,
-      timeComplexity: 'O(n log n)',
+      timeComplexity: 'O(nlogn) (Average/Best) | O(n^2) (Worst)',
+      spaceComplexity: 'O(logn)',
       categoryId: catSorting.id,
       difficulty: 'MEDIUM',
     },
@@ -112,7 +118,8 @@ async function main() {
       name: 'binary_search',
       title: 'Binary Search',
       slug: 'binary-search',
-      description: 'Binary search on a sorted array.',
+      description:
+        'Binary search is a search algorithm that finds the position of a target value within a sorted array.\n\n A binary search begins by comparing the middle element of the array with the target value. If the target value matches the middle element, its position in the array is returned. If the target value is less or more than the middle element, the search continues the lower or upper half of the array respectively with a new middle element, eliminating the other half from consideration.',
       pseudoCode: `procedure binarySearch(list, target)
         low = 0, high = n-1
         while low <= high
@@ -724,6 +731,12 @@ async function main() {
         expectedOutput: '[1, 2]',
         isSample: true,
         exerciseId: binarySearchMedium.id,
+      },
+      {
+        input: '[2,5,6,0,0,1,2], 0',
+        expectedOutput: 'true',
+        isSample: true,
+        exerciseId: binarySearchHard.id,
       },
       {
         input: 's = "cbaebabacd", p = "abc"',

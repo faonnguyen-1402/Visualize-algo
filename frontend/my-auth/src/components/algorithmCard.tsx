@@ -18,7 +18,7 @@ const AlgorithmCard = ({ algo, index, onClick }: Props) => {
 
       <div className="card-content">
         <div className="card-header">
-          <span className="card-category">{algo.category}</span>
+          <span className="card-category">{algo.category?.name}</span>
         </div>
 
         <h3 className="card-title">{algo.name}</h3>

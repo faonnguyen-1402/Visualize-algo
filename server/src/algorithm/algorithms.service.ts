@@ -32,7 +32,8 @@ export class AlgorithmsService {
   }
 
   simulateBubbleSort(numbers: number[]) {
-    const steps: any[] = [];
+    // const steps: any[] = [];
+    const steps: AnimationStep[] = [];
     const arr = [...numbers];
     const n = arr.length;
 
@@ -41,6 +42,7 @@ export class AlgorithmsService {
         steps.push({
           type: 'COMPARE',
           indices: [j, j + 1],
+          message: `Comparing ${arr[j]} and ${arr[j + 1]}`,
         });
 
         if (arr[j] > arr[j + 1]) {
@@ -50,16 +52,59 @@ export class AlgorithmsService {
             type: 'SWAP',
             indices: [j, j + 1],
             array: [...arr],
+            message: `Swapping ${arr[j + 1]} and ${arr[j]}`,
           });
         }
       }
+
+      steps.push({
+        type: 'SORTED',
+        indices: [n - 1 - i],
+      });
     }
+
+    steps.push({ type: 'SORTED', indices: [0] });
 
     return {
       finalArray: arr,
-      steps: steps,
+      steps,
     };
   }
+  // algorithm.service.ts
+  // simulateBubbleSort(arr: number[]) {
+  //   const steps = [];
+  //   const n = arr.length;
+  //   const tempArray = [...arr];
+
+  //   for (let i = 0; i < n - 1; i++) {
+  //     for (let j = 0; j < n - i - 1; j++) {
+  //       steps.push({
+  //         type: 'compare',
+  //         indices: [j, j + 1],
+  //       });
+
+  //       if (tempArray[j] > tempArray[j + 1]) {
+  //         [tempArray[j], tempArray[j + 1]] = [tempArray[j + 1], tempArray[j]];
+
+  //         steps.push({
+  //           type: 'swap',
+  //           indices: [j, j + 1],
+  //           array: [...tempArray],
+  //         });
+  //       }
+  //     }
+
+  //     steps.push({
+  //       type: 'sorted',
+  //       index: n - 1 - i,
+  //     });
+  //   }
+
+  //   // Đánh dấu phần tử cuối cùng cũng đã xong
+  //   steps.push({ type: 'sorted', index: 0 });
+
+  //   return { steps, finalArray: tempArray };
+  // }
 
   simulateSelectionSort(numbers: number[]) {
     const steps: AnimationStep[] = [];
@@ -101,6 +146,7 @@ export class AlgorithmsService {
       }
       steps.push({ type: 'SORTED', indices: [i] });
     }
+    steps.push({ type: 'SORTED', indices: [n - 1] });
     return { finalArray: arr, steps };
   }
 
@@ -136,6 +182,7 @@ export class AlgorithmsService {
         message: `Insert ${key} into ${j + 1}`,
       });
     }
+    for (let i = 0; i < n; i++) steps.push({ type: 'SORTED', indices: [i] });
     return { finalArray: arr, steps };
   }
 
@@ -177,8 +224,11 @@ export class AlgorithmsService {
     const sort = (low: number, high: number) => {
       if (low < high) {
         let pi = partition(low, high);
+        steps.push({ type: 'SORTED', indices: [pi] });
         sort(low, pi - 1);
         sort(pi + 1, high);
+      } else if (low === high) {
+        steps.push({ type: 'SORTED', indices: [low] });
       }
     };
 
@@ -194,14 +244,14 @@ export class AlgorithmsService {
       steps.push({
         type: 'COMPARE',
         indices: [i],
-        message: `Check the element at the ${i} (value: ${numbers[i]})`,
+        message: `Check index ${i} (value: ${numbers[i]})`,
       });
 
       if (numbers[i] === target) {
         steps.push({
           type: 'FOUND',
           indices: [i],
-          message: `Found ${target} at ${i}!`,
+          message: `Target ${target} found at index ${i}!`,
         });
         return { found: true, index: i, steps };
       }
@@ -210,7 +260,7 @@ export class AlgorithmsService {
     steps.push({
       type: 'NOT_FOUND',
       indices: [],
-      message: `Not found ${target} in array.`,
+      message: `Target ${target} not in array.`,
     });
     return { found: false, index: -1, steps };
   }
@@ -227,31 +277,31 @@ export class AlgorithmsService {
       steps.push({
         type: 'COMPARE',
         indices: [left, mid, right],
-        message: `Consider the range from ${left} to ${right}. The middle element is ${arr[mid]}`,
+        message: `Searching in range ${left}, ${right}. The middle element is ${arr[mid]}`,
       });
 
       if (arr[mid] === target) {
         steps.push({
           type: 'FOUND',
           indices: [mid],
-          message: `Found ${target} at ${mid}!`,
+          message: `Found ${target} at index ${mid}!`,
         });
         return { found: true, index: mid, steps, sortedArray: arr };
       }
 
       if (arr[mid] < target) {
-        steps.push({
-          type: 'COMPARE',
-          indices: [mid],
-          message: `${arr[mid]} < ${target}, skip the left half`,
-        });
+        // steps.push({
+        //   type: 'COMPARE',
+        //   indices: [mid],
+        //   message: `${arr[mid]} < ${target}, skip the left half`,
+        // });
         left = mid + 1;
       } else {
-        steps.push({
-          type: 'COMPARE',
-          indices: [mid],
-          message: `${arr[mid]} > ${target}, skip the right half`,
-        });
+        // steps.push({
+        //   type: 'COMPARE',
+        //   indices: [mid],
+        //   message: `${arr[mid]} > ${target}, skip the right half`,
+        // });
         right = mid - 1;
       }
     }

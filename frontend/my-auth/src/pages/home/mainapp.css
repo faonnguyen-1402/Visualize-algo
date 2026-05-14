@@ -404,6 +404,14 @@ section h2 span {
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     cursor: pointer;
+    /* background-color: rgba(0, 255, 255, 0.2) !important; */
+}
+
+.bar.active {
+  background-color: #2bff00 !important;
+  box-shadow: 0 0 20px #ffff00, 0 0 40px #2bff00 !important;
+  border-color: #ffffff !important;
+  z-index: 5;
 }
 
 .bar.comparing {
@@ -434,6 +442,21 @@ section h2 span {
     white-space: nowrap;
 }
 
+.bar.target {
+  background-color: #ff0000 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 15px #ff0000, 0 0 30px rgba(255, 0, 0, 0.6);
+  z-index: 10;
+  animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+  0% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(1.03); opacity: 0.8; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+
 .tree-wrapper {
     width: 100%;
     height: 420px;
@@ -451,9 +474,28 @@ section h2 span {
 .tree-svg {
     width: 100%;
     height: 100%;
-
     display: block;
 }
+
+.tree-node.active {
+  filter: drop-shadow(0 0 15px #facc15);
+  animation: pulse-yellow 1.5s infinite;
+}
+
+.tree-node.path {
+  filter: drop-shadow(0 0 10px #ff0055);
+}
+
+.tree-link {
+  transition: stroke 0.4s ease, stroke-width 0.4s ease;
+}
+
+@keyframes pulse-yellow {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; transform: scale(1.05); }
+  100% { opacity: 1; }
+}
+
 
 /* ==================== CONTROLS ==================== */
 .controls-panel {

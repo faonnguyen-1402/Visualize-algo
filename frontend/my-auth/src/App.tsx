@@ -12,11 +12,11 @@ function App() {
   return (
     <div className='App'>
       <Routes>
-        <Route path='/' element={<Navigate to='/register' replace />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/' element={<Navigate to='/home' replace />} />
+        {/* <Route path='/register' element={<Register />} />
         <Route path='/verify-otp' element={<VerifyOtp />} />
         <Route path='/verify-email-link' element={<VerifyEmailLink />} />
-        <Route path='/login' element={<Login />} />
+        <Route path='/login' element={<Login />} /> */}
         <Route path='/' element={<Navigate to='/home' replace />} />
         {/* <Route path='/register' element={<Register />} />
         <Route path='/verify-otp' element={<VerifyOtp />} />

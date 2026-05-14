@@ -1,16 +1,32 @@
 import Header from "../../components/header";
 import AlgorithmCard from "../../components/algorithmCard";
 import AlgorithmModal from "../../components/algorithmModal";
-import { algorithms } from "../../data/algorithm";
-import { useState } from "react";
+// import { algorithms } from "../../data/algorithm";
+// import { useState } from "react";
 import { Algorithm } from "../../types/algorithm";
 
+import React, {useState, useEffect} from "react";
+import { fetchAlgorithms } from "../../services/algoService";
 
 const Home = () => {
+  const [allAlgos, setAllAlgos] = useState<Algorithm[]>([]);
   const [selectedAlgo, setSelectedAlgo] = useState<Algorithm | null>(null);
 
-  const sorting = algorithms.filter(a => a.category === "Sorting");
-  const searching = algorithms.filter(a => a.category === "Searching");
+  useEffect(() =>{
+    const loadData = async() =>{
+      const data = await fetchAlgorithms();
+      setAllAlgos(data);
+    };
+    loadData();
+  }, []);
+
+  const sorting = allAlgos.filter((a:any) => a.category?.name === 'Sorting');
+  const searching = allAlgos.filter((a:any) => a.category?.name === 'Searching');
+
+  console.log('List algorthims: ', allAlgos);
+
+  // const sorting = algorithms.filter(a => a.category === "Sorting");
+  // const searching = algorithms.filter(a => a.category === "Searching");
 
   return (
     <>

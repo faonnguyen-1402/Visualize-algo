@@ -106,18 +106,20 @@ export function useSearchAlgorithm() {
   // =========================
   // LOAD
   // =========================
-  function loadAlgorithm() {
+  async function loadAlgorithm(slug: string) {
 
-    const randomTree =
-      generateRandomTree();
-
-    const treeSteps =
-      generateTreeSteps(randomTree);
-
-    // TREE chỉ set 1 lần
+    const randomTree = generateRandomTree();
     setTreeData(randomTree);
 
+    const treeSteps = generateTreeSteps(randomTree);
     setSteps(treeSteps);
+
+    /*
+    const res = await axios.post(`/algorithms/${slug}/tree`, { tree: randomTree });
+    setSteps(res.data.steps);
+    */
+
+    // TREE chỉ set 1 lần
 
     setStep(0);
 
