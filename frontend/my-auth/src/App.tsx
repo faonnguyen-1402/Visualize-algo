@@ -8,7 +8,7 @@ import VerifyEmailLink from './pages/verify-link/VerifyEmailLink';
 import { ToastContainer } from 'react-toastify';
 import Home from './pages/home/mainapp';
 import PracticePage from './pages/practice/PracticePage';
-
+import ExerciseDetail from './pages/practice/ExerciseDetail';
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   const token = localStorage.getItem('accessToken');
@@ -46,6 +46,14 @@ function App() {
           element={
             <ProtectedRoute>
               <PracticePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/practice/:slug/:difficulty'
+          element={
+            <ProtectedRoute>
+              <ExerciseDetail />
             </ProtectedRoute>
           }
         />
