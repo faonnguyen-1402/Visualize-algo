@@ -39,27 +39,136 @@ header {
     top: 0;
     z-index: 100;
     animation: slideDown 0.6s ease-out;
+    margin: -1rem 1rem 1rem 1rem;
+    /* display: flex; */
 }
 
-nav {
+.navbar {
     max-width: 1280px;
     margin: 0 auto;
     padding: 0 1.5rem;
     display: flex;
     align-items: center;
     gap: 1rem;
+    justify-content: space-between;
 }
 
-.logo {
+/* --- Logo Section --- */
+.logo-section {
+  text-decoration: none;
+  color: #00f3ff;
+  font-size: 1.8rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+}
+
+.logo-subtitle {
+  font-size: 0.6rem;
+  color: #fff;
+  letter-spacing: 1px;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+
+/* --- Navigation Links --- */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 10px 0;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+  color: #00f3ff;
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.8);
+}
+
+/* Hiệu ứng gạch chân khi active hoặc hover */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #00f3ff;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px #00f3ff;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* --- Right Actions (Search & Login) --- */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-btn {
+  background: transparent;
+  border: 1px solid #333;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.search-btn:hover {
+  border-color: #00f3ff;
+  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+}
+
+.login-btn {
+  background: #00f3ff;
+  color: #000;
+  border: none;
+  padding: 10px 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); /* Cắt góc kiểu Game UI */
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #fff;
+  box-shadow: 0 0 20px #00f3ff;
+  transform: scale(1.05);
+}
+
+/* .logo {
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--accent-cyan);
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s ease;
-}
+} */
 
-.logo:hover {
+/* .logo:hover {
     transform: scale(1.05);
     text-shadow: 0 0 10px var(--accent-cyan);
 }
@@ -68,8 +177,58 @@ nav {
     font-size: 0.75rem;
     color: var(--text-secondary);
     margin-left: 0.5rem;
+} */
+
+/* --- PHẦN FIX TRANG DETAIL KHÔNG ẢNH HƯỞNG ĐẾN HOME --- */
+
+/* Loại bỏ các thuộc tính của Modal cũ khi ở trang Detail */
+/* --- HỒI PHỤC GIAO DIỆN CYBERPUNK --- */
+
+/* Reset cái hộp đen bị hẹp */
+/* Chỉ áp dụng cho trang Detail độc lập */
+.is-detail-page-full .modal-overlay.standalone {
+    position: relative !important;
+    background: transparent !important; /* Bỏ lớp phủ mờ phía sau */
+    display: block !important;
+    padding: 100px 0 40px !important; /* Đẩy xuống để không đè Header */
+    height: auto !important;
+    min-height: 100vh;
+    z-index: 1;
 }
 
+.is-detail-page-full .modal-content {
+    /* PHÓNG TO TOÀN MÀN HÌNH */
+    width: 95% !important;
+    max-width: 1600px !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    
+    /* RESET CÁC THUỘC TÍNH CỦA MODAL CŨ */
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    
+    /* GIỮ NGUYÊN STYLE CYBERPUNK */
+    border: 1px solid #00f3ff !important;
+    box-shadow: 0 0 30px rgba(0, 243, 255, 0.2) !important;
+    background: #0d0d0d !important;
+}
+
+/* Đảm bảo nội dung bên trong chia 2 cột nếu màn hình rộng */
+@media (min-width: 1024px) {
+    .is-detail-page-full .modal-body {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr; /* Trái visual, Phải code */
+        gap: 30px;
+    }
+    
+    /* Ép các phần header và info trải dài cả 2 cột */
+    .is-detail-page-full .algo-description,
+    .is-detail-page-full .algo-info-grid {
+        grid-column: span 2;
+    }
+}
 /* ==================== MAIN CONTENT ==================== */
 main {
     flex: 1;
@@ -210,6 +369,15 @@ section h2 span {
     color: var(--bg-primary);
 }
 
+.category-intro {
+  color: #ffffff; /* Màu xám nhẹ cho nội dung phụ */
+  font-size: 1rem;
+  line-height: 1.6;
+  border-left: 3px solid rgba(0, 243, 255, 0.3);
+  padding-left: 20px;
+  margin-left: 5px;
+}
+
 .card-title {
     font-size: 1.1rem;
     font-weight: 600;
@@ -247,6 +415,15 @@ section h2 span {
     transform: translateX(5px);
 }
 
+/*=====================Katex====================*/
+.katex {
+  font-family: "Orbitron", "Inter", "Segoe UI", sans-serif !important;
+  font-variant-numeric: tabular-nums; /* Giúp các con số thẳng hàng */
+}
+.katex .mathnormal {
+  font-family: inherit !important;
+  font-style: normal !important;
+}
 /* ==================== MODAL/DETAIL PAGE ==================== */
 .modal-overlay {
     position: fixed;
@@ -284,7 +461,7 @@ section h2 span {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2rem;
+    padding: 1rem;
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
@@ -311,10 +488,9 @@ section h2 span {
 }
 
 .modal-body {
-    padding: 2rem;
+    padding: 1rem;
     overflow-y: auto;
     overflow-x: hidden;
-
     flex: 1;
 }
 
@@ -327,14 +503,15 @@ section h2 span {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
 }
 
 .info-card {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    padding: 1rem;
+    padding: 0.9rem;
     text-align: center;
 }
 
@@ -365,6 +542,18 @@ section h2 span {
     width: 100%;
 }
 
+.visual-left {
+    width: 100%;
+    min-width: 0;
+}
+
+.visual-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    min-width: 320px;
+}
 .visualization-area {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
@@ -372,14 +561,15 @@ section h2 span {
 
     padding: 1rem;
 
-    min-height: 420px;
-    max-height: 520px;
+    min-height: 450px;
+    max-height: 650px;
+    height: 500px;
 
     overflow: hidden;
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
 
     width: 100%;
@@ -392,6 +582,8 @@ section h2 span {
     gap: 0.5rem;
     height: 300px;
     width: 100%;
+    margin-top: auto;
+    padding-bottom: 2rem;
 }
 
 .bar {
@@ -404,6 +596,14 @@ section h2 span {
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     cursor: pointer;
+    /* background-color: rgba(0, 255, 255, 0.2) !important; */
+}
+
+.bar.active {
+  background-color: #2bff00 !important;
+  box-shadow: 0 0 20px #ffff00, 0 0 40px #2bff00 !important;
+  border-color: #ffffff !important;
+  z-index: 5;
 }
 
 .bar.comparing {
@@ -434,6 +634,21 @@ section h2 span {
     white-space: nowrap;
 }
 
+.bar.target {
+  background-color: #ff0000 !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 15px #ff0000, 0 0 30px rgba(255, 0, 0, 0.6);
+  z-index: 10;
+  animation: pulse-red 1.5s infinite;
+}
+
+@keyframes pulse-red {
+  0% { transform: scaleY(1); opacity: 1; }
+  50% { transform: scaleY(1.03); opacity: 0.8; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+
 .tree-wrapper {
     width: 100%;
     height: 420px;
@@ -451,9 +666,28 @@ section h2 span {
 .tree-svg {
     width: 100%;
     height: 100%;
-
     display: block;
 }
+
+.tree-node.active {
+  filter: drop-shadow(0 0 15px #facc15);
+  animation: pulse-yellow 1.5s infinite;
+}
+
+.tree-node.path {
+  filter: drop-shadow(0 0 10px #ff0055);
+}
+
+.tree-link {
+  transition: stroke 0.4s ease, stroke-width 0.4s ease;
+}
+
+@keyframes pulse-yellow {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; transform: scale(1.05); }
+  100% { opacity: 1; }
+}
+
 
 /* ==================== CONTROLS ==================== */
 .controls-panel {

@@ -1,16 +1,34 @@
 import Header from "../../components/header";
 import AlgorithmCard from "../../components/algorithmCard";
 import AlgorithmModal from "../../components/algorithmModal";
-import { algorithms } from "../../data/algorithm";
-import { useState } from "react";
+// import { algorithms } from "../../data/algorithm";
+// import { useState } from "react";
 import { Algorithm } from "../../types/algorithm";
 
+import React, {useState, useEffect} from "react";
+import { fetchAlgorithms } from "../../services/algoService";
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const [allAlgos, setAllAlgos] = useState<Algorithm[]>([]);
   const [selectedAlgo, setSelectedAlgo] = useState<Algorithm | null>(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  const sorting = algorithms.filter(a => a.category === "Sorting");
-  const searching = algorithms.filter(a => a.category === "Searching");
+  useEffect(() =>{
+    const loadData = async() =>{
+      const data = await fetchAlgorithms();
+      setAllAlgos(data);
+      setLoading(false);
+    };
+    loadData();
+  }, []);
+
+  const sorting = allAlgos.filter((a:any) => a.category?.name === 'Sorting');
+  const searching = allAlgos.filter((a:any) => a.category?.name === 'Searching');
+
+  console.log('List algorthims: ', allAlgos);
+
 
   return (
     <>
@@ -30,13 +48,18 @@ const Home = () => {
         {/* SORTING */}
         <section>
           <h2><span>📊</span> Sorting Algorithms</h2>
+          <p className="category-intro">
+            Sorting algorithms are used to organize data in a specific order, such as ascending, descending, or alphabetical order. Sorting makes data easier to manage and facilitates faster searches. Some common sorting algorithms include Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort.
+          </p>
           <div className="cards-grid">
             {sorting.map((algo, i) => (
               <AlgorithmCard
                 key={algo.id}
                 algo={algo}
                 index={i}
+                //  onClick={() => navigate(`/algorithms/${algo.slug}`)}
                 onClick={() => setSelectedAlgo(algo)}
+
               />
             ))}
           </div>
@@ -45,6 +68,9 @@ const Home = () => {
         {/* SEARCHING */}
         <section>
           <h2><span>🔍</span> Searching Algorithms</h2>
+          <p className="category-intro">
+            Search algorithms are used to determine the location of an element in a dataset. Depending on how the data is organized, various search methods can be applied. The two most common algorithms are Linear Search and Binary Search.
+          </p>
           <div className="cards-grid">
             {searching.map((algo, i) => (
               <AlgorithmCard
@@ -52,6 +78,7 @@ const Home = () => {
                 algo={algo}
                 index={i}
                 onClick={() => setSelectedAlgo(algo)}
+                // onClick={() => navigate(`/algorithms`)}
               />
             ))}
           </div>

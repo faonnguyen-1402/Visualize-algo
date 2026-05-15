@@ -29,8 +29,14 @@ export default function CodePanel({ algorithm }: Props) {
 
       {/* Content */}
       <div className="code-content">
-        <pre>
-          {tab === "pseudo" ? algorithm.pseudocode : algorithm.code}
+        <pre style={{ 
+          whiteSpace: 'pre-wrap', // Giúp code tự xuống dòng nếu quá dài
+          wordBreak: 'break-word',
+          fontFamily: 'monospace' 
+        }}>
+          {tab === "pseudo" 
+            ? (algorithm.pseudoCode || "Loading dummy code...") 
+            : (algorithm as any).javascriptCode || "// Code JavaScript is coming soon =))"}
         </pre>
       </div>
     </div>
