@@ -9,16 +9,17 @@ import { ToastContainer } from 'react-toastify';
 import Home from './pages/home/mainapp';
 import AlgorithmDetail from './components/AlgorithmDetail';
 import 'katex/dist/katex.min.css';
+import ProfilePage from './pages/profile/profilepage';
 
 function App() {
   return (
     <div className='App'>
       <Routes>
         <Route path='/' element={<Navigate to='/home' replace />} />
-        {/* <Route path='/register' element={<Register />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/verify-otp' element={<VerifyOtp />} />
         <Route path='/verify-email-link' element={<VerifyEmailLink />} />
-        <Route path='/login' element={<Login />} /> */}
+        <Route path='/login' element={<Login />} />
         {/* <Route path='/' element={<Navigate to='/home' replace />} /> */}
         {/* <Route path='/register' element={<Register />} />
         <Route path='/verify-otp' element={<VerifyOtp />} />
@@ -28,6 +29,7 @@ function App() {
 
         <Route path='/algorithms' element={<Home />} />
         <Route path="/algorithms/:slug" element={<AlgorithmDetail />} />  
+        <Route path='/ProfilePage' element={<ProfilePage />} />
         <Route path='*' element={<Navigate to='/home' replace />} />
 
       </Routes>
