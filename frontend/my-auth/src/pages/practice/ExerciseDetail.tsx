@@ -1,44 +1,155 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import Editor from '@monaco-editor/react';
-import './exerciseDetail.css';
 import Split from 'react-split';
 
+import Header from '../../components/header';
+
+import './exerciseDetail.css';
+
 function ExerciseDetail() {
+
   const { slug, difficulty } = useParams();
 
-  const [code, setCode] = useState(`function solve(arr) {
+  // =========================
+  // LANGUAGES
+  // =========================
 
-    return arr.sort((a,b)=>a-b)
+  const languages = [
+    {
+      name: 'JavaScript',
+      id: 63,
+      monaco: 'javascript',
+      starter: `function solve(arr){
 
-  }
-  console.log( solve([5,4,3,2,1]) );
-  `);
+  return arr.sort((a,b)=>a-b);
 
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
+}
 
-  const [submitResult, setSubmitResult] = useState('');
+console.log(
+  JSON.stringify(
+    solve([5,4,3,2,1])
+  )
+);
+`,
+    },
 
-  const [activeCase, setActiveCase] = useState(0);
+    {
+      name: 'Python',
+      id: 71,
+      monaco: 'python',
+      starter: `def solve(arr):
 
-  const handleSubmit = async () => {
+    return sorted(arr)
 
-    if (
-      output.trim() ===
-      testCases[activeCase].expected
-    ) {
+print(
+    solve([5,4,3,2,1])
+)
+`,
+    },
 
-      setSubmitResult('Accepted ✅');
+    {
+      name: 'C++',
+      id: 54,
+      monaco: 'cpp',
+      starter: `#include <bits/stdc++.h>
+using namespace std;
 
-    } else {
+vector<int> solve(vector<int> arr){
 
-      setSubmitResult('Wrong Answer ❌');
+    sort(arr.begin(), arr.end());
 
+    return arr;
+}
+
+int main(){
+
+    vector<int> arr = {5,4,3,2,1};
+
+    vector<int> ans = solve(arr);
+
+    for(int x : ans){
+        cout << x << " ";
     }
-  };
 
+    return 0;
+}
+`,
+    },
 
+    {
+      name: 'Java',
+      id: 62,
+      monaco: 'java',
+      starter: `import java.util.*;
+
+public class Main {
+
+    static int[] solve(int[] arr){
+
+        Arrays.sort(arr);
+
+        return arr;
+    }
+
+    public static void main(String[] args){
+
+        int[] arr = {5,4,3,2,1};
+
+        int[] ans = solve(arr);
+
+        System.out.println(
+            Arrays.toString(ans)
+        );
+    }
+}
+`,
+    },
+  ];
+
+  // =========================
+  // STATES
+  // =========================
+
+  const [selectedLanguage, setSelectedLanguage] =
+    useState(languages[0]);
+
+  const [code, setCode] =
+    useState(languages[0].starter);
+
+  const [output, setOutput] =
+    useState('');
+
+  const [runtime, setRuntime] =
+    useState('');
+
+  const [memory, setMemory] =
+    useState('');
+
+  const [status, setStatus] =
+    useState('');
+
+  const [submitResult, setSubmitResult] =
+    useState('');
+
+  const [activeCase, setActiveCase] =
+    useState(0);
+
+  const [passedCount, setPassedCount] =
+    useState(0);
+
+  const [failedCase, setFailedCase] =
+    useState<any>(null);
+
+  const [isRunning, setIsRunning] =
+    useState(false);
+
+  const [submissionHistory, setSubmissionHistory] =
+    useState<any[]>([]);
+
+  // =========================
+  // TESTCASES
+  // =========================
 
   const testCases = [
     {
@@ -57,243 +168,494 @@ function ExerciseDetail() {
     },
   ];
 
+  // =========================
+  // RUN CODE
+  // =========================
 
+  const handleRunCode = async () => {
 
-const handleRunCode = async () => {
+    try {
 
-  try {
+      setIsRunning(true);
 
-    setOutput('Running...');
+      setOutput('Running...');
 
-    const wrappedCode = `
+      const response = await fetch(
+        'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
+        {
+          method: 'POST',
 
-${code}
+          headers: {
+            'Content-Type': 'application/json',
+          },
 
-console.log(
-  JSON.stringify(
-    solve([5,4,3,2,1])
-  )
-)
+          body: JSON.stringify({
 
-`;
+            source_code: code,
 
-    const response = await fetch(
-      'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
-      {
+            language_id: selectedLanguage.id,
 
-        method: 'POST',
+          }),
+        }
+      );
 
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      const result = await response.json();
 
-        body: JSON.stringify({
+      console.log(result);
 
-          source_code: wrappedCode,
+      if (result.stdout) {
 
-          language_id: 63,
+        setOutput(result.stdout);
 
-        }),
+        setRuntime(
+          result.time
+            ? `${result.time}s`
+            : 'N/A'
+        );
+
+        setMemory(
+          result.memory
+            ? `${result.memory} KB`
+            : 'N/A'
+        );
+
+        setStatus('Accepted');
+
+      } else if (result.stderr) {
+
+        setOutput(result.stderr);
+
+        setStatus('Runtime Error');
+
+      } else if (result.compile_output) {
+
+        setOutput(result.compile_output);
+
+        setStatus('Compile Error');
+
+      } else {
+
+        setOutput('No Output');
       }
-    );
 
-    const result = await response.json();
+      setIsRunning(false);
 
-    console.log(result);
+    } catch (error) {
 
-    if (result.stdout) {
+      console.error(error);
 
-      setOutput(result.stdout);
+      setOutput('Compile Error');
 
-    } else if (result.stderr) {
+      setIsRunning(false);
+    }
+  };
 
-      setOutput(result.stderr);
+  // =========================
+  // SUBMIT
+  // =========================
 
-    } else if (result.compile_output) {
+  const handleSubmit = async () => {
 
-      setOutput(result.compile_output);
+    setIsRunning(true);
 
-    } else {
+    let passed = 0;
 
-      setOutput('No output');
+    setFailedCase(null);
 
+    for (const tc of testCases) {
+
+      try {
+
+        const response = await fetch(
+          'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
+          {
+            method: 'POST',
+
+            headers: {
+              'Content-Type': 'application/json',
+            },
+
+            body: JSON.stringify({
+
+              source_code: code,
+
+              language_id:
+                selectedLanguage.id,
+
+            }),
+          }
+        );
+
+        const result =
+          await response.json();
+
+        const userOutput =
+          result.stdout?.trim();
+
+        const expected =
+          tc.expected.trim();
+
+        if (
+          userOutput?.includes(expected)
+        ) {
+
+          passed++;
+
+        } else {
+
+          setFailedCase({
+
+            input: tc.input,
+
+            expected: tc.expected,
+
+            output: userOutput,
+
+          });
+
+          break;
+        }
+
+      } catch (error) {
+
+        console.error(error);
+
+        break;
+      }
     }
 
-  } catch (error) {
+    setPassedCount(passed);
 
-    console.error(error);
+    const finalResult =
+      passed === testCases.length
+        ? 'Accepted ✅'
+        : 'Wrong Answer ❌';
 
-    setOutput('Compile Error');
+    setSubmitResult(finalResult);
 
-  }
-};
+    setSubmissionHistory(prev => [
+      {
+        result: finalResult,
+        runtime,
+        memory,
+        language: selectedLanguage.name,
+        date: new Date().toLocaleTimeString(),
+      },
+      ...prev,
+    ]);
 
+    setIsRunning(false);
+  };
 
+  // =========================
+  // CHANGE LANGUAGE
+  // =========================
 
+  const handleChangeLanguage = (
+    languageName: string
+  ) => {
 
+    const found = languages.find(
+      (lang) => lang.name === languageName
+    );
 
-return (
+    if (!found) return;
 
-  <Split
-    className='exercise-detail'
-    sizes={[40, 60]}
-    minSize={300}
-    gutterSize={8}
-  >
+    setSelectedLanguage(found);
 
-    {/* LEFT */}
-    <div className='exercise-left'>
+    setCode(found.starter);
+  };
 
-      <h1>{slug}</h1>
+  return (
 
-      <p className='difficulty'>
-        {difficulty}
-      </p>
+    <>
 
-      <h2>Description</h2>
+      <Header />
 
-      <p>
-        Write a sorting algorithm that sorts
-        numbers from smallest to largest.
-      </p>
+      <div className='leetcode-container'>
 
-      <div className='example-box'>
+        <Split
+          className='exercise-detail'
+          sizes={[40, 60]}
+          minSize={300}
+          gutterSize={6}
+        >
 
-        <h3>Example</h3>
+          {/* LEFT */}
+          <div className='exercise-left'>
 
-        <p>Input:</p>
-        <code>[5,4,3,2,1]</code>
+            <h1>{slug}</h1>
 
-        <p>Output:</p>
-        <code>[1,2,3,4,5]</code>
+            <p className='difficulty'>
+              {difficulty}
+            </p>
 
-      </div>
+            <h2>Description</h2>
 
-    </div>
+            <p>
+              Write a sorting algorithm
+              that sorts numbers from
+              smallest to largest.
+            </p>
 
-    {/* RIGHT */}
-    <div className='exercise-right'>
+            <div className='example-box'>
 
-      {/* TOP */}
-      <div className='editor-header'>
+              <h3>Example 1</h3>
 
-        <select>
-          <option>JavaScript</option>
-        </select>
+              <p><strong>Input:</strong></p>
 
-        <div className='editor-buttons'>
-          <button
-            className='run-btn'
-            onClick={handleRunCode}
-          >
-            Run
-          </button>
+              <code>[5,4,3,2,1]</code>
 
-          <button
-            className='submit-btn'
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
-        </div>
+              <p><strong>Output:</strong></p>
 
-      </div>
+              <code>[1,2,3,4,5]</code>
 
-      {/* SPLIT TOP/BOTTOM */}
-      <Split
-        direction='vertical'
-        className='editor-split'
-        sizes={[70, 30]}
-        minSize={100}
-        gutterSize={8}
-      >
+            </div>
 
-        {/* EDITOR */}
-        <div className='editor-container'>
+          </div>
 
-          <Editor
-            height='100%'
-            defaultLanguage='javascript'
-            value={code}
-            onChange={(value) => setCode(value || '')}
-            theme='vs-dark'
-          />
+          {/* RIGHT */}
+          <div className='exercise-right'>
 
-        </div>
+            {/* TOP BAR */}
+            <div className='editor-header'>
 
-        {/* TESTCASE */}
-        <div className='bottom-panel'>
-
-          <div className='testcase-tabs'>
-
-            {testCases.map((_, index) => (
-              <div
-                key={index}
-                className={
-                  activeCase === index
-                    ? 'testcase-tab active'
-                    : 'testcase-tab'
+              <select
+                value={selectedLanguage.name}
+                onChange={(e) =>
+                  handleChangeLanguage(
+                    e.target.value
+                  )
                 }
-
-                onClick={() => setActiveCase(index)}
               >
-                Case {index + 1}
+
+                {languages.map((lang) => (
+
+                  <option
+                    key={lang.name}
+                    value={lang.name}
+                  >
+                    {lang.name}
+                  </option>
+
+                ))}
+
+              </select>
+
+              <div className='editor-buttons'>
+
+                <button
+                  className='run-btn'
+                  onClick={handleRunCode}
+                >
+                  Run
+                </button>
+
+                <button
+                  className='submit-btn'
+                  onClick={handleSubmit}
+                >
+                  Submit
+                </button>
+
               </div>
-            ))}
+
+            </div>
+
+            {/* SPLIT */}
+            <Split
+              direction='vertical'
+              className='editor-split'
+              sizes={[70, 30]}
+              minSize={100}
+              gutterSize={6}
+            >
+
+              {/* EDITOR */}
+              <div className='editor-container'>
+
+                <Editor
+                  height='100%'
+                  language={
+                    selectedLanguage.monaco
+                  }
+                  value={code}
+                  onChange={(value) =>
+                    setCode(value || '')
+                  }
+                  theme='vs-dark'
+                />
+
+              </div>
+
+              {/* TEST RESULT */}
+              <div className='bottom-panel'>
+
+                <div className='testcase-tabs'>
+
+                  {testCases.map(
+                    (_, index) => (
+
+                      <div
+                        key={index}
+                        className={
+                          activeCase === index
+                            ? 'testcase-tab active'
+                            : 'testcase-tab'
+                        }
+
+                        onClick={() =>
+                          setActiveCase(index)
+                        }
+                      >
+                        Case {index + 1}
+                      </div>
+
+                    )
+                  )}
+
+                </div>
+
+                <div className='result-panel'>
+
+                  <h2>Test Result</h2>
+
+                  {isRunning ? (
+
+                    <div className='running-box'>
+                      Running Testcases...
+                    </div>
+
+                  ) : (
+
+                    <>
+
+                      <div className='result-status'>
+                        {submitResult || status}
+                      </div>
+
+                      <div className='passed-box'>
+
+                        Passed:
+                        {' '}
+                        {passedCount}
+                        /
+                        {testCases.length}
+                        {' '}
+                        testcases
+
+                      </div>
+
+                      <div className='result-grid'>
+
+                        <div className='result-card'>
+                          <p>Runtime</p>
+                          <h3>{runtime}</h3>
+                        </div>
+
+                        <div className='result-card'>
+                          <p>Memory</p>
+                          <h3>{memory}</h3>
+                        </div>
+
+                        <div className='result-card'>
+                          <p>Language</p>
+                          <h3>
+                            {selectedLanguage.name}
+                          </h3>
+                        </div>
+
+                      </div>
+
+                      {failedCase && (
+
+                        <div className='failed-case'>
+
+                          <h3>
+                            Wrong Answer Details
+                          </h3>
+
+                          <p><strong>Input:</strong></p>
+
+                          <code>
+                            {failedCase.input}
+                          </code>
+
+                          <p><strong>Expected:</strong></p>
+
+                          <code>
+                            {failedCase.expected}
+                          </code>
+
+                          <p><strong>Your Output:</strong></p>
+
+                          <code>
+                            {failedCase.output}
+                          </code>
+
+                        </div>
+
+                      )}
+
+                      {/* HISTORY */}
+                      <div className='history-panel'>
+
+                        <h2>Submission History</h2>
+
+                        {submissionHistory.map(
+                          (item, index) => (
+
+                            <div
+                              key={index}
+                              className='history-item'
+                            >
+
+                              <span>
+                                {item.result}
+                              </span>
+
+                              <span>
+                                {item.language}
+                              </span>
+
+                              <span>
+                                {item.runtime}
+                              </span>
+
+                              <span>
+                                {item.memory}
+                              </span>
+
+                              <span>
+                                {item.date}
+                              </span>
+
+                            </div>
+
+                          )
+                        )}
+
+                      </div>
+
+                    </>
+
+                  )}
+
+                </div>
+
+              </div>
+
+            </Split>
 
           </div>
 
-          <div className='submit-result'> 
-            {submitResult} 
-          </div>
+        </Split>
 
-          <div className='console-box'>
+      </div>
 
-            <p>
-              <strong>Input:</strong>
-            </p>
-
-            <code>
-              {testCases[activeCase].input}
-            </code>
-
-            <br />
-            <br />
-
-            <p>
-              <strong>Expected:</strong>
-            </p>
-
-            <code>
-              {testCases[activeCase].expected}
-            </code>
-
-            <br />
-            <br />
-
-            <p>
-              <strong>Your Output:</strong>
-            </p>
-
-            <code>
-              {output}
-            </code>
-
-          </div>
-
-        </div>
-
-      </Split>
-
-    </div>
-
-  </Split>
-
+    </>
 
   );
-
-
 }
 
 export default ExerciseDetail;
-
