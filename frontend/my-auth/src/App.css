@@ -1,6 +1,7 @@
 .App {
   min-height: 100vh;
   background: #111315;
+  width: 100%;
 }
 html,
 body,
@@ -9,4 +10,5 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }

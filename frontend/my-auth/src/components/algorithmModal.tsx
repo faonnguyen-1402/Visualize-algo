@@ -43,6 +43,7 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
     // slug,
     isPlaying,
     // loadAlgorithm,
+    highlightLine = 0,
     next,
     prev,
     play,
@@ -98,45 +99,51 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
 
           {/* VISUAL */}
           <div className="visualization-container">
-            <VisualRender
-              algorithm={algorithm}
-              // values={!isTreeSearch ? values : []}
-              values={sortHook.values}
-              active={sortHook.active}
-              swapping={sortHook.swapping}
-              sorted={sortHook.sorted}
-              treeData={searchHook.treeData}
-              activeNode={searchHook.activeNode}
-              visitedNodes={searchHook.visitedNodes}
-              pathNodes={searchHook.pathNodes}
-              step={steps[step]}
-            />
-            <Controls
-              step={step}
-              total={steps.length}
-              isPlaying={isPlaying}
-              onNext={next}
-              onPrev={prev}
-              onPlay={isPlaying ? pause : play}
-              onReset={reset}
-            />
-
-            <div
-              style={{
-                height: "40px",
-                color: "#00ff00",
-                fontSize: "18px",
-                textAlign: "center",
-                marginBottom: "10px",
-                fontFamily: "monospace",
-                textShadow: "0 0 10px #00ff00",
-              }}
-            >
-              {message && <strong>{message}</strong>}
+            <div className="visual-left">
+              <VisualRender
+                algorithm={algorithm}
+                // values={!isTreeSearch ? values : []}
+                values={sortHook.values}
+                active={sortHook.active}
+                swapping={sortHook.swapping}
+                sorted={sortHook.sorted}
+                treeData={searchHook.treeData}
+                activeNode={searchHook.activeNode}
+                visitedNodes={searchHook.visitedNodes}
+                pathNodes={searchHook.pathNodes}
+                step={steps[step]}
+              />
+            </div>
+            <div className="visual-right">
+              {/* <CodePanel algorithm={algorithm} /> */}
+              <CodePanel algorithm={algorithm} highlightLine={highlightLine} />
+              <Controls
+                step={step}
+                total={steps.length}
+                isPlaying={isPlaying}
+                onNext={next}
+                onPrev={prev}
+                onPlay={isPlaying ? pause : play}
+                onReset={reset}
+              />
+{/* console.log("Current Step:", step, "Highlight Line:", highlightLine); */}
+              <div
+                style={{
+                  height: "40px",
+                  color: "#00ff00",
+                  fontSize: "18px",
+                  textAlign: "center",
+                  marginBottom: "10px",
+                  fontFamily: "monospace",
+                  textShadow: "0 0 10px #00ff00",
+                }}
+              >
+                {message && <strong>{message}</strong>}
+              </div>
             </div>
           </div>
 
-          <CodePanel algorithm={algorithm} />
+         
         </div>
       </div>
     </div>

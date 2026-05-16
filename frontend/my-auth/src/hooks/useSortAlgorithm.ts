@@ -220,7 +220,7 @@ export function useSortAlgorithm() {
     step,
     steps,
     isPlaying,
-
+    highlightLine: steps[step] ? (steps[step] as any).highlightLine : 0,
     loadAlgorithm,
     next,
     prev,

@@ -26,7 +26,6 @@ function App() {
         <Route path='/verify-email-link' element={<VerifyEmailLink />} />
         <Route path='/login' element={<Login />} /> */}
         <Route path='/home' element={<Home />} />
-
         <Route path='/algorithms' element={<Home />} />
         <Route path="/algorithms/:slug" element={<AlgorithmDetail />} />  
         <Route path='/ProfilePage' element={<ProfilePage />} />
