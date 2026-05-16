@@ -63,7 +63,7 @@ function Register() {
         <h1>Sign up</h1>
 
         <div className='input-group'>
-          <label htmlFor='username'>Username:</label>
+          <label htmlFor='username'>USERNAME</label>
           <input
             id='username'
             type='text'
@@ -81,7 +81,7 @@ function Register() {
         </div>
 
         <div className='input-group'>
-          <label htmlFor='email'>Email:</label>
+          <label htmlFor='email'>EMAIL ADDRESS</label>
           <input
             id='email'
             type='email'
@@ -99,7 +99,7 @@ function Register() {
         </div>
 
         <div className='input-group'>
-          <label htmlFor='password'>Password:</label>
+          <label htmlFor='password'>PASSWORD</label>
           <input
             id='password'
             type='password'
@@ -117,7 +117,7 @@ function Register() {
         </div>
 
         <div className='input-group'>
-          <label htmlFor='confirmPassword'>Confirm Password:</label>
+          <label htmlFor='confirmPassword'>CONFIRM PASSWORD</label>
           <input
             id='confirmPassword'
             type='password'
@@ -133,15 +133,15 @@ function Register() {
         </div>
 
         <span
-          className='text-warining'
+          className='text-warning'
           onClick={() => navigate('/login')}
           style={{ cursor: 'pointer' }}
         >
-          Already have an account? Sign in now
+          ALREADY HAVE AN ACCOUNT?
         </span>
 
         <button type='submit' className='submit-button'>
-          Submit
+          SUBMIT
         </button>
       </form>
     </div>

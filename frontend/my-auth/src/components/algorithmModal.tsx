@@ -116,7 +116,6 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
             </div>
             <div className="visual-right">
               {/* <CodePanel algorithm={algorithm} /> */}
-              <CodePanel algorithm={algorithm} highlightLine={highlightLine} />
               <Controls
                 step={step}
                 total={steps.length}
@@ -126,6 +125,7 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
                 onPlay={isPlaying ? pause : play}
                 onReset={reset}
               />
+              <CodePanel algorithm={algorithm} highlightLine={highlightLine} />
 {/* console.log("Current Step:", step, "Highlight Line:", highlightLine); */}
               <div
                 style={{
