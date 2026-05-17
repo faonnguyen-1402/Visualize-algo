@@ -159,6 +159,107 @@ header {
   transform: scale(1.05);
 }
 
+/* Container bọc ngoài Avatar và Dropdown */
+.user-profile-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Khối Avatar tròn */
+.avatar-placeholder {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #0d0e15;
+  border: 2px solid #00ffaa; /* Viền xanh neon */
+  color: #00ffaa;
+  box-shadow: 0 0 8px rgba(0, 255, 170, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  transition: all 0.3s ease;
+}
+
+.avatar-placeholder:hover {
+  box-shadow: 0 0 15px #00ffaa;
+  transform: scale(1.05);
+}
+
+/* Khung Menu ẩn đi mặc định */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 8px;
+  background-color: #111424; /* Màu nền tiệp với tối */
+  min-width: 180px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+  z-index: 100;
+  padding: 8px 0;
+}
+
+/* Hiển thị Menu khi hover vào vùng dropdown */
+.user-profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Style thông tin text của User trong dropdown */
+.dropdown-user-info {
+  padding: 6px 16px;
+  font-family: sans-serif;
+}
+.dropdown-username {
+  color: #fff;
+  font-weight: 600;
+  margin: 0;
+  font-size: 14px;
+}
+.dropdown-email {
+  color: #94a3b8;
+  font-size: 12px;
+  margin: 2px 0 0 0;
+}
+.dropdown-divider {
+  border: 0;
+  border-top: 1px solid #334155;
+  margin: 6px 0;
+}
+
+/* Các đường link/nút bấm bên trong Menu con */
+.dropdown-item {
+  color: #cbd5e1;
+  padding: 8px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+  text-align: left;
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #1e293b;
+  color: #00ffaa;
+}
+
+/* Chữ Sign out có màu cảnh báo */
+.btn-logout-text {
+  color: #f43f5e;
+}
+.btn-logout-text:hover {
+  background-color: rgba(244, 63, 94, 0.1);
+  color: #f43f5e;
+}
+
 /* .logo {
     font-size: 1.5rem;
     font-weight: 700;

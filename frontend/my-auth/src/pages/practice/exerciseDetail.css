@@ -1,111 +1,208 @@
-.exercise-detail {
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.exercise-left {
-  background: #111827;
-  color: white;
-  padding: 24px;
-  overflow-y: auto;
-}
-
-.exercise-right {
+.leetcode-container{
+  height: calc(100vh - 70px);
   background: #0f172a;
-  display: flex;
-  flex-direction: column;
-}
-
-.editor-header {
-  height: 60px;
-  background: #1e293b;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-}
-
-.editor-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.run-btn {
-  background: #2563eb;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.submit-btn {
-  background: #16a34a;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.editor-split {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
   overflow: hidden;
 }
 
-.editor-container {
-  overflow: hidden;
+.exercise-detail{
+  display: flex;
+  height: 100%;
 }
 
-.bottom-panel {
+.exercise-left{
   background: #111827;
   color: white;
   overflow-y: auto;
+  padding: 24px;
 }
 
-.testcase-tabs {
+.exercise-right{
+  background: #1e293b;
+  overflow: hidden;
   display: flex;
-  gap: 10px;
-  padding: 16px;
-  border-bottom: 1px solid #374151;
+  flex-direction: column;
 }
 
-.testcase-tab {
-  background: #1e293b;
-  padding: 8px 14px;
+.difficulty{
+  display: inline-block;
+  background: #166534;
+  color: #86efac;
+  padding: 4px 10px;
   border-radius: 8px;
-  cursor: pointer;
+  margin-bottom: 20px;
 }
 
-.testcase-tab.active {
-  background: #2563eb;
-}
-
-.console-box {
+.example-box{
+  background: #1f2937;
   padding: 20px;
-}
-
-.example-box {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 10px;
+  border-radius: 12px;
   margin-top: 20px;
 }
 
-.gutter {
-  background: #334155;
+.editor-header{
+  height: 60px;
+  background: #1f2937;
+  border-bottom: 1px solid #374151;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 20px;
+}
+
+.editor-header select{
+  background: #111827;
+  color: white;
+  border: 1px solid #374151;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.editor-buttons{
+  display: flex;
+  gap: 12px;
+}
+
+.run-btn{
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.submit-btn{
+  background: #16a34a;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.editor-split{
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 60px);
+}
+
+.editor-container{
+  overflow: hidden;
+}
+
+.bottom-panel{
+  background: #0f172a;
+  color: white;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.testcase-tabs{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.testcase-tab{
+  background: #1e293b;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.testcase-tab.active{
+  background: #374151;
+}
+
+.console-box{
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.gutter{
+  background: #374151;
   cursor: col-resize;
 }
 
-.gutter.gutter-vertical {
+.gutter.gutter-vertical{
   cursor: row-resize;
 }
 
-.submit-result { 
-  padding: 16px; 
-  font-size: 20px; 
-  font-weight: bold; 
+.result-panel{
+  margin-top: 20px;
+}
+
+.result-status{
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.result-grid{
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.result-card{
+  background: #1e293b;
+  padding: 18px;
+  border-radius: 12px;
+  min-width: 160px;
+}
+
+.result-card p{
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.result-card h3{
+  color: white;
+}
+
+.running-box{
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 12px;
+  color: #38bdf8;
+  font-weight: bold;
+}
+
+.failed-case{
+  background: #3f1d1d;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.failed-case code{
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  color: #fca5a5;
+}
+
+.passed-box{
+  margin-top: 10px;
+  color: #22c55e;
+  font-weight: bold;
+}
+
+.history-panel{
+  margin-top: 30px;
+}
+
+.history-item{
+  background: #111827;
+  margin-top: 10px;
+  padding: 14px;
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
 }
