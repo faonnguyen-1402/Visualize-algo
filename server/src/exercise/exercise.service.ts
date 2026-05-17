@@ -28,10 +28,11 @@ export class ExerciseService {
 
   async findOne(slug: string, difficultyStr: string) {
     const difficulty = difficultyStr.toUpperCase() as Difficulty;
-    const exercise = await this.prisma.exercise.findFirst({
+    const correctExerciseSlug = `${slug}-${difficultyStr.toLowerCase()}`;
+    const exercise = await this.prisma.exercise.findUnique({
       where: {
-        algorithm: { slug: slug },
-        difficulty: difficulty,
+        slug: correctExerciseSlug,
+        // difficulty: difficulty,
       },
       include: {
         testCases: {
@@ -50,7 +51,12 @@ export class ExerciseService {
       },
     });
     if (!exercise) {
-      throw new NotFoundException(`There is no exercise in ${slug}`);
+      throw new NotFoundException(
+        `There is no exercise in ${correctExerciseSlug}`,
+      );
+    }
+    if (exercise.difficulty !== difficulty) {
+      throw new NotFoundException(`Exercise difficulty mismatch`);
     }
     return exercise;
   }

@@ -10,7 +10,7 @@ export class ExerciseController {
     @Param('slug') slug: string,
     @Param('difficulty') difficulty: string,
   ) {
-    return this.exerciseService.findOne(slug, difficulty);
+    return this.exerciseService.findOne(slug, difficulty.toUpperCase());
   }
 
   @Get(':slug')
