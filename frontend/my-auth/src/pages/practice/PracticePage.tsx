@@ -2,14 +2,15 @@ import React, { useEffect, useState } from 'react';
 import './practice.css';
 import { Link } from 'react-router-dom';
 import Header from '../../components/header';
-
-type Exercise = {
-  id: number;
-  title: string;
-  slug: string;
-  difficulty: string;
-  algorithm: string;
-};
+import { getExercises, Exercise } from '../../services/exerciseService';
+import {toast} from 'react-toastify'
+// type Exercise = {
+//   id: number;
+//   title: string;
+//   slug: string;
+//   difficulty: string;
+//   algorithm: string;
+// };
 
 function PracticePage() {
 
@@ -19,47 +20,73 @@ function PracticePage() {
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   useEffect(() => {
 
-    const fakeData: Exercise[] = [
+    // const fakeData: Exercise[] = [
 
-      {
-        id: 1,
-        title: 'Bubble Sort Basic',
-        slug: 'bubble-sort',
-        difficulty: 'Easy',
-        algorithm: 'Sorting',
-      },
+    //   {
+    //     id: 1,
+    //     title: 'Bubble Sort Basic',
+    //     slug: 'bubble-sort',
+    //     difficulty: 'Easy',
+    //     algorithm: 'Sorting',
+    //   },
 
-      {
-        id: 2,
-        title: 'Selection Sort',
-        slug: 'selection-sort',
-        difficulty: 'Easy',
-        algorithm: 'Sorting',
-      },
+    //   {
+    //     id: 2,
+    //     title: 'Selection Sort',
+    //     slug: 'selection-sort',
+    //     difficulty: 'Easy',
+    //     algorithm: 'Sorting',
+    //   },
 
-      {
-        id: 3,
-        title: 'Binary Search',
-        slug: 'binary-search',
-        difficulty: 'Medium',
-        algorithm: 'Searching',
-      },
+    //   {
+    //     id: 3,
+    //     title: 'Binary Search',
+    //     slug: 'binary-search',
+    //     difficulty: 'Medium',
+    //     algorithm: 'Searching',
+    //   },
 
-      {
-        id: 4,
-        title: 'DFS Graph',
-        slug: 'dfs-graph',
-        difficulty: 'Hard',
-        algorithm: 'Graph',
-      },
+    //   {
+    //     id: 4,
+    //     title: 'DFS Graph',
+    //     slug: 'dfs-graph',
+    //     difficulty: 'Hard',
+    //     algorithm: 'Graph',
+    //   },
 
-    ];
+    // ];
 
-    setAllExercises(fakeData);
-    setFilteredExercises(fakeData);
+    // setAllExercises(fakeData);
+    // setFilteredExercises(fakeData);
 
+    const fetchExercises = async () =>{
+      try{
+        setLoading(true);
+        const res = await fetch('http://localhost:3001/exercise', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!res.ok) {
+          throw new Error('Unable to download the assignment list from the server');
+        }
+        const data: Exercise[] = await res.json();
+        // console.log("Dữ liệu thực tế từ BE:", data);
+        setAllExercises(data);
+        setFilteredExercises(data);
+      }catch (error) {
+        console.error("Error fetching exercise data: ", error);
+        toast.error('Failed to connect to the server. Displaying an empty list');
+      }finally {
+          setLoading(false);
+      }
+    };
+      fetchExercises();
   }, []);
 
   useEffect(() => {
@@ -67,19 +94,18 @@ function PracticePage() {
     let data = [...allExercises];
 
     if (selectedAlgorithm !== 'All') {
-
-      data = data.filter(
-        (item) => item.algorithm === selectedAlgorithm
-      );
+      data = data.filter((item) => {
+        const categoryName = item.algorithm?.category?.name || ''; 
+      return categoryName.toLowerCase() === selectedAlgorithm.toLowerCase();
+      });
 
     }
 
     if (selectedDifficulty !== 'All') {
-
-      data = data.filter(
-        (item) => item.difficulty === selectedDifficulty
-      );
-
+      data = data.filter((item) => {
+        const diffLevel = item.difficulty || '';
+        return diffLevel.toLowerCase() === selectedDifficulty.toLowerCase();
+      });
     }
 
     setFilteredExercises(data);
@@ -164,7 +190,7 @@ function PracticePage() {
               <h3>{exercise.title}</h3>
 
               <p>
-                Algorithm: {exercise.algorithm}
+                Algorithm: {exercise.algorithm?.name}
               </p>
 
               <p>

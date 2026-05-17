@@ -11,6 +11,7 @@ import AlgorithmDetail from "./components/AlgorithmDetail";
 import "katex/dist/katex.min.css";
 import ProfilePage from "./pages/profile/profilepage";
 import ExerciseDetail from "./pages/practice/ExerciseDetail";
+import PracticePage from "./pages/practice/PracticePage";
 
 function App() {
   return (
@@ -30,7 +31,8 @@ function App() {
         <Route path="/algorithms" element={<Home />} />
         <Route path="/algorithms/:slug" element={<AlgorithmDetail />} />
         <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/practice" element={<ExerciseDetail />} />
+        <Route path="/practice" element={<PracticePage />} />
+        <Route path="/practice/:slug/:difficulty" element={<ExerciseDetail />} />
         <Route path="*" element={<Navigate to="/home" replace />} />
       </Routes>
 
