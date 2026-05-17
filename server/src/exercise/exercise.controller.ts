@@ -17,4 +17,9 @@ export class ExerciseController {
   findAll(@Param('slug') slug: string) {
     return this.exerciseService.findAll(slug);
   }
+
+  @Get()
+  async getAll() {
+    return this.exerciseService.getAllExercises();
+  }
 }

@@ -54,4 +54,38 @@ export class ExerciseService {
     }
     return exercise;
   }
+
+  // server/src/exercise/exercise.service.ts
+
+  async getAllExercises() {
+    console.log('Đang lấy toàn bộ danh sách bài tập cho trang Practice...');
+
+    const exercises = await this.prisma.exercise.findMany({
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        difficulty: true,
+        // 🔥 Bắt buộc select thêm cái này để Frontend có tên thuật toán chạy bộ lọc
+        algorithm: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            category: {
+              select: {
+                id: true,
+                name: true, // Nơi chứa chữ "Sorting" hoặc "Searching"
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return exercises;
+  }
 }
