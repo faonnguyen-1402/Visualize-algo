@@ -16,7 +16,7 @@ export interface Exercise {
   };
 }
 
-const API_URL = 'http://localhost:3001/exercises';
+const API_URL = 'http://localhost:3001/exercise';
 
 export const getExercises = async () => {
   const res = await fetch(API_URL, {

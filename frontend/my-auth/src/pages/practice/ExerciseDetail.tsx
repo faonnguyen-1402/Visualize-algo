@@ -1,109 +1,46 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
 import Split from 'react-split';
-
+import { getExerciseDetail } from '../../services/exerciseService';
 import Header from '../../components/header';
-
 import './exerciseDetail.css';
 
 function ExerciseDetail() {
 
-  const { slug, difficulty } = useParams();
+  const { slug, difficulty } = useParams<{slug: string; difficulty: string}>();
 
-  // =========================
-  // LANGUAGES
-  // =========================
+  const [exercise, setExercise] = useState<any>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null)
 
   const languages = [
     {
       name: 'JavaScript',
       id: 63,
       monaco: 'javascript',
-      starter: `function solve(arr){
-
-  return arr.sort((a,b)=>a-b);
-
-}
-
-console.log(
-  JSON.stringify(
-    solve([5,4,3,2,1])
-  )
-);
-`,
+      starter: `function solve(arr){\n  return arr.sort((a,b)=>a-b);\n}\nconsole.log(JSON.stringify(solve([5,4,3,2,1])));\n`,
     },
 
     {
       name: 'Python',
       id: 71,
       monaco: 'python',
-      starter: `def solve(arr):
-
-    return sorted(arr)
-
-print(
-    solve([5,4,3,2,1])
-)
-`,
+      starter: `def solve(arr):\n    return sorted(arr)\nprint(solve([5,4,3,2,1]))\n`,
     },
 
     {
       name: 'C++',
       id: 54,
       monaco: 'cpp',
-      starter: `#include <bits/stdc++.h>
-using namespace std;
-
-vector<int> solve(vector<int> arr){
-
-    sort(arr.begin(), arr.end());
-
-    return arr;
-}
-
-int main(){
-
-    vector<int> arr = {5,4,3,2,1};
-
-    vector<int> ans = solve(arr);
-
-    for(int x : ans){
-        cout << x << " ";
-    }
-
-    return 0;
-}
-`,
+      starter: `#include <bits/stdc++.h>\nusing namespace std;\nvector<int> solve(vector<int> arr){\n    sort(arr.begin(), arr.end());\n    return arr;\n}\nint main(){\n    vector<int> arr = {5,4,3,2,1};\n    vector<int> ans = solve(arr);\n    for(int x : ans) cout << x << " ";\n    return 0;\n}\n`,
     },
 
     {
       name: 'Java',
       id: 62,
       monaco: 'java',
-      starter: `import java.util.*;
-
-public class Main {
-
-    static int[] solve(int[] arr){
-
-        Arrays.sort(arr);
-
-        return arr;
-    }
-
-    public static void main(String[] args){
-
-        int[] arr = {5,4,3,2,1};
-
-        int[] ans = solve(arr);
-
-        System.out.println(
-            Arrays.toString(ans)
-        );
-    }
-}
-`,
+      starter: `import java.util.*;\npublic class Main {\n    static int[] solve(int[] arr){\n        Arrays.sort(arr);\n        return arr;\n    }\n    public static void main(String[] args){\n        int[] arr = {5,4,3,2,1};\n        int[] ans = solve(arr);\n        System.out.println(Arrays.toString(ans));\n    }\n}\n`,
     },
   ];
 
@@ -111,90 +48,69 @@ public class Main {
   // STATES
   // =========================
 
-  const [selectedLanguage, setSelectedLanguage] =
-    useState(languages[0]);
+  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
 
-  const [code, setCode] =
-    useState(languages[0].starter);
+  const [code, setCode] = useState(languages[0].starter);
 
-  const [output, setOutput] =
-    useState('');
+  const [output, setOutput] = useState('');
 
-  const [runtime, setRuntime] =
-    useState('');
+  const [runtime, setRuntime] = useState('');
 
-  const [memory, setMemory] =
-    useState('');
+  const [memory, setMemory] = useState('');
 
-  const [status, setStatus] =
-    useState('');
+  const [status, setStatus] = useState('');
 
-  const [submitResult, setSubmitResult] =
-    useState('');
+  const [submitResult, setSubmitResult] = useState('');
 
-  const [activeCase, setActiveCase] =
-    useState(0);
+  const [activeCase, setActiveCase] = useState(0);
 
-  const [passedCount, setPassedCount] =
-    useState(0);
+  const [passedCount, setPassedCount] = useState(0);
 
-  const [failedCase, setFailedCase] =
-    useState<any>(null);
+  const [failedCase, setFailedCase] = useState<any>(null);
 
-  const [isRunning, setIsRunning] =
-    useState(false);
+  const [isRunning, setIsRunning] = useState(false);
 
-  const [submissionHistory, setSubmissionHistory] =
-    useState<any[]>([]);
+  const [submissionHistory, setSubmissionHistory] = useState<any[]>([]);
 
-  // =========================
-  // TESTCASES
-  // =========================
+  useEffect(() => {
+    const fetchDetailData = async () => {
+      if (!slug || !difficulty) return;
+      try {
+        setLoading(true);
+        const data = await getExerciseDetail(slug, difficulty);
+        setExercise(data);
+        setError(null);
+      } catch (err: any) {
+        console.error(err);
+        setError('The exercise does not exist or there is a server connection error.');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const testCases = [
-    {
-      input: '[5,4,3,2,1]',
-      expected: '[1,2,3,4,5]',
-    },
-
-    {
-      input: '[9,1,6,2]',
-      expected: '[1,2,6,9]',
-    },
-
-    {
-      input: '[3,7,2]',
-      expected: '[2,3,7]',
-    },
-  ];
-
+    fetchDetailData();
+  }, [slug, difficulty]);
+  
+  const realTestCases = exercise?.testCases || [];
+  
   // =========================
   // RUN CODE
   // =========================
 
   const handleRunCode = async () => {
-
     try {
-
       setIsRunning(true);
-
       setOutput('Running...');
-
       const response = await fetch(
         'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
         {
           method: 'POST',
-
           headers: {
             'Content-Type': 'application/json',
           },
-
           body: JSON.stringify({
-
             source_code: code,
-
             language_id: selectedLanguage.id,
-
           }),
         }
       );
@@ -204,8 +120,8 @@ public class Main {
       console.log(result);
 
       if (result.stdout) {
-
         setOutput(result.stdout);
+
 
         setRuntime(
           result.time
@@ -256,44 +172,40 @@ public class Main {
 
   const handleSubmit = async () => {
 
+    if (realTestCases.length === 0) {
+      setSubmitResult('No test cases available ❌');
+      return;
+    }
+
     setIsRunning(true);
 
     let passed = 0;
 
     setFailedCase(null);
 
-    for (const tc of testCases) {
-
+    for (const tc of realTestCases) {
       try {
-
         const response = await fetch(
           'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
           {
             method: 'POST',
-
             headers: {
               'Content-Type': 'application/json',
             },
-
             body: JSON.stringify({
-
               source_code: code,
-
               language_id:
                 selectedLanguage.id,
-
+              stdin: tc.input,
             }),
           }
         );
 
-        const result =
-          await response.json();
+        const result = await response.json();
 
-        const userOutput =
-          result.stdout?.trim();
+        const userOutput = result.stdout?.trim();
 
-        const expected =
-          tc.expected.trim();
+        const expected = (tc.expectedOutput || tc.expected || '').trim();
 
         if (
           userOutput?.includes(expected)
@@ -309,7 +221,7 @@ public class Main {
 
             expected: tc.expected,
 
-            output: userOutput,
+            output: userOutput || 'No Output / Error',
 
           });
 
@@ -327,7 +239,7 @@ public class Main {
     setPassedCount(passed);
 
     const finalResult =
-      passed === testCases.length
+      passed === realTestCases.length
         ? 'Accepted ✅'
         : 'Wrong Answer ❌';
 
@@ -366,14 +278,14 @@ public class Main {
     setCode(found.starter);
   };
 
+  if (loading) return <div className="loading-screen" style={{color: '#fff', padding: '50px'}}>Đang tải nội dung bài tập...</div>;
+  if (error || !exercise) return <div className="error-screen" style={{color: 'red', padding: '50px'}}>{error || 'Not found exercise'}</div>;
+
   return (
-
     <>
-
       <Header />
 
       <div className='leetcode-container'>
-
         <Split
           className='exercise-detail'
           sizes={[40, 60]}
@@ -383,20 +295,32 @@ public class Main {
 
           {/* LEFT */}
           <div className='exercise-left'>
-
-            <h1>{slug}</h1>
-
-            <p className='difficulty'>
-              {difficulty}
+            <h1>{exercise.title}</h1>
+            <p className={`difficulty ${exercise.difficulty?.toLowerCase()}`}>
+              {exercise.difficulty}
             </p>
 
             <h2>Description</h2>
+            <div className='description-text' style={{ whiteSpace: 'pre-line' }}>
+              {exercise.description}
+            </div>
+           
+            {exercise.constraints && (
+              <>
+                <h3>Constraints</h3>
+                <p><code>{exercise.constraints}</code></p>
+              </>
+            )}
 
-            <p>
-              Write a sorting algorithm
-              that sorts numbers from
-              smallest to largest.
-            </p>
+            {realTestCases.length > 0 && (
+              <div className='example-box'>
+                <h3>Example 1</h3>
+                <p><strong>Input:</strong></p>
+                <code>{realTestCases[0].input}</code>
+                <p><strong>Output:</strong></p>
+                <code>{realTestCases[0].expectedOutput || realTestCases[0].expected}</code>
+              </div>
+            )}
 
             <div className='example-box'>
 
@@ -493,8 +417,8 @@ public class Main {
 
                 <div className='testcase-tabs'>
 
-                  {testCases.map(
-                    (_, index) => (
+                  {realTestCases.map(
+                    (_: any, index: number) => (
 
                       <div
                         key={index}
@@ -540,7 +464,7 @@ public class Main {
                         {' '}
                         {passedCount}
                         /
-                        {testCases.length}
+                        {realTestCases.length}
                         {' '}
                         testcases
 

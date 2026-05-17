@@ -4,13 +4,6 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/header';
 import { getExercises, Exercise } from '../../services/exerciseService';
 import {toast} from 'react-toastify'
-// type Exercise = {
-//   id: number;
-//   title: string;
-//   slug: string;
-//   difficulty: string;
-//   algorithm: string;
-// };
 
 function PracticePage() {
 
@@ -198,7 +191,7 @@ function PracticePage() {
               </p>
 
               <Link
-                to={`/practice/${exercise.slug}/${exercise.difficulty}`}
+                to={`/practice/${exercise.algorithm.slug}/${exercise.difficulty}`}
               >
 
                 <button>
