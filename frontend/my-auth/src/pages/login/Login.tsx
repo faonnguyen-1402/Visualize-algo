@@ -49,6 +49,8 @@ function Login() {
       localStorage.setItem('accessToken', result.accessToken);
       localStorage.setItem('user', JSON.stringify(result.user));
 
+      window.dispatchEvent(new Event('authChange'));
+
       // 🔥 toast success
       toast.success('Đăng nhập thành công');
 
@@ -60,7 +62,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className='login-page'>
       <div className='container-register'>
         <form
           className='register-form'
@@ -77,7 +79,7 @@ function Login() {
           <h1>Sign in</h1>
 
           <div className='input-group'>
-            <label htmlFor='email'>email:</label>
+            <label htmlFor='email'>EMAIL ADDRESS</label>
             <input
               id='email'
               type='email'
@@ -95,7 +97,7 @@ function Login() {
           </div>
 
           <div className='input-group'>
-            <label htmlFor='password'>password:</label>
+            <label htmlFor='password'>PASSWORD</label>
             <input
               id='password'
               type='password'
@@ -112,10 +114,10 @@ function Login() {
             )}
           </div>
 
-          <span className='text-warining'>Forget password?</span>
+          <span className='text-warning'>Forget password?</span>
 
           <button type='submit' className='submit-button'>
-            Submit
+            SUBMIT
           </button>
         </form>
       </div>

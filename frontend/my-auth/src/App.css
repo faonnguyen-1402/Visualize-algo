@@ -1,6 +1,7 @@
 .App {
   min-height: 100vh;
-  background: linear-gradient(135deg, #684c4c, #0040ffba);
+  background: #111315;
+  width: 100%;
 }
 html,
 body,
@@ -9,5 +10,5 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
 }
