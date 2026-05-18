@@ -76,7 +76,6 @@ const Header = () => {
 
          {/* RIGHT - ACTIONS */}
         <div className='nav-actions'>
-          <button className='search-btn'>🔍</button>
 
           {user ?(
             <div className="user-profile-dropdown">

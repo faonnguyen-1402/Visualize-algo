@@ -1,7 +1,7 @@
 .practice-page {
   padding: 40px;
   min-height: 100vh;
-  background: #0f172a;
+  background: #111111;
   color: white;
 }
 
@@ -30,7 +30,7 @@
 }
 
 .exercise-card {
-  background: #1e293b;
+  background: #1d1d1d;
   padding: 20px;
   border-radius: 20px;
   transition: 0.3s;
@@ -52,7 +52,7 @@
   padding: 10px 20px;
   border: none;
   border-radius: 10px;
-  background: #3b82f6;
+  background: #3e9bbf;
   color: white;
   cursor: pointer;
 }
