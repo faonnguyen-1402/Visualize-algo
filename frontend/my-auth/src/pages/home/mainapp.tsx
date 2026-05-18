@@ -8,6 +8,8 @@ import { Algorithm } from "../../types/algorithm";
 import React, {useState, useEffect} from "react";
 import { fetchAlgorithms } from "../../services/algoService";
 import { useNavigate } from 'react-router-dom';
+import AlgorithmCardSkeleton from "../../components/AlgorithmCardSkeleton";
+
 
 const Home = () => {
   const [allAlgos, setAllAlgos] = useState<Algorithm[]>([]);
@@ -17,9 +19,15 @@ const Home = () => {
 
   useEffect(() =>{
     const loadData = async() =>{
-      const data = await fetchAlgorithms();
-      setAllAlgos(data);
-      setLoading(false);
+      try {
+        setLoading(true); 
+        const data = await fetchAlgorithms();
+        setAllAlgos(data);
+      } catch (err) {
+        console.error("Error loading algorithms: ", err);
+      } finally {
+        setLoading(false);
+      }
     };
     loadData();
   }, []);
@@ -52,16 +60,18 @@ const Home = () => {
             Sorting algorithms are used to organize data in a specific order, such as ascending, descending, or alphabetical order. Sorting makes data easier to manage and facilitates faster searches. Some common sorting algorithms include Bubble Sort, Selection Sort, Insertion Sort, Merge Sort, and Quick Sort.
           </p>
           <div className="cards-grid">
-            {sorting.map((algo, i) => (
-              <AlgorithmCard
-                key={algo.id}
-                algo={algo}
-                index={i}
-                //  onClick={() => navigate(`/algorithms/${algo.slug}`)}
-                onClick={() => setSelectedAlgo(algo)}
-
-              />
-            ))}
+            {loading ? (
+              <AlgorithmCardSkeleton count={4} />
+            ) : (
+              sorting.map((algo, i) => (
+                <AlgorithmCard
+                  key={algo.id}
+                  algo={algo}
+                  index={i}
+                  onClick={() => setSelectedAlgo(algo)}
+                />
+              ))
+            )}
           </div>
         </section>
 
@@ -72,15 +82,18 @@ const Home = () => {
             Search algorithms are used to determine the location of an element in a dataset. Depending on how the data is organized, various search methods can be applied. The two most common algorithms are Linear Search and Binary Search.
           </p>
           <div className="cards-grid">
-            {searching.map((algo, i) => (
-              <AlgorithmCard
-                key={algo.id}
-                algo={algo}
-                index={i}
-                onClick={() => setSelectedAlgo(algo)}
-                // onClick={() => navigate(`/algorithms`)}
-              />
-            ))}
+            {loading ? (
+              <AlgorithmCardSkeleton count={2} />
+            ) : (
+              searching.map((algo, i) => (
+                <AlgorithmCard
+                  key={algo.id}
+                  algo={algo}
+                  index={i}
+                  onClick={() => setSelectedAlgo(algo)}
+                />
+              ))
+            )}
           </div>
         </section>
       </main>

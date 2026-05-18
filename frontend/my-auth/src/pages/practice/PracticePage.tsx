@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/header';
 import { getExercises, Exercise } from '../../services/exerciseService';
 import {toast} from 'react-toastify'
+import PracticeSkeleton from '../../components/PracticeSkeleton';
 
 function PracticePage() {
 
@@ -81,6 +82,8 @@ function PracticePage() {
     };
       fetchExercises();
   }, []);
+
+  
 
   useEffect(() => {
 
@@ -171,7 +174,10 @@ function PracticePage() {
 
         </div>
 
-        <div className='exercise-list'>
+        {loading ?(
+          <PracticeSkeleton/>
+        ):(
+          <div className='exercise-list'>
 
           {filteredExercises.map((exercise) => (
 
@@ -205,6 +211,42 @@ function PracticePage() {
           ))}
 
         </div>
+        )}
+
+        {/* <div className='exercise-list'>
+
+          {filteredExercises.map((exercise) => (
+
+            <div
+              className='exercise-card'
+              key={exercise.id}
+            >
+
+              <h3>{exercise.title}</h3>
+
+              <p>
+                Algorithm: {exercise.algorithm?.name}
+              </p>
+
+              <p>
+                Difficulty: {exercise.difficulty}
+              </p>
+
+              <Link
+                to={`/practice/${exercise.algorithm.slug}/${exercise.difficulty}`}
+              >
+
+                <button>
+                  Start Practice
+                </button>
+
+              </Link>
+
+            </div>
+
+          ))}
+
+        </div> */}
 
       </div>
 

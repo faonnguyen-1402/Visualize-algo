@@ -5,11 +5,12 @@ import Split from 'react-split';
 import { getExerciseDetail } from '../../services/exerciseService';
 import Header from '../../components/header';
 import './exerciseDetail.css';
+import ExerciseSkeleton from '../../components/ExerciseSkeleton';
+
 
 function ExerciseDetail() {
 
   const { slug, difficulty } = useParams<{slug: string; difficulty: string}>();
-
   const [exercise, setExercise] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null)
@@ -75,6 +76,7 @@ function ExerciseDetail() {
   useEffect(() => {
     const fetchDetailData = async () => {
       if (!slug || !difficulty) return;
+        setLoading(true);
       try {
         setLoading(true);
         const data = await getExerciseDetail(slug, difficulty);
@@ -90,9 +92,12 @@ function ExerciseDetail() {
 
     fetchDetailData();
   }, [slug, difficulty]);
-  
+  console.log("🔥 Trạng thái loading hiện tại là:", loading);
+    if (loading) {
+    return <ExerciseSkeleton />;
+  }
   const realTestCases = exercise?.testCases || [];
-  
+
   // =========================
   // RUN CODE
   // =========================
