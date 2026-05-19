@@ -293,7 +293,7 @@ function ExerciseDetail() {
       <div className='leetcode-container'>
         <Split
           className='exercise-detail'
-          sizes={[40, 60]}
+          sizes={[50, 50]}
           minSize={300}
           gutterSize={6}
         >
@@ -395,7 +395,7 @@ function ExerciseDetail() {
             <Split
               direction='vertical'
               className='editor-split'
-              sizes={[70, 30]}
+              sizes={[50, 50]}
               minSize={100}
               gutterSize={6}
             >
