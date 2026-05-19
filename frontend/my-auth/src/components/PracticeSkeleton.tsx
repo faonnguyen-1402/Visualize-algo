@@ -2,15 +2,15 @@
 import React from 'react';
 
 const PracticeSkeleton: React.FC = () => {
-  // Hiệu ứng nhấp nháy mờ ảo mượt mà cho theme tối
+  // Hiệu ứng nhấp nháy mờ ảo mượt mà cho theme tối sâu (Cyberpunk/Dark UI)
   const injectStyles = `
     @keyframes practicePulse {
-      0% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-      100% { opacity: 0.3; }
+      0% { opacity: 0.4; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0.4; }
     }
     .sk-pulse-card {
-      animation: practicePulse 1.5s infinite ease-in-out;
+      animation: practicePulse 1.6s infinite ease-in-out;
     }
   `;
 
@@ -21,13 +21,11 @@ const PracticeSkeleton: React.FC = () => {
     <>
       <style>{injectStyles}</style>
       
-      {/* Sử dụng cấu trúc CSS thuần lặp lại đúng logic Grid của bạn 
-        để các ô xương xếp hàng y hệt các ô bài tập thật
-      */}
+      {/* Cấu trúc Grid đồng bộ khoảng cách thoáng đãng của trang practice */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-        gap: '25px',
+        gap: '24px',
         width: '100%',
         boxSizing: 'border-box'
       }}>
@@ -36,32 +34,49 @@ const PracticeSkeleton: React.FC = () => {
             key={index}
             className="sk-pulse-card"
             style={{
-              background: '#1e293b', /* Khớp chuẩn màu nền của .exercise-card */
-              padding: '20px',       /* Khớp chuẩn padding của .exercise-card */
-              borderRadius: '20px',  /* Khớp chuẩn độ bo góc của .exercise-card */
+              background: '#16171b',       /* Khớp màu card tối sẫm mới của hệ thống */
+              border: '1px solid #272930', /* Đường viền mảnh đồng màu */
+              padding: '24px',             /* Khớp chuẩn padding 24px giúp card thoáng hơn */
+              borderRadius: '8px',         /* Hạ bo góc thô từ 20px xuống 8px phẳng tinh tế */
               boxSizing: 'border-box',
               display: 'flex',
               flexDirection: 'column',
-              gap: '14px',
-              minHeight: '180px'     /* Chiều cao ước lượng tương đối của card thật */
+              minHeight: '210px'           /* Khớp chiều cao thực tế sau khi giãn khoảng cách */
             }}
           >
-            {/* Giả lập Tiêu đề bài tập (Ví dụ: Bubble Sort Basic) */}
-            <div style={{ height: '24px', backgroundColor: '#334155', borderRadius: '6px', width: '75%' }}></div>
-            
-            {/* Giả lập Dòng chữ Thuật toán (Algorithm: ...) */}
-            <div style={{ height: '14px', backgroundColor: '#334155', borderRadius: '4px', width: '55%', marginTop: '6px' }}></div>
-            
-            {/* Giả lập Dòng chữ Độ khó (Difficulty: ...) */}
-            <div style={{ height: '14px', backgroundColor: '#334155', borderRadius: '4px', width: '40%' }}></div>
-            
-            {/* Giả lập Nút bấm "Start Practice" ở dưới cùng */}
+            {/* Giả lập Tiêu đề bài tập (Ví dụ: Search Range in Sorted Array) */}
             <div style={{ 
-              height: '36px', 
-              backgroundColor: '#475569', 
-              borderRadius: '8px', 
-              width: '110px', 
-              marginTop: 'auto' /* Đẩy nút bấm xuống sát đáy card */
+              height: '22px', 
+              backgroundColor: '#2d3039', 
+              borderRadius: '4px', 
+              width: '80%',
+              marginBottom: '20px'         /* Tạo độ giãn cách từ tiêu đề xuống info */
+            }}></div>
+            
+            {/* Khối chứa 2 dòng thông tin giả lập (Algorithm & Difficulty) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              
+              {/* Giả lập Dòng chữ Thuật toán (Algorithm: binary_search) */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ height: '14px', backgroundColor: '#232429', borderRadius: '4px', width: '65px' }}></div>
+                <div style={{ height: '20px', backgroundColor: '#2d3039', borderRadius: '4px', width: '90px' }}></div>
+              </div>
+              
+              {/* Giả lập Dòng chữ Độ khó (Difficulty: MEDIUM) */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ height: '14px', backgroundColor: '#232429', borderRadius: '4px', width: '55px' }}></div>
+                <div style={{ height: '20px', backgroundColor: '#2d3039', borderRadius: '4px', width: '60px' }}></div>
+              </div>
+
+            </div>
+            
+            {/* Giả lập Nút bấm "Start Practice" full-width ép xuống đáy card */}
+            <div style={{ 
+              height: '38px', 
+              backgroundColor: '#2d3039', 
+              borderRadius: '6px', 
+              width: '100%',               /* Sửa từ 110px thành 100% để kéo dài full card */
+              marginTop: 'auto'            /* Đẩy dạt xuống sát đáy hoàn toàn */
             }}></div>
           </div>
         ))}
