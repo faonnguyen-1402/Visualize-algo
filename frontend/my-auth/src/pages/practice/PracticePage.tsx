@@ -141,10 +141,6 @@ function PracticePage() {
               Searching
             </option>
 
-            <option value='Graph'>
-              Graph
-            </option>
-
           </select>
 
           <select
