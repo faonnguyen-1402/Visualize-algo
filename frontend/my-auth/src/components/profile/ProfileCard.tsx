@@ -7,7 +7,7 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ user, onEditClick }) => {
-  const totalExercises = 4; 
+  const totalExercises = 4; //truyền dữ liệu vào đê
 
   return (
     <div className="profile-card">

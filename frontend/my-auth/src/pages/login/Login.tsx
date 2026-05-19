@@ -49,6 +49,8 @@ function Login() {
       localStorage.setItem('accessToken', result.accessToken);
       localStorage.setItem('user', JSON.stringify(result.user));
 
+      window.dispatchEvent(new Event('authChange'));
+
       // 🔥 toast success
       toast.success('Đăng nhập thành công');
 

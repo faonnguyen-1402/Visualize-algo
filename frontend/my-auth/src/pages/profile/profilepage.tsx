@@ -6,7 +6,7 @@ import ActivityHeatmap from '../../components/profile/ActivityHeatmap';
 import EditProfileModal from '../../components/profile/EditProfileModal';
 import { mockUser, mockExercises } from '../../data/mockdata';
 import { User } from '../../types/user';
-import '../../styles/profilepage.css';
+import './profilepage.css';
 
 function ProfilePage() {
   const [user, setUser] = useState<User>(mockUser);
