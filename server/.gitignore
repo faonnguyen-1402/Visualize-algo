@@ -56,3 +56,13 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /generated/prisma
+
+
+# Loại bỏ file AlgorithmDetail.tsx
+src/components/AlgorithmDetail.tsx
+
+# Nếu bạn muốn loại bỏ cả CSS liên quan (nếu có file riêng)
+src/components/AlgorithmDetail.css
+
+# Hoặc nếu bạn muốn loại bỏ cả một thư mục chứa nó
+# src/components/AlgorithmDetail/
