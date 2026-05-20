@@ -73,7 +73,7 @@ header {
     width: 100% !important;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+    /* padding: 1rem 1.5rem; */
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -104,12 +104,23 @@ header {
 }
 
 /* --- Navigation Links --- */
-.nav-links {
+/* .nav-links {
   list-style: none;
   display: flex;
   gap: 35px;
   margin: 0;
   padding: 0;
+} */
+.nav-links {
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 2rem; /* Khoảng cách vừa phải với thanh Search */
 }
 
 .nav-links a {
@@ -153,7 +164,7 @@ header {
   gap: 20px;
 }
 
-.search-btn {
+/* .search-btn {
   background: transparent;
   border: 1px solid #333;
   color: white;
@@ -161,11 +172,46 @@ header {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
+} */
+
+.search-bar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.search-btn:hover {
-  border-color: #00f3ff;
-  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+.search-icon {
+    position: absolute;
+    left: 20px;
+    font-size: 0.85rem;
+    color: #2c2c2c;
+    width: 14px;  /* Kích thước vừa vặn, thanh mảnh */
+    height: 14px;
+    pointer-events: none; /* Tránh cản trở chuột khi click vào input */
+}
+
+.search-input {
+    background-color: #202020; /* Màu tối hơn nền một tông */
+    border: 1px solid #334155;
+    color: #f8fafc;
+    border-radius: 5px;
+    padding: 0.4rem 0.6rem 0.4rem 2rem; /* Chừa khoảng trống bên trái cho icon kính lúp */
+    font-size: 0.875rem;
+    width: 220px; /* Độ dài vừa vặn cho thanh search */
+    transition: all 0.2s ease;
+    outline: none;
+    height: 40px;
+}
+
+/* Hiệu ứng khi người dùng click vào ô Search */
+.search-input:focus {
+    border-color: #38bdf8;
+    width: 260px; /* Giãn nhẹ độ dài ra khi click giống LeetCode */
+}
+
+.search-bar-container:hover .search-icon path,
+.search-input:focus ~ .search-icon path {
+    stroke: #94a3b8; /* Đổi màu xám nhạt hơn khi active */
 }
 
 .login-btn {
@@ -175,9 +221,9 @@ header {
   padding: 10px 25px;
   font-weight: bold;
   text-transform: uppercase;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); /* Cắt góc kiểu Game UI */
+  /* clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); */
   transition: 0.3s;
 }
 
@@ -196,19 +242,17 @@ header {
 
 /* Khối Avatar tròn */
 .avatar-placeholder {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #0d0e15;
-  border: 2px solid #00ffaa; /* Viền xanh neon */
-  color: #00ffaa;
-  box-shadow: 0 0 8px rgba(0, 255, 170, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-family: 'Courier New', monospace;
-  transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+    background-color: #38bdf8;
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .avatar-placeholder:hover {
@@ -232,6 +276,24 @@ header {
   padding: 8px 0;
 }
 
+.user-profile-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    min-width: 220px;
+    border-radius: 6px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 0;
+}
+
 /* Hiển thị Menu khi hover vào vùng dropdown */
 .user-profile-dropdown:hover .dropdown-content {
   display: block;
@@ -240,7 +302,7 @@ header {
 /* Style thông tin text của User trong dropdown */
 .dropdown-user-info {
   padding: 6px 16px;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
 }
 .dropdown-username {
   color: #fff;
@@ -253,14 +315,19 @@ header {
   font-size: 12px;
   margin: 2px 0 0 0;
 }
-.dropdown-divider {
+/* .dropdown-divider {
   border: 0;
   border-top: 1px solid #334155;
   margin: 6px 0;
+} */
+.dropdown-divider {
+    border: 0;
+    height: 1px;
+    background-color: #334155;
+    margin: 0.5rem 0;
 }
-
 /* Các đường link/nút bấm bên trong Menu con */
-.dropdown-item {
+/* .dropdown-item {
   color: #cbd5e1;
   padding: 8px 16px;
   text-decoration: none;
@@ -272,16 +339,29 @@ header {
   width: 100%;
   cursor: pointer;
   transition: background 0.2s;
+} */
+
+.dropdown-item {
+    color: #cbd5e1;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    display: block;
+    font-size: 0.875rem;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
 }
 
 .dropdown-item:hover {
-  background-color: #1e293b;
-  color: #00ffaa;
+    background-color: #334155;
+    color: #f8fafc;
 }
 
 /* Chữ Sign out có màu cảnh báo */
 .btn-logout-text {
-  color: #f43f5e;
+  color: #ef4444;
 }
 .btn-logout-text:hover {
   background-color: rgba(244, 63, 94, 0.1);
@@ -507,6 +587,7 @@ section h2 span {
   border-left: 3px solid rgba(0, 243, 255, 0.3);
   padding-left: 20px;
   margin-left: 5px;
+  margin-bottom:10px;
 }
 
 .card-title {

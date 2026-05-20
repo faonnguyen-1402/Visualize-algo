@@ -141,10 +141,6 @@ function PracticePage() {
               Searching
             </option>
 
-            <option value='Graph'>
-              Graph
-            </option>
-
           </select>
 
           <select
@@ -188,13 +184,29 @@ function PracticePage() {
 
               <h3>{exercise.title}</h3>
 
-              <p>
+              {/* <p>
                 Algorithm: {exercise.algorithm?.name}
               </p>
 
+                
+
               <p>
                 Difficulty: {exercise.difficulty}
-              </p>
+              </p> */}
+
+              <div className="card-info-row">
+                <span className="card-info-label">Algorithm:</span>
+                <span className="algo-tag">
+                  {exercise.algorithm?.name || 'N/A'}
+                </span>
+              </div>
+
+              <div className="card-info-row">
+                <span className="card-info-label">Difficulty:</span>
+                <span className={`difficulty-tag ${exercise.difficulty?.toLowerCase()}`}>
+                  {exercise.difficulty}
+                </span>
+              </div>
 
               <Link
                 to={`/practice/${exercise.algorithm.slug}/${exercise.difficulty}`}

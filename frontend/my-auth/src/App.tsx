@@ -12,6 +12,8 @@ import "katex/dist/katex.min.css";
 import ProfilePage from "./pages/profile/profilepage";
 import ExerciseDetail from "./pages/practice/ExerciseDetail";
 import PracticePage from "./pages/practice/PracticePage";
+import Intro from './pages/intro/Intro';
+
 
 
 function App() {
@@ -23,7 +25,7 @@ function App() {
         <Route path="/verify-otp" element={<VerifyOtp />} />
         <Route path="/verify-email-link" element={<VerifyEmailLink />} />
         <Route path='/login' element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Intro />} />
         <Route path="/algorithms" element={<Home />} />
         <Route path="/algorithms/:slug" element={<AlgorithmDetail />} />
         <Route path="/profile" element={<ProfilePage />} />

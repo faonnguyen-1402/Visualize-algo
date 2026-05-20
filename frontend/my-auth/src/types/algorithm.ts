@@ -34,4 +34,8 @@ export interface Algorithm {
     name: string;
     description?: string;
   };
+  cppCode?: string;
+  pythonCode?: string;
+  javascriptCode?: string;
+  csharpCode?: string;
 }

@@ -1,6 +1,7 @@
 import "../pages/home/mainapp.css";
 import Controls from "./controls";
 import CodePanel from "./codepanel";
+import CodeList from "./codelist";
 import { Algorithm } from "../types/algorithm";
 // import { useTreeAnimation } from "../hooks/useTreeAnimation";
 import { useAnimation } from "../hooks/useAnimation";
@@ -126,7 +127,7 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
                 onReset={reset}
               />
               <CodePanel algorithm={algorithm} highlightLine={highlightLine} />
-{/* console.log("Current Step:", step, "Highlight Line:", highlightLine); */}
+              {/* console.log("Current Step:", step, "Highlight Line:", highlightLine); */}
               <div
                 style={{
                   height: "40px",
@@ -139,11 +140,10 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
                 }}
               >
                 {message && <strong>{message}</strong>}
-              </div>
             </div>
           </div>
-
-         
+        </div>
+        <CodeList algorithm={algorithm}/>
         </div>
       </div>
     </div>
