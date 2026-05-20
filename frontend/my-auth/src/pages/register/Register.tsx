@@ -58,92 +58,102 @@ function Register() {
   };
 
   return (
-    <div className='container-register'>
-      <form className='register-form' onSubmit={handleSubmit(handleSubmitForm)}>
-        <h1>Sign up</h1>
+    <div className="login-page">   {/* Dùng chung class với Login */}
+      {/* Background */}
+      <div className="background">
+        <img
+          src="/bg3.jpg"
+          alt="Register background"
+        />
+      </div>
 
-        <div className='input-group'>
-          <label htmlFor='username'>Username:</label>
-          <input
-            id='username'
-            type='text'
-            {...register('username', {
-              required: 'Username is required',
-              minLength: {
-                value: 3,
-                message: 'At least 3 characters',
-              },
-            })}
-          />
-          {errors.username && (
-            <span className='errors'>{errors.username.message}</span>
-          )}
+      {/* Register Modal */}
+      <div className="login-modal">
+        <div className="modal-content">
+          <button className="close-btn" onClick={() => navigate('/')}>
+            ×
+          </button>
+
+          <h2 className="modal-title">Sign Up</h2>
+
+          <form onSubmit={handleSubmit(handleSubmitForm)} className="login-form">
+            <div className="input-group">
+              <label>USERNAME</label>
+              <div className="input-with-icon">
+                <input
+                  id='username'
+                  type="text"
+                  {...register('username', {
+                    required: 'Username is required',
+                    minLength: { value: 3, message: 'At least 3 characters' },
+                  })}
+                />
+              </div>
+              {errors.username && <span className="error">{errors.username.message}</span>}
+            </div>
+
+            <div className="input-group">
+              <label>EMAIL ADDRESS</label>
+              <div className="input-with-icon">
+                <input
+                  id='email'
+                  type="email"
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Please enter a valid email address',
+                    },
+                  })}
+                />
+              </div>
+              {errors.email && <span className="error">{errors.email.message}</span>}
+            </div>
+
+            <div className="input-group">
+              <label>PASSWORD</label>
+              <div className="input-with-icon">
+                <input
+                  id='password'
+                  type="password"
+                  {...register('password', {
+                    required: 'Password is required',
+                    minLength: { value: 8, message: 'At least 8 characters' },
+                  })}
+                />
+              </div>
+              {errors.password && <span className="error">{errors.password.message}</span>}
+            </div>
+
+            <div className="input-group">
+              <label>CONFIRM PASSWORD</label>
+              <div className="input-with-icon">
+                <input
+                  id='confirmPassword'
+                  type="password"
+                  {...register('confirmPassword', {
+                    required: 'Please confirm your password',
+                    validate: (value) =>
+                      value === password || 'Passwords do not match',
+                  })}
+                />
+              </div>
+              {errors.confirmPassword && (
+                <span className="error">{errors.confirmPassword.message}</span>
+              )}
+            </div>
+
+            <button type="submit" className="login-button">
+              SUBMIT
+            </button>
+
+            <p className="register-link">
+              Already have an account?{' '}
+              <span onClick={() => navigate('/login')}>Sign in</span>
+            </p>
+          </form>
         </div>
-
-        <div className='input-group'>
-          <label htmlFor='email'>Email:</label>
-          <input
-            id='email'
-            type='email'
-            {...register('email', {
-              required: 'Email is required',
-              pattern: {
-                value: /^[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
-                message: 'Please enter a valid email address',
-              },
-            })}
-          />
-          {errors.email && (
-            <span className='errors'>{errors.email.message}</span>
-          )}
-        </div>
-
-        <div className='input-group'>
-          <label htmlFor='password'>Password:</label>
-          <input
-            id='password'
-            type='password'
-            {...register('password', {
-              required: 'Password is required',
-              minLength: {
-                value: 8,
-                message: 'At least 8 characters',
-              },
-            })}
-          />
-          {errors.password && (
-            <span className='errors'>{errors.password.message}</span>
-          )}
-        </div>
-
-        <div className='input-group'>
-          <label htmlFor='confirmPassword'>Confirm Password:</label>
-          <input
-            id='confirmPassword'
-            type='password'
-            {...register('confirmPassword', {
-              required: 'Please confirm your password',
-              validate: (value) =>
-                value === password || 'Passwords do not match',
-            })}
-          />
-          {errors.confirmPassword && (
-            <span className='errors'>{errors.confirmPassword.message}</span>
-          )}
-        </div>
-
-        <span
-          className='text-warining'
-          onClick={() => navigate('/login')}
-          style={{ cursor: 'pointer' }}
-        >
-          Already have an account? Sign in now
-        </span>
-
-        <button type='submit' className='submit-button'>
-          Submit
-        </button>
-      </form>
+      </div>
     </div>
   );
 }

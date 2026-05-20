@@ -15,6 +15,7 @@ import PracticePage from "./pages/practice/PracticePage";
 import Intro from './pages/intro/Intro';
 import ProtectedRoute from "./components/ProtectedRoute";
 
+
 function App() {
   return (
     <div className="App">

@@ -1,6 +1,24 @@
+.geometric-bg{
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  z-index: 0;
+
+  pointer-events: none;
+
+  background: #000;
+}
+
 .intro-page{
+  position: relative;
+  z-index: 1;
+
   min-height: 100vh;
-  background: #111111;
   color: white;
 }
 

@@ -36,7 +36,7 @@ const Controls = ({
         <button className="btn-secondary" onClick={onPrev}>← Back</button>
 
         <button className="btn-primary" onClick={onPlay}>
-          {isPlaying ? "⏸ Pause" : "▶ Play"}
+          {isPlaying ? "⏸Pause" : "▶Play"}
         </button>
 
         <button className="btn-secondary" onClick={onNext}>Next →</button>

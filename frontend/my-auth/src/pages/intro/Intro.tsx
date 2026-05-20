@@ -1,9 +1,11 @@
 import Header from "../../components/header";
 import "./intro.css";
+import GeometricBackground from "../../components/background/geometricBackground";
 
 function Intro() {
   return (
     <>
+      <GeometricBackground />
       <Header />
 
       <div className="intro-page">
