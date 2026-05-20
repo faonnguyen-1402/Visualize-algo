@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 import { toast } from 'react-toastify';
+
 type FormLogin = {
   email: string;
   password: string;
@@ -39,14 +40,14 @@ function Login() {
       });
 
       const result = await res.json();
-
+console.log("Cấu trúc JSON server trả về:", JSON.stringify(result, null, 2));
       if (!res.ok) {
         toast.error(result.message || 'Login failed');
         return;
       }
 
       // lưu token
-      localStorage.setItem('accessToken', result.accessToken);
+      localStorage.setItem('accessToken', result.access_token);
       localStorage.setItem('user', JSON.stringify(result.user));
 
       window.dispatchEvent(new Event('authChange'));
@@ -62,12 +63,13 @@ function Login() {
   };
 
   return (
-    <div className='login-page'>
-      <div className='container-register'>
-        <form
-          className='register-form'
-          onSubmit={handleSubmit(handleSubmitForm)}
-        >
+    <div className="login-page">
+      <div className="background">
+        <img src="/bg3.jpg"/>
+      </div>
+
+      <div className="login-modal">
+        <div className="modal-content">
           <button
             type='button'
             className='back-button'
@@ -76,50 +78,58 @@ function Login() {
             ←
           </button>
 
-          <h1>Sign in</h1>
+          <h2 className="modal-title">Login</h2>
 
-          <div className='input-group'>
-            <label htmlFor='email'>EMAIL ADDRESS</label>
-            <input
-              id='email'
-              type='email'
-              {...register('email', {
-                required: 'Email is obligate',
-                pattern: {
-                  value: /^[\w.%+-]+@[A-Za-z0-9.-]+\.com$/,
-                  message: 'Please enter a valid email address',
-                },
-              })}
-            />
-            {errors.email && (
-              <span className='errors'>{errors.email.message}</span>
-            )}
-          </div>
+          <form onSubmit={handleSubmit(handleSubmitForm)} className="login-form">
+            <div className="input-group">
+              <label>Email</label>
+              <div className="input-with-icon">
+                <input
+                  id="email"
+                  type="email"
+                  {...register('email', {
+                    required: 'Email is obligate',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Please enter a valid email',
+                    },
+                  })}
+                />
+              </div>
+              {errors.email && <span className="error">{errors.email.message}</span>}
+            </div>
 
-          <div className='input-group'>
-            <label htmlFor='password'>PASSWORD</label>
-            <input
-              id='password'
-              type='password'
-              {...register('password', {
-                required: 'Password is required',
-                minLength: {
-                  value: 8,
-                  message: 'At least 8 characters',
-                },
-              })}
-            />
-            {errors.password && (
-              <span className='errors'>{errors.password.message}</span>
-            )}
-          </div>
+            <div className="input-group">
+              <label>Password</label>
+              <div className="input-with-icon">
+                <input
+                  id="password"
+                  type="password"
+                  {...register('password', {
+                    required: 'Password is required',
+                    minLength: { value: 8, message: 'At least 8 characters' },
+                  })}
+                />
+              </div>
+              {errors.password && <span className="error">{errors.password.message}</span>}
+            </div>
 
-          <span className='text-warning'>Forget password?</span>
+            <div className="options">
+              <a href="#" className="forgot-password">
+                Forgot Password?
+              </a>
+            </div>
 
-          <button type='submit' className='submit-button'>
-            SUBMIT
-          </button>
-        </form>
+            <button type="submit" className="login-button">
+              Login
+            </button>
+
+            <p className="register-link">
+              Don't have an account?{' '}
+              <span onClick={() => navigate('/register')}>Register</span>
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   );

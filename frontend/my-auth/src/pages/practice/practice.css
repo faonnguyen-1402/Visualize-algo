@@ -1,7 +1,6 @@
-.practice-page {
+/* .practice-page {
   padding: 40px;
   min-height: 100vh;
-  background: #111111;
   color: white;
 }
 
@@ -30,7 +29,7 @@
 }
 
 .exercise-card {
-  background: #1d1d1d;
+  background: #232932;
   padding: 20px;
   border-radius: 20px;
   transition: 0.3s;
@@ -56,4 +55,189 @@
   color: white;
   cursor: pointer;
 }
+ */
+/* --- TỔNG THỂ TRANG PRACTICE --- */
+.practice-page {
+  max-width: 1280px; /* Khớp với độ rộng giới hạn của Navbar */
+  margin: 0 auto;
+  padding: 40px 1.5rem;
+  min-height: 100vh;
+  color: #f8fafc; /* Chữ trắng phẳng dịu mắt */
+}
 
+.practice-title {
+  font-size: 32px; /* Giảm nhẹ font-size giúp tiêu đề tinh tế, bớt thô */
+  font-weight: 700;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+/* --- BỘ LỌC FILTER CONTAINER --- */
+.filter-container {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.filter-container select {
+  background-color: var(--bg-secondary); /* Đồng bộ màu nền với header mới */
+  border: 1px solid var(--border-color); /* Viền xám mỏng phẳng */
+  color: #cbd5e1;
+  padding: 0.5rem 1rem;
+  border-radius: 6px; /* Bo góc 6px tinh tế theo chuẩn UI hiện đại */
+  font-size: 14px;
+  font-weight: 500;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-container select:focus,
+.filter-container select:hover {
+  border-color: #3e9bbf; /* Sáng viền xanh chủ đạo khi tương tác */
+  color: #f8fafc;
+}
+
+/* --- DANH SÁCH BÀI TẬP (GRID SYSTEM) --- */
+.exercise-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px; /* Khoảng cách thu hẹp lại giúp bố cục chặt chẽ hơn */
+}
+
+/* --- CARD BÀI TẬP CAO CẤP --- */
+.exercise-card {
+  background: var(--bg-secondary); /* Đồng nhất màu khối với hệ thống */
+  border: 1px solid var(--border-color); /* Viền mỏng thay vì không viền */
+  padding: 24px;
+  border-radius: 8px; /* Bo góc nhẹ 8px vừa vặn, hiện đại */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.2s ease-in-out;
+  min-height: 200px;
+}
+
+/* Hiệu ứng nổi khối mượt mà khi di chuột vào */
+.exercise-card:hover {
+  transform: scale(1.05);
+  border-color: var(--accent-cyan);
+  background-color: var(--bg-tertiary);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+.exercise-card.active{
+  transform: scale(0.98);
+}
+
+.exercise-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-top: 0;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.exercise-card p {
+  font-size: 14px;
+  color: #ffffff; /* Màu chữ mô tả xám nhạt để nhấn mạnh Tiêu đề */
+  margin-top: 0;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.card-info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* Khoảng cách giữa hàng Algorithm và Difficulty */
+  margin-bottom: 24px; /* Tạo khoảng trống cách ly với nút bấm phía dưới */
+}
+
+.card-info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.card-info-label {
+  color: #b3b3b3; /* Màu xám mờ làm nền cho nhãn chữ */
+  font-weight: 500;
+}
+
+
+/* --- NÚT BẤM VÀO LÀM BÀI --- */
+.exercise-card button {
+  width: 100%; /* Kéo dài nút bằng thẻ card tạo thế cân bằng */
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background: #3e9bbf;
+  color: #0f172a; /* Đổi màu chữ trên nút thành màu tối để tăng độ tương phản rõ nét */
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+}
+
+.exercise-card button:hover {
+  background: #4cb2db; /* Sáng màu xanh lên một chút khi hover */
+}
+
+.algo-tag {
+  background-color: #0f172a;
+  border: 1px solid #475569;
+  color: #e2e8f0;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 13px;
+}
+/* --- TÍNH NĂNG GỢI Ý THÊM: TAG ĐỘ KHÓ (Nếu bạn muốn thêm vào HTML) --- */
+/* Ví dụ trong HTML bạn có: <span className="tag easy">Easy</span> */
+.exercise-tag {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  width: fit-content;
+}
+.exercise-tag.easy { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.exercise-tag.medium { background: rgba(234, 179, 8, 0.1); color: #eab308; }
+.exercise-tag.hard { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+
+/* --- STYLE ĐỘ KHÓ ĐỔI MÀU ĐỘNG (DIFFICULTY TAGS) --- */
+.difficulty-tag {
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* 🟢 Mức độ Easy -> Xanh lá nhẹ */
+.difficulty-tag.easy {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+/* 🟡 Mức độ Medium -> Vàng cam hổ phách nhạt */
+.difficulty-tag.medium {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+/* 🔴 Mức độ Hard -> Đỏ nhạt */
+.difficulty-tag.hard {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}

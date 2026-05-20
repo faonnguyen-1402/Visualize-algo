@@ -93,9 +93,9 @@ function ExerciseDetail() {
     fetchDetailData();
   }, [slug, difficulty]);
   console.log("🔥 Trạng thái loading hiện tại là:", loading);
-    if (loading) {
-    return <ExerciseSkeleton />;
-  }
+  //   if (loading) {
+  //   return <ExerciseSkeleton />;
+  // }
   const realTestCases = exercise?.testCases || [];
 
   // =========================
@@ -283,308 +283,499 @@ function ExerciseDetail() {
     setCode(found.starter);
   };
 
-  if (loading) return <div className="loading-screen" style={{color: '#fff', padding: '50px'}}>Đang tải nội dung bài tập...</div>;
-  if (error || !exercise) return <div className="error-screen" style={{color: 'red', padding: '50px'}}>{error || 'Not found exercise'}</div>;
+  // if (loading) return <div className="loading-screen" style={{color: '#fff', padding: '50px'}}>Đang tải nội dung bài tập...</div>;
+  // if (error || !exercise) return <div className="error-screen" style={{color: 'red', padding: '50px'}}>{error || 'Not found exercise'}</div>;
 
-  return (
+  // return (
+  //   <>
+
+  //     <Header />
+
+    
+  //     <div className='leetcode-container'>
+  //       <Split
+  //         className='exercise-detail'
+  //         sizes={[50, 50]}
+  //         minSize={300}
+  //         gutterSize={6}
+  //       >
+
+  //         {/* LEFT */}
+  //         <div className='exercise-left'>
+  //           <h1>{exercise.title}</h1>
+  //           <p className={`difficulty ${exercise.difficulty?.toLowerCase()}`}>
+  //             {exercise.difficulty}
+  //           </p>
+
+  //           <h2>Description</h2>
+  //           <div className='description-text' style={{ whiteSpace: 'pre-line' }}>
+  //             {exercise.description}
+  //           </div>
+           
+  //           {exercise.constraints && (
+  //             <>
+  //               <h3>Constraints</h3>
+  //               <p><code>{exercise.constraints}</code></p>
+  //             </>
+  //           )}
+
+  //           {realTestCases.length > 0 && (
+  //             <div className='example-box'>
+  //               <h3>Example 1</h3>
+  //               <p><strong>Input:</strong></p>
+  //               <code>{realTestCases[0].input}</code>
+  //               <p><strong>Output:</strong></p>
+  //               <code>{realTestCases[0].expectedOutput || realTestCases[0].expected}</code>
+  //             </div>
+  //           )}
+
+  //           <div className='example-box'>
+
+  //             <h3>Example 1</h3>
+
+  //             <p><strong>Input:</strong></p>
+
+  //             <code>[5,4,3,2,1]</code>
+
+  //             <p><strong>Output:</strong></p>
+
+  //             <code>[1,2,3,4,5]</code>
+
+  //           </div>
+
+  //         </div>
+
+  //         {/* RIGHT */}
+  //         <div className='exercise-right'>
+
+  //           {/* TOP BAR */}
+  //           <div className='editor-header'>
+
+  //             <select
+  //               value={selectedLanguage.name}
+  //               onChange={(e) =>
+  //                 handleChangeLanguage(
+  //                   e.target.value
+  //                 )
+  //               }
+  //             >
+
+  //               {languages.map((lang) => (
+
+  //                 <option
+  //                   key={lang.name}
+  //                   value={lang.name}
+  //                 >
+  //                   {lang.name}
+  //                 </option>
+
+  //               ))}
+
+  //             </select>
+
+  //             <div className='editor-buttons'>
+
+  //               <button
+  //                 className='run-btn'
+  //                 onClick={handleRunCode}
+  //               >
+  //                 Run
+  //               </button>
+
+  //               <button
+  //                 className='submit-btn'
+  //                 onClick={handleSubmit}
+  //               >
+  //                 Submit
+  //               </button>
+
+  //             </div>
+
+  //           </div>
+
+  //           {/* SPLIT */}
+  //           <Split
+  //             direction='vertical'
+  //             className='editor-split'
+  //             sizes={[50, 50]}
+  //             minSize={100}
+  //             gutterSize={6}
+  //           >
+
+  //             {/* EDITOR */}
+  //             <div className='editor-container'>
+
+  //               <Editor
+  //                 height='100%'
+  //                 language={
+  //                   selectedLanguage.monaco
+  //                 }
+  //                 value={code}
+  //                 onChange={(value) =>
+  //                   setCode(value || '')
+  //                 }
+  //                 theme='vs-dark'
+  //               />
+
+  //             </div>
+
+  //             {/* TEST RESULT */}
+  //             <div className='bottom-panel'>
+
+  //               <div className='testcase-tabs'>
+
+  //                 {realTestCases.map(
+  //                   (_: any, index: number) => (
+
+  //                     <div
+  //                       key={index}
+  //                       className={
+  //                         activeCase === index
+  //                           ? 'testcase-tab active'
+  //                           : 'testcase-tab'
+  //                       }
+
+  //                       onClick={() =>
+  //                         setActiveCase(index)
+  //                       }
+  //                     >
+  //                       Case {index + 1}
+  //                     </div>
+
+  //                   )
+  //                 )}
+
+  //               </div>
+
+  //               <div className='result-panel'>
+
+  //                 <h2>Test Result</h2>
+
+  //                 {isRunning ? (
+
+  //                   <div className='running-box'>
+  //                     Running Testcases...
+  //                   </div>
+
+  //                 ) : (
+
+  //                   <>
+
+  //                     <div className='result-status'>
+  //                       {submitResult || status}
+  //                     </div>
+
+  //                     <div className='passed-box'>
+
+  //                       Passed:
+  //                       {' '}
+  //                       {passedCount}
+  //                       /
+  //                       {realTestCases.length}
+  //                       {' '}
+  //                       testcases
+
+  //                     </div>
+
+  //                     <div className='result-grid'>
+
+  //                       <div className='result-card'>
+  //                         <p>Runtime</p>
+  //                         <h3>{runtime}</h3>
+  //                       </div>
+
+  //                       <div className='result-card'>
+  //                         <p>Memory</p>
+  //                         <h3>{memory}</h3>
+  //                       </div>
+
+  //                       <div className='result-card'>
+  //                         <p>Language</p>
+  //                         <h3>
+  //                           {selectedLanguage.name}
+  //                         </h3>
+  //                       </div>
+
+  //                     </div>
+
+  //                     {failedCase && (
+
+  //                       <div className='failed-case'>
+
+  //                         <h3>
+  //                           Wrong Answer Details
+  //                         </h3>
+
+  //                         <p><strong>Input:</strong></p>
+
+  //                         <code>
+  //                           {failedCase.input}
+  //                         </code>
+
+  //                         <p><strong>Expected:</strong></p>
+
+  //                         <code>
+  //                           {failedCase.expected}
+  //                         </code>
+
+  //                         <p><strong>Your Output:</strong></p>
+
+  //                         <code>
+  //                           {failedCase.output}
+  //                         </code>
+
+  //                       </div>
+
+  //                     )}
+
+  //                     {/* HISTORY */}
+  //                     <div className='history-panel'>
+
+  //                       <h2>Submission History</h2>
+
+  //                       {submissionHistory.map(
+  //                         (item, index) => (
+
+  //                           <div
+  //                             key={index}
+  //                             className='history-item'
+  //                           >
+
+  //                             <span>
+  //                               {item.result}
+  //                             </span>
+
+  //                             <span>
+  //                               {item.language}
+  //                             </span>
+
+  //                             <span>
+  //                               {item.runtime}
+  //                             </span>
+
+  //                             <span>
+  //                               {item.memory}
+  //                             </span>
+
+  //                             <span>
+  //                               {item.date}
+  //                             </span>
+
+  //                           </div>
+
+  //                         )
+  //                       )}
+
+  //                     </div>
+
+  //                   </>
+
+  //                 )}
+
+  //               </div>
+
+  //             </div>
+
+  //           </Split>
+
+  //         </div>
+
+  //       </Split>
+  //     </div>
+  //   </>
+  // );
+return (
     <>
+      {/* 1. Đảm bảo Header luôn luôn nằm cố định ở đây, không bị ẩn khi loading */}
       <Header />
 
-      <div className='leetcode-container'>
-        <Split
-          className='exercise-detail'
-          sizes={[40, 60]}
-          minSize={300}
-          gutterSize={6}
-        >
+      {/* 2. Điều kiện rẽ nhánh render động dựa trên trạng thái của API */}
+      {loading ? (
+        /* TRẠNG THÁI LOADING: Hiện bộ xương skeleton đã đồng bộ màu sắc */
+        <ExerciseSkeleton />
+      ) : error ? (
+        /* TRẠNG THÁI LỖI: Hiện thông báo lỗi sạch sẽ */
+        <div className='leetcode-container' style={{ color: '#ef4444', padding: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <h3>{error}</h3>
+        </div>
+      ) : (
+        /* TRẠNG THÁI THÀNH CÔNG: Đổ toàn bộ layout làm bài chính thức */
+        <div className='leetcode-container'>
+          <Split
+            className='exercise-detail'
+            sizes={[50, 50]}
+            minSize={300}
+            gutterSize={6}
+          >
+            {/* LEFT SIDE: PROBLEM DESCRIPTION */}
+            <div className='exercise-left'>
+              <h1>{exercise?.title}</h1>
+              <p className={`difficulty ${exercise?.difficulty?.toLowerCase()}`}>
+                {exercise?.difficulty}
+              </p>
 
-          {/* LEFT */}
-          <div className='exercise-left'>
-            <h1>{exercise.title}</h1>
-            <p className={`difficulty ${exercise.difficulty?.toLowerCase()}`}>
-              {exercise.difficulty}
-            </p>
+              <h2>Description</h2>
+              <div className='description-text' style={{ whiteSpace: 'pre-line' }}>
+                {exercise?.description}
+              </div>
+              
+              {exercise?.constraints && (
+                <>
+                  <h3>Constraints</h3>
+                  <p><code>{exercise.constraints}</code></p>
+                </>
+              )}
 
-            <h2>Description</h2>
-            <div className='description-text' style={{ whiteSpace: 'pre-line' }}>
-              {exercise.description}
-            </div>
-           
-            {exercise.constraints && (
-              <>
-                <h3>Constraints</h3>
-                <p><code>{exercise.constraints}</code></p>
-              </>
-            )}
+              {/* Đoạn render testcase động từ database */}
+              {realTestCases.length > 0 && (
+                <div className='example-box'>
+                  <h3>Example 1</h3>
+                  <p><strong>Input:</strong></p>
+                  <code>{realTestCases[0].input}</code>
+                  <p><strong>Output:</strong></p>
+                  <code>{realTestCases[0].expectedOutput || realTestCases[0].expected}</code>
+                </div>
+              )}
 
-            {realTestCases.length > 0 && (
+              {/* Khối Example tĩnh (Bạn có thể giữ hoặc xóa tùy nhu cầu đề bài) */}
               <div className='example-box'>
                 <h3>Example 1</h3>
                 <p><strong>Input:</strong></p>
-                <code>{realTestCases[0].input}</code>
+                <code>[5,4,3,2,1]</code>
                 <p><strong>Output:</strong></p>
-                <code>{realTestCases[0].expectedOutput || realTestCases[0].expected}</code>
+                <code>[1,2,3,4,5]</code>
               </div>
-            )}
-
-            <div className='example-box'>
-
-              <h3>Example 1</h3>
-
-              <p><strong>Input:</strong></p>
-
-              <code>[5,4,3,2,1]</code>
-
-              <p><strong>Output:</strong></p>
-
-              <code>[1,2,3,4,5]</code>
-
             </div>
 
-          </div>
+            {/* RIGHT SIDE: EDITOR & CONSOLE */}
+            <div className='exercise-right'>
+              {/* TOP BAR */}
+              <div className='editor-header'>
+                <select
+                  value={selectedLanguage.name}
+                  onChange={(e) => handleChangeLanguage(e.target.value)}
+                >
+                  {languages.map((lang) => (
+                    <option key={lang.name} value={lang.name}>
+                      {lang.name}
+                    </option>
+                  ))}
+                </select>
 
-          {/* RIGHT */}
-          <div className='exercise-right'>
+                <div className='editor-buttons'>
+                  <button className='run-btn' onClick={handleRunCode}>
+                    Run
+                  </button>
+                  <button className='submit-btn' onClick={handleSubmit}>
+                    Submit
+                  </button>
+                </div>
+              </div>
 
-            {/* TOP BAR */}
-            <div className='editor-header'>
-
-              <select
-                value={selectedLanguage.name}
-                onChange={(e) =>
-                  handleChangeLanguage(
-                    e.target.value
-                  )
-                }
+              {/* VERTICAL SPLIT */}
+              <Split
+                direction='vertical'
+                className='editor-split'
+                sizes={[50, 50]}
+                minSize={100}
+                gutterSize={6}
               >
+                {/* EDITOR CONTAINER */}
+                <div className='editor-container'>
+                  <Editor
+                    height='100%'
+                    language={selectedLanguage.monaco}
+                    value={code}
+                    onChange={(value) => setCode(value || '')}
+                    theme='vs-dark'
+                  />
+                </div>
 
-                {languages.map((lang) => (
-
-                  <option
-                    key={lang.name}
-                    value={lang.name}
-                  >
-                    {lang.name}
-                  </option>
-
-                ))}
-
-              </select>
-
-              <div className='editor-buttons'>
-
-                <button
-                  className='run-btn'
-                  onClick={handleRunCode}
-                >
-                  Run
-                </button>
-
-                <button
-                  className='submit-btn'
-                  onClick={handleSubmit}
-                >
-                  Submit
-                </button>
-
-              </div>
-
-            </div>
-
-            {/* SPLIT */}
-            <Split
-              direction='vertical'
-              className='editor-split'
-              sizes={[70, 30]}
-              minSize={100}
-              gutterSize={6}
-            >
-
-              {/* EDITOR */}
-              <div className='editor-container'>
-
-                <Editor
-                  height='100%'
-                  language={
-                    selectedLanguage.monaco
-                  }
-                  value={code}
-                  onChange={(value) =>
-                    setCode(value || '')
-                  }
-                  theme='vs-dark'
-                />
-
-              </div>
-
-              {/* TEST RESULT */}
-              <div className='bottom-panel'>
-
-                <div className='testcase-tabs'>
-
-                  {realTestCases.map(
-                    (_: any, index: number) => (
-
+                {/* TEST RESULT & CONSOLE */}
+                <div className='bottom-panel'>
+                  <div className='testcase-tabs'>
+                    {realTestCases.map((_: any, index: number) => (
                       <div
                         key={index}
-                        className={
-                          activeCase === index
-                            ? 'testcase-tab active'
-                            : 'testcase-tab'
-                        }
-
-                        onClick={() =>
-                          setActiveCase(index)
-                        }
+                        className={activeCase === index ? 'testcase-tab active' : 'testcase-tab'}
+                        onClick={() => setActiveCase(index)}
                       >
                         Case {index + 1}
                       </div>
+                    ))}
+                  </div>
 
-                    )
-                  )}
+                  <div className='result-panel'>
+                    <h2>Test Result</h2>
 
-                </div>
-
-                <div className='result-panel'>
-
-                  <h2>Test Result</h2>
-
-                  {isRunning ? (
-
-                    <div className='running-box'>
-                      Running Testcases...
-                    </div>
-
-                  ) : (
-
-                    <>
-
-                      <div className='result-status'>
-                        {submitResult || status}
+                    {isRunning ? (
+                      <div className='running-box'>
+                        Running Testcases...
                       </div>
-
-                      <div className='passed-box'>
-
-                        Passed:
-                        {' '}
-                        {passedCount}
-                        /
-                        {realTestCases.length}
-                        {' '}
-                        testcases
-
-                      </div>
-
-                      <div className='result-grid'>
-
-                        <div className='result-card'>
-                          <p>Runtime</p>
-                          <h3>{runtime}</h3>
+                    ) : (
+                      <>
+                        <div className='result-status'>
+                          {submitResult || status}
                         </div>
 
-                        <div className='result-card'>
-                          <p>Memory</p>
-                          <h3>{memory}</h3>
+                        <div className='passed-box'>
+                          Passed: {passedCount} / {realTestCases.length} testcases
                         </div>
 
-                        <div className='result-card'>
-                          <p>Language</p>
-                          <h3>
-                            {selectedLanguage.name}
-                          </h3>
+                        <div className='result-grid'>
+                          <div className='result-card'>
+                            <p>Runtime</p>
+                            <h3>{runtime}</h3>
+                          </div>
+
+                          <div className='result-card'>
+                            <p>Memory</p>
+                            <h3>{memory}</h3>
+                          </div>
+
+                          <div className='result-card'>
+                            <p>Language</p>
+                            <h3>{selectedLanguage.name}</h3>
+                          </div>
                         </div>
 
-                      </div>
-
-                      {failedCase && (
-
-                        <div className='failed-case'>
-
-                          <h3>
-                            Wrong Answer Details
-                          </h3>
-
-                          <p><strong>Input:</strong></p>
-
-                          <code>
-                            {failedCase.input}
-                          </code>
-
-                          <p><strong>Expected:</strong></p>
-
-                          <code>
-                            {failedCase.expected}
-                          </code>
-
-                          <p><strong>Your Output:</strong></p>
-
-                          <code>
-                            {failedCase.output}
-                          </code>
-
-                        </div>
-
-                      )}
-
-                      {/* HISTORY */}
-                      <div className='history-panel'>
-
-                        <h2>Submission History</h2>
-
-                        {submissionHistory.map(
-                          (item, index) => (
-
-                            <div
-                              key={index}
-                              className='history-item'
-                            >
-
-                              <span>
-                                {item.result}
-                              </span>
-
-                              <span>
-                                {item.language}
-                              </span>
-
-                              <span>
-                                {item.runtime}
-                              </span>
-
-                              <span>
-                                {item.memory}
-                              </span>
-
-                              <span>
-                                {item.date}
-                              </span>
-
-                            </div>
-
-                          )
+                        {failedCase && (
+                          <div className='failed-case'>
+                            <h3>Wrong Answer Details</h3>
+                            <p><strong>Input:</strong></p>
+                            <code>{failedCase.input}</code>
+                            <p><strong>Expected:</strong></p>
+                            <code>{failedCase.expected}</code>
+                            <p><strong>Your Output:</strong></p>
+                            <code>{failedCase.output}</code>
+                          </div>
                         )}
 
-                      </div>
-
-                    </>
-
-                  )}
-
+                        {/* SUBMISSION HISTORY */}
+                        <div className='history-panel'>
+                          <h2>Submission History</h2>
+                          {submissionHistory.map((item, index) => (
+                            <div key={index} className='history-item'>
+                              <span>{item.result}</span>
+                              <span>{item.language}</span>
+                              <span>{item.runtime}</span>
+                              <span>{item.memory}</span>
+                              <span>{item.date}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
-
-              </div>
-
-            </Split>
-
-          </div>
-
-        </Split>
-
-      </div>
-
+              </Split>
+            </div>
+          </Split>
+        </div>
+      )}
     </>
-
   );
+
 }
 
 export default ExerciseDetail;

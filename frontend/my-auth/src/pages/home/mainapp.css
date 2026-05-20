@@ -27,7 +27,30 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
+    min-height: 100vh;
+    
     overflow-x: hidden;
+    
+}
+
+.home-page {
+    position: relative;
+    min-height: 100vh;
+    /* background: transparent; */
+    z-index: 1;
+}
+
+.geometric-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+
+    pointer-events: none;
+
+    background: #000;
 }
 
 /* ==================== HEADER ==================== */
@@ -39,18 +62,21 @@ header {
     top: 0;
     z-index: 100;
     animation: slideDown 0.6s ease-out;
-    margin: -1rem 1rem 1rem 1rem;
-    /* display: flex; */
+    width: 100% !important;
+    left: 0 !important;
+    box-sizing: border-box;
 }
 
 .navbar {
+    width: 100% !important;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    /* padding: 1rem 1.5rem; */
     display: flex;
     align-items: center;
     gap: 1rem;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 
 /* --- Logo Section --- */
@@ -76,12 +102,17 @@ header {
 }
 
 /* --- Navigation Links --- */
+
 .nav-links {
-  list-style: none;
-  display: flex;
-  gap: 35px;
-  margin: 0;
-  padding: 0;
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 2rem; /* Khoảng cách vừa phải với thanh Search */
 }
 
 .nav-links a {
@@ -125,7 +156,7 @@ header {
   gap: 20px;
 }
 
-.search-btn {
+/* .search-btn {
   background: transparent;
   border: 1px solid #333;
   color: white;
@@ -133,11 +164,46 @@ header {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
+} */
+
+.search-bar-container {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.search-btn:hover {
-  border-color: #00f3ff;
-  box-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+.search-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 0.85rem;
+    color: #2c2c2c;
+    width: 14px;  /* Kích thước vừa vặn, thanh mảnh */
+    height: 14px;
+    pointer-events: none; /* Tránh cản trở chuột khi click vào input */
+}
+
+.search-input {
+    background-color: #202020; /* Màu tối hơn nền một tông */
+    border: 1px solid #334155;
+    color: #f8fafc;
+    border-radius: 5px;
+    padding: 0.4rem 0.6rem 0.4rem 2rem; /* Chừa khoảng trống bên trái cho icon kính lúp */
+    font-size: 0.875rem;
+    width: 220px; /* Độ dài vừa vặn cho thanh search */
+    transition: all 0.2s ease;
+    outline: none;
+    height: 40px;
+}
+
+/* Hiệu ứng khi người dùng click vào ô Search */
+.search-input:focus {
+    border-color: #38bdf8;
+    width: 260px; /* Giãn nhẹ độ dài ra khi click giống LeetCode */
+}
+
+.search-bar-container:hover .search-icon path,
+.search-input:focus ~ .search-icon path {
+    stroke: #94a3b8; /* Đổi màu xám nhạt hơn khi active */
 }
 
 .login-btn {
@@ -147,9 +213,9 @@ header {
   padding: 10px 25px;
   font-weight: bold;
   text-transform: uppercase;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); /* Cắt góc kiểu Game UI */
+  /* clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%); */
   transition: 0.3s;
 }
 
@@ -168,19 +234,17 @@ header {
 
 /* Khối Avatar tròn */
 .avatar-placeholder {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #0d0e15;
-  border: 2px solid #00ffaa; /* Viền xanh neon */
-  color: #00ffaa;
-  box-shadow: 0 0 8px rgba(0, 255, 170, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-family: 'Courier New', monospace;
-  transition: all 0.3s ease;
+    width: 32px;
+    height: 32px;
+    background-color: #38bdf8;
+    color: #0f172a;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 .avatar-placeholder:hover {
@@ -204,6 +268,24 @@ header {
   padding: 8px 0;
 }
 
+.user-profile-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    min-width: 220px;
+    border-radius: 6px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    padding: 0.5rem 0;
+}
+
 /* Hiển thị Menu khi hover vào vùng dropdown */
 .user-profile-dropdown:hover .dropdown-content {
   display: block;
@@ -212,7 +294,7 @@ header {
 /* Style thông tin text của User trong dropdown */
 .dropdown-user-info {
   padding: 6px 16px;
-  font-family: sans-serif;
+  /* font-family: sans-serif; */
 }
 .dropdown-username {
   color: #fff;
@@ -225,35 +307,36 @@ header {
   font-size: 12px;
   margin: 2px 0 0 0;
 }
-.dropdown-divider {
-  border: 0;
-  border-top: 1px solid #334155;
-  margin: 6px 0;
-}
 
+.dropdown-divider {
+    border: 0;
+    height: 1px;
+    background-color: #334155;
+    margin: 0.5rem 0;
+}
 /* Các đường link/nút bấm bên trong Menu con */
+
 .dropdown-item {
-  color: #cbd5e1;
-  padding: 8px 16px;
-  text-decoration: none;
-  display: block;
-  font-size: 14px;
-  text-align: left;
-  background: none;
-  border: none;
-  width: 100%;
-  cursor: pointer;
-  transition: background 0.2s;
+    color: #cbd5e1;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    display: block;
+    font-size: 0.875rem;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
 }
 
 .dropdown-item:hover {
-  background-color: #1e293b;
-  color: #00ffaa;
+    background-color: #334155;
+    color: #f8fafc;
 }
 
 /* Chữ Sign out có màu cảnh báo */
 .btn-logout-text {
-  color: #f43f5e;
+  color: #ef4444;
 }
 .btn-logout-text:hover {
   background-color: rgba(244, 63, 94, 0.1);
@@ -291,7 +374,7 @@ header {
     position: relative !important;
     background: transparent !important; /* Bỏ lớp phủ mờ phía sau */
     display: block !important;
-    padding: 100px 0 40px !important; /* Đẩy xuống để không đè Header */
+    padding: 80px 0 40px !important; /* Đẩy xuống để không đè Header */
     height: auto !important;
     min-height: 100vh;
     z-index: 1;
@@ -332,11 +415,13 @@ header {
 }
 /* ==================== MAIN CONTENT ==================== */
 main {
-    flex: 1;
+    flex: 1 0 auto;
     max-width: 1280px;
     margin: 0 auto;
     width: 100%;
-    padding: 3rem 1.5rem;
+    padding: 2rem 1.5rem;
+    position: relative;
+    z-index: 1;
 }
 
 /* ==================== HERO SECTION ==================== */
@@ -394,7 +479,7 @@ section h2 span {
     margin-bottom: 1rem;
 }
 
-.algorithm-card {
+/* .algorithm-card {
     position: relative;
     padding: 1.5rem;
     background-color: var(--bg-secondary);
@@ -404,20 +489,38 @@ section h2 span {
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     animation: fadeInUp 0.5s ease-out backwards;
+} */
+.algorithm-card {
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03); /* Nền trong suốt nhẹ */
+  backdrop-filter: blur(10px);          /* Hiệu ứng kính mờ */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;                  /* Bo tròn hơn một chút */
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.algorithm-card:hover {
+/* .algorithm-card:hover {
     transform: scale(1.05);
     border-color: var(--accent-cyan);
     background-color: var(--bg-tertiary);
     box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+} */
+.algorithm-card:hover {
+  transform: translateY(-8px);          /* Hiệu ứng nổi lên thay vì scale */
+  border-color: var(--accent-cyan);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3), 
+              0 0 15px rgba(0, 217, 255, 0.15);
 }
 
 .algorithm-card:active {
     transform: scale(0.98);
 }
 
-.card-glow {
+/* .card-glow {
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
@@ -425,6 +528,11 @@ section h2 span {
     border-radius: 0.5rem;
     pointer-events: none;
     transition: opacity 0.3s ease;
+} */
+.card-glow {
+  background: linear-gradient(135deg, var(--accent-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .algorithm-card:hover .card-glow {
@@ -455,7 +563,7 @@ section h2 span {
     transform: scale(1.2) rotate(10deg);
 }
 
-.card-category {
+/* .card-category {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     background-color: var(--bg-tertiary);
@@ -463,6 +571,18 @@ section h2 span {
     border: 1px solid var(--border-color);
     border-radius: 0.25rem;
     transition: all 0.2s ease;
+} */
+.card-category {
+  font-size: 0.7rem;
+  /* font-weight: 700; */
+  /* letter-spacing: 0.05em; */
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  background: rgba(0, 217, 255, 0.1);
+  color: var(--accent-cyan);
+  border: none;
+  /* border-radius: 50px;  */
+  border-radius: 0.25rem;
 }
 
 .algorithm-card:hover .card-category {
@@ -477,13 +597,21 @@ section h2 span {
   border-left: 3px solid rgba(0, 243, 255, 0.3);
   padding-left: 20px;
   margin-left: 5px;
+  margin-bottom:10px;
 }
 
-.card-title {
+/* .card-title {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1rem;
     flex: 1;
+} */
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 1rem;
+  flex: 1;
 }
 
 .card-footer {
@@ -981,7 +1109,9 @@ input[type="range"]::-moz-range-thumb {
     display: flex;
     flex-direction: column;
 }
-
+/* .code-panel {
+    border: 5px solid red !important;
+} */
 .code-tabs {
     display: flex;
     border-bottom: 1px solid var(--border-color);
@@ -1034,6 +1164,28 @@ input[type="range"]::-moz-range-thumb {
     animation: fadeIn 0.3s ease-out;
 }
 
+.code-header {
+    flex: 1;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.code-header h3 {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
 /* ==================== FOOTER ==================== */
 footer {
     border-top: 1px solid var(--border-color);
@@ -1042,6 +1194,35 @@ footer {
     color: var(--text-secondary);
     font-size: 0.875rem;
     margin-top: auto;
+}
+
+
+/* ==================== CUSTOM SCROLLBAR ==================== */
+::-webkit-scrollbar {
+    width: 8px;  
+    height: 8px; 
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-primary); 
+    border-left: 1px solid var(--border-color); 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155; 
+    border-radius: 10px; 
+    border: 2px solid var(--bg-primary);
+    transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan); 
+    box-shadow: 0 0 10px var(--accent-cyan);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #232932 var(--bg-primary);
 }
 
 /* ==================== RESPONSIVE ==================== */

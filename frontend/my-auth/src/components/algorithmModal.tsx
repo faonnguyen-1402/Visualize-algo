@@ -1,6 +1,7 @@
 import "../pages/home/mainapp.css";
 import Controls from "./controls";
 import CodePanel from "./codepanel";
+import CodeList from "./codelist";
 import { Algorithm } from "../types/algorithm";
 // import { useTreeAnimation } from "../hooks/useTreeAnimation";
 import { useAnimation } from "../hooks/useAnimation";
@@ -14,6 +15,13 @@ import { InlineMath, BlockMath } from "react-katex";
 type Props = {
   algorithm: Algorithm;
   onClose: () => void;
+};
+
+
+const getAlgoKey = (title: string) => {
+  return title
+    .replace(/\s+/g, '') // Xóa khoảng trắng: "Bubble Sort" -> "BubbleSort"
+    .replace(/^[A-Z]/, (c) => c.toLowerCase()); // Chữ cái đầu thành thường: "bubbleSort"
 };
 
 const AlgorithmModal = ({ algorithm, onClose }: Props) => {
@@ -116,7 +124,6 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
             </div>
             <div className="visual-right">
               {/* <CodePanel algorithm={algorithm} /> */}
-              <CodePanel algorithm={algorithm} highlightLine={highlightLine} />
               <Controls
                 step={step}
                 total={steps.length}
@@ -126,7 +133,8 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
                 onPlay={isPlaying ? pause : play}
                 onReset={reset}
               />
-{/* console.log("Current Step:", step, "Highlight Line:", highlightLine); */}
+              <CodePanel algorithm={algorithm} highlightLine={highlightLine} />
+              {/* console.log("Current Step:", step, "Highlight Line:", highlightLine); */}
               <div
                 style={{
                   height: "40px",
@@ -139,11 +147,10 @@ const AlgorithmModal = ({ algorithm, onClose }: Props) => {
                 }}
               >
                 {message && <strong>{message}</strong>}
-              </div>
             </div>
           </div>
-
-         
+        </div>
+        <CodeList algoKey={getAlgoKey(algorithm.title)} />
         </div>
       </div>
     </div>
