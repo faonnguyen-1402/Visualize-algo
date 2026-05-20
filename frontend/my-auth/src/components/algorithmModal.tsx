@@ -3,13 +3,11 @@ import Controls from "./controls";
 import CodePanel from "./codepanel";
 import CodeList from "./codelist";
 import { Algorithm } from "../types/algorithm";
-// import { useTreeAnimation } from "../hooks/useTreeAnimation";
 import { useAnimation } from "../hooks/useAnimation";
 import { useEffect } from "react";
 import VisualRender from "./VisualRender";
 import { useSearchAlgorithm } from "../hooks/useSearchAlgorithm";
 import { useSortAlgorithm } from "../hooks/useSortAlgorithm";
-// import TreeVisualization from "./TreeVisualization";
 import { InlineMath, BlockMath } from "react-katex";
 
 type Props = {

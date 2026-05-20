@@ -6,9 +6,10 @@ import { getExerciseDetail } from '../../services/exerciseService';
 import Header from '../../components/header';
 import './exerciseDetail.css';
 import ExerciseSkeleton from '../../components/ExerciseSkeleton';
-
+import { useTranslation } from "react-i18next";
 
 function ExerciseDetail() {
+  const { t } = useTranslation();
 
   const { slug, difficulty } = useParams<{slug: string; difficulty: string}>();
   const [exercise, setExercise] = useState<any>(null);
@@ -283,307 +284,7 @@ function ExerciseDetail() {
     setCode(found.starter);
   };
 
-  // if (loading) return <div className="loading-screen" style={{color: '#fff', padding: '50px'}}>Đang tải nội dung bài tập...</div>;
-  // if (error || !exercise) return <div className="error-screen" style={{color: 'red', padding: '50px'}}>{error || 'Not found exercise'}</div>;
 
-  // return (
-  //   <>
-
-  //     <Header />
-
-    
-  //     <div className='leetcode-container'>
-  //       <Split
-  //         className='exercise-detail'
-  //         sizes={[50, 50]}
-  //         minSize={300}
-  //         gutterSize={6}
-  //       >
-
-  //         {/* LEFT */}
-  //         <div className='exercise-left'>
-  //           <h1>{exercise.title}</h1>
-  //           <p className={`difficulty ${exercise.difficulty?.toLowerCase()}`}>
-  //             {exercise.difficulty}
-  //           </p>
-
-  //           <h2>Description</h2>
-  //           <div className='description-text' style={{ whiteSpace: 'pre-line' }}>
-  //             {exercise.description}
-  //           </div>
-           
-  //           {exercise.constraints && (
-  //             <>
-  //               <h3>Constraints</h3>
-  //               <p><code>{exercise.constraints}</code></p>
-  //             </>
-  //           )}
-
-  //           {realTestCases.length > 0 && (
-  //             <div className='example-box'>
-  //               <h3>Example 1</h3>
-  //               <p><strong>Input:</strong></p>
-  //               <code>{realTestCases[0].input}</code>
-  //               <p><strong>Output:</strong></p>
-  //               <code>{realTestCases[0].expectedOutput || realTestCases[0].expected}</code>
-  //             </div>
-  //           )}
-
-  //           <div className='example-box'>
-
-  //             <h3>Example 1</h3>
-
-  //             <p><strong>Input:</strong></p>
-
-  //             <code>[5,4,3,2,1]</code>
-
-  //             <p><strong>Output:</strong></p>
-
-  //             <code>[1,2,3,4,5]</code>
-
-  //           </div>
-
-  //         </div>
-
-  //         {/* RIGHT */}
-  //         <div className='exercise-right'>
-
-  //           {/* TOP BAR */}
-  //           <div className='editor-header'>
-
-  //             <select
-  //               value={selectedLanguage.name}
-  //               onChange={(e) =>
-  //                 handleChangeLanguage(
-  //                   e.target.value
-  //                 )
-  //               }
-  //             >
-
-  //               {languages.map((lang) => (
-
-  //                 <option
-  //                   key={lang.name}
-  //                   value={lang.name}
-  //                 >
-  //                   {lang.name}
-  //                 </option>
-
-  //               ))}
-
-  //             </select>
-
-  //             <div className='editor-buttons'>
-
-  //               <button
-  //                 className='run-btn'
-  //                 onClick={handleRunCode}
-  //               >
-  //                 Run
-  //               </button>
-
-  //               <button
-  //                 className='submit-btn'
-  //                 onClick={handleSubmit}
-  //               >
-  //                 Submit
-  //               </button>
-
-  //             </div>
-
-  //           </div>
-
-  //           {/* SPLIT */}
-  //           <Split
-  //             direction='vertical'
-  //             className='editor-split'
-  //             sizes={[50, 50]}
-  //             minSize={100}
-  //             gutterSize={6}
-  //           >
-
-  //             {/* EDITOR */}
-  //             <div className='editor-container'>
-
-  //               <Editor
-  //                 height='100%'
-  //                 language={
-  //                   selectedLanguage.monaco
-  //                 }
-  //                 value={code}
-  //                 onChange={(value) =>
-  //                   setCode(value || '')
-  //                 }
-  //                 theme='vs-dark'
-  //               />
-
-  //             </div>
-
-  //             {/* TEST RESULT */}
-  //             <div className='bottom-panel'>
-
-  //               <div className='testcase-tabs'>
-
-  //                 {realTestCases.map(
-  //                   (_: any, index: number) => (
-
-  //                     <div
-  //                       key={index}
-  //                       className={
-  //                         activeCase === index
-  //                           ? 'testcase-tab active'
-  //                           : 'testcase-tab'
-  //                       }
-
-  //                       onClick={() =>
-  //                         setActiveCase(index)
-  //                       }
-  //                     >
-  //                       Case {index + 1}
-  //                     </div>
-
-  //                   )
-  //                 )}
-
-  //               </div>
-
-  //               <div className='result-panel'>
-
-  //                 <h2>Test Result</h2>
-
-  //                 {isRunning ? (
-
-  //                   <div className='running-box'>
-  //                     Running Testcases...
-  //                   </div>
-
-  //                 ) : (
-
-  //                   <>
-
-  //                     <div className='result-status'>
-  //                       {submitResult || status}
-  //                     </div>
-
-  //                     <div className='passed-box'>
-
-  //                       Passed:
-  //                       {' '}
-  //                       {passedCount}
-  //                       /
-  //                       {realTestCases.length}
-  //                       {' '}
-  //                       testcases
-
-  //                     </div>
-
-  //                     <div className='result-grid'>
-
-  //                       <div className='result-card'>
-  //                         <p>Runtime</p>
-  //                         <h3>{runtime}</h3>
-  //                       </div>
-
-  //                       <div className='result-card'>
-  //                         <p>Memory</p>
-  //                         <h3>{memory}</h3>
-  //                       </div>
-
-  //                       <div className='result-card'>
-  //                         <p>Language</p>
-  //                         <h3>
-  //                           {selectedLanguage.name}
-  //                         </h3>
-  //                       </div>
-
-  //                     </div>
-
-  //                     {failedCase && (
-
-  //                       <div className='failed-case'>
-
-  //                         <h3>
-  //                           Wrong Answer Details
-  //                         </h3>
-
-  //                         <p><strong>Input:</strong></p>
-
-  //                         <code>
-  //                           {failedCase.input}
-  //                         </code>
-
-  //                         <p><strong>Expected:</strong></p>
-
-  //                         <code>
-  //                           {failedCase.expected}
-  //                         </code>
-
-  //                         <p><strong>Your Output:</strong></p>
-
-  //                         <code>
-  //                           {failedCase.output}
-  //                         </code>
-
-  //                       </div>
-
-  //                     )}
-
-  //                     {/* HISTORY */}
-  //                     <div className='history-panel'>
-
-  //                       <h2>Submission History</h2>
-
-  //                       {submissionHistory.map(
-  //                         (item, index) => (
-
-  //                           <div
-  //                             key={index}
-  //                             className='history-item'
-  //                           >
-
-  //                             <span>
-  //                               {item.result}
-  //                             </span>
-
-  //                             <span>
-  //                               {item.language}
-  //                             </span>
-
-  //                             <span>
-  //                               {item.runtime}
-  //                             </span>
-
-  //                             <span>
-  //                               {item.memory}
-  //                             </span>
-
-  //                             <span>
-  //                               {item.date}
-  //                             </span>
-
-  //                           </div>
-
-  //                         )
-  //                       )}
-
-  //                     </div>
-
-  //                   </>
-
-  //                 )}
-
-  //               </div>
-
-  //             </div>
-
-  //           </Split>
-
-  //         </div>
-
-  //       </Split>
-  //     </div>
-  //   </>
-  // );
 return (
     <>
       {/* 1. Đảm bảo Header luôn luôn nằm cố định ở đây, không bị ẩn khi loading */}
@@ -610,18 +311,23 @@ return (
             {/* LEFT SIDE: PROBLEM DESCRIPTION */}
             <div className='exercise-left'>
               <h1>{exercise?.title}</h1>
-              <p className={`difficulty ${exercise?.difficulty?.toLowerCase()}`}>
+              {/* <p className={`difficulty ${exercise?.difficulty?.toLowerCase()}`}>
                 {exercise?.difficulty}
+              </p> */}
+              <p className={`difficulty ${exercise?.difficulty?.toLowerCase()}`}>
+                {t(`difficulty.${exercise?.difficulty?.toLowerCase() || 'easy'}`)}
               </p>
 
-              <h2>Description</h2>
+              {/* <h2>Description</h2> */}
+              <h2>{t('exercise.description')}</h2>
               <div className='description-text' style={{ whiteSpace: 'pre-line' }}>
                 {exercise?.description}
               </div>
               
               {exercise?.constraints && (
                 <>
-                  <h3>Constraints</h3>
+                  {/* <h3>Constraints</h3> */}
+                  <h3>{t('exercise.constraints')}</h3>
                   <p><code>{exercise.constraints}</code></p>
                 </>
               )}
@@ -629,7 +335,8 @@ return (
               {/* Đoạn render testcase động từ database */}
               {realTestCases.length > 0 && (
                 <div className='example-box'>
-                  <h3>Example 1</h3>
+                  {/* <h3>Example 1</h3> */}
+                  <h3>{t('exercise.example')}</h3>
                   <p><strong>Input:</strong></p>
                   <code>{realTestCases[0].input}</code>
                   <p><strong>Output:</strong></p>
@@ -638,13 +345,13 @@ return (
               )}
 
               {/* Khối Example tĩnh (Bạn có thể giữ hoặc xóa tùy nhu cầu đề bài) */}
-              <div className='example-box'>
+              {/* <div className='example-box'>
                 <h3>Example 1</h3>
                 <p><strong>Input:</strong></p>
                 <code>[5,4,3,2,1]</code>
                 <p><strong>Output:</strong></p>
                 <code>[1,2,3,4,5]</code>
-              </div>
+              </div> */}
             </div>
 
             {/* RIGHT SIDE: EDITOR & CONSOLE */}
@@ -663,12 +370,14 @@ return (
                 </select>
 
                 <div className='editor-buttons'>
-                  <button className='run-btn' onClick={handleRunCode}>
+                  {/* <button className='run-btn' onClick={handleRunCode}>
                     Run
                   </button>
                   <button className='submit-btn' onClick={handleSubmit}>
                     Submit
-                  </button>
+                  </button> */}
+                  <button className='run-btn' onClick={handleRunCode}>{t('exercise.run_btn')}</button>
+                  <button className='submit-btn' onClick={handleSubmit}>{t('exercise.submit_btn')}</button>
                 </div>
               </div>
 
@@ -695,22 +404,27 @@ return (
                 <div className='bottom-panel'>
                   <div className='testcase-tabs'>
                     {realTestCases.map((_: any, index: number) => (
-                      <div
-                        key={index}
-                        className={activeCase === index ? 'testcase-tab active' : 'testcase-tab'}
-                        onClick={() => setActiveCase(index)}
-                      >
-                        Case {index + 1}
+                      // <div
+                      //   key={index}
+                      //   className={activeCase === index ? 'testcase-tab active' : 'testcase-tab'}
+                      //   onClick={() => setActiveCase(index)}
+                      // >
+                      //   Case {index + 1}
+                      // </div>
+                      <div key={index} className={activeCase === index ? 'testcase-tab active' : 'testcase-tab'} onClick={() => setActiveCase(index)}>
+                        {t('exercise.case')} {index + 1}
                       </div>
                     ))}
                   </div>
 
                   <div className='result-panel'>
-                    <h2>Test Result</h2>
+                    {/* <h2>Test Result</h2> */}
+                    <h2>{t('exercise.result_title')}</h2>
 
                     {isRunning ? (
                       <div className='running-box'>
-                        Running Testcases...
+                        {/* Running Testcases... */}
+                        {t('exercise.running')}
                       </div>
                     ) : (
                       <>
@@ -721,27 +435,32 @@ return (
                         <div className='passed-box'>
                           Passed: {passedCount} / {realTestCases.length} testcases
                         </div>
+                        
 
                         <div className='result-grid'>
                           <div className='result-card'>
-                            <p>Runtime</p>
+                            {/* <p>Runtime</p> */}
+                            <p>{t('exercise.runtime')}</p>
                             <h3>{runtime}</h3>
                           </div>
 
                           <div className='result-card'>
-                            <p>Memory</p>
+                            {/* <p>Memory</p> */}
+                            <p>{t('exercise.memory')}</p>
                             <h3>{memory}</h3>
                           </div>
 
                           <div className='result-card'>
-                            <p>Language</p>
+                            {/* <p>Language</p> */}
+                            <p>{t('exercise.language')}</p>
                             <h3>{selectedLanguage.name}</h3>
                           </div>
                         </div>
 
                         {failedCase && (
                           <div className='failed-case'>
-                            <h3>Wrong Answer Details</h3>
+                            {/* <h3>Wrong Answer Details</h3> */}
+                            <h3>{t('exercise.wrong_answer')}</h3>
                             <p><strong>Input:</strong></p>
                             <code>{failedCase.input}</code>
                             <p><strong>Expected:</strong></p>
@@ -753,7 +472,8 @@ return (
 
                         {/* SUBMISSION HISTORY */}
                         <div className='history-panel'>
-                          <h2>Submission History</h2>
+                          {/* <h2>Submission History</h2> */}
+                          <h2>{t('exercise.history')}</h2>
                           {submissionHistory.map((item, index) => (
                             <div key={index} className='history-item'>
                               <span>{item.result}</span>
