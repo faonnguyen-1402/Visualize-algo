@@ -30,7 +30,7 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({ exercises }) => {
             cy="75"
             r="70"
             fill="none"
-            stroke="#4a7c59"
+            stroke="#00f3ff"
             strokeWidth="8"
             strokeDasharray={`${2 * Math.PI * 70 * (percentage / 100)} ${2 * Math.PI * 70}`}
             strokeLinecap="round"
