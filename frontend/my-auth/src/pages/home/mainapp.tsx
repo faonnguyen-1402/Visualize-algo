@@ -9,6 +9,7 @@ import React, {useState, useEffect} from "react";
 import { fetchAlgorithms } from "../../services/algoService";
 import { useNavigate } from 'react-router-dom';
 import AlgorithmCardSkeleton from "../../components/AlgorithmCardSkeleton";
+import GeometricBackground from '../../components/background/geometricBackground';
 
 
 const Home = () => {
@@ -39,7 +40,9 @@ const Home = () => {
 
 
   return (
-    <>
+    // <>
+     <div className="home-page">
+      <GeometricBackground />
       <Header />
 
       <main>
@@ -104,7 +107,7 @@ const Home = () => {
           onClose={() => setSelectedAlgo(null)}
         />
       )}
-    </>
+    </div>
   );
 };
 

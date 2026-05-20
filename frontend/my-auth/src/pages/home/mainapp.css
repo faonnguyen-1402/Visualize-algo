@@ -34,6 +34,26 @@ body {
     overflow-y: auto;
 }
 
+.home-page {
+    position: relative;
+    min-height: 100vh;
+    /* background: transparent; */
+    z-index: 1;
+}
+
+.geometric-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+
+    pointer-events: none;
+
+    background: #000;
+}
+
 /* ==================== HEADER ==================== */
 header {
     border-bottom: 1px solid var(--border-color);
@@ -83,13 +103,7 @@ header {
 }
 
 /* --- Navigation Links --- */
-/* .nav-links {
-  list-style: none;
-  display: flex;
-  gap: 35px;
-  margin: 0;
-  padding: 0;
-} */
+
 .nav-links {
     margin-left: auto; 
     display: flex;
@@ -294,11 +308,7 @@ header {
   font-size: 12px;
   margin: 2px 0 0 0;
 }
-/* .dropdown-divider {
-  border: 0;
-  border-top: 1px solid #334155;
-  margin: 6px 0;
-} */
+
 .dropdown-divider {
     border: 0;
     height: 1px;
@@ -306,19 +316,6 @@ header {
     margin: 0.5rem 0;
 }
 /* Các đường link/nút bấm bên trong Menu con */
-/* .dropdown-item {
-  color: #cbd5e1;
-  padding: 8px 16px;
-  text-decoration: none;
-  display: block;
-  font-size: 14px;
-  text-align: left;
-  background: none;
-  border: none;
-  width: 100%;
-  cursor: pointer;
-  transition: background 0.2s;
-} */
 
 .dropdown-item {
     color: #cbd5e1;
@@ -481,7 +478,7 @@ section h2 span {
     margin-bottom: 1rem;
 }
 
-.algorithm-card {
+/* .algorithm-card {
     position: relative;
     padding: 1.5rem;
     background-color: var(--bg-secondary);
@@ -491,20 +488,38 @@ section h2 span {
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     animation: fadeInUp 0.5s ease-out backwards;
+} */
+.algorithm-card {
+  position: relative;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03); /* Nền trong suốt nhẹ */
+  backdrop-filter: blur(10px);          /* Hiệu ứng kính mờ */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;                  /* Bo tròn hơn một chút */
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.algorithm-card:hover {
+/* .algorithm-card:hover {
     transform: scale(1.05);
     border-color: var(--accent-cyan);
     background-color: var(--bg-tertiary);
     box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+} */
+.algorithm-card:hover {
+  transform: translateY(-8px);          /* Hiệu ứng nổi lên thay vì scale */
+  border-color: var(--accent-cyan);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.3), 
+              0 0 15px rgba(0, 217, 255, 0.15);
 }
 
 .algorithm-card:active {
     transform: scale(0.98);
 }
 
-.card-glow {
+/* .card-glow {
     position: absolute;
     inset: 0;
     background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
@@ -512,6 +527,11 @@ section h2 span {
     border-radius: 0.5rem;
     pointer-events: none;
     transition: opacity 0.3s ease;
+} */
+.card-glow {
+  background: linear-gradient(135deg, var(--accent-cyan), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
 
 .algorithm-card:hover .card-glow {
@@ -542,7 +562,7 @@ section h2 span {
     transform: scale(1.2) rotate(10deg);
 }
 
-.card-category {
+/* .card-category {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     background-color: var(--bg-tertiary);
@@ -550,6 +570,18 @@ section h2 span {
     border: 1px solid var(--border-color);
     border-radius: 0.25rem;
     transition: all 0.2s ease;
+} */
+.card-category {
+  font-size: 0.7rem;
+  /* font-weight: 700; */
+  /* letter-spacing: 0.05em; */
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  background: rgba(0, 217, 255, 0.1);
+  color: var(--accent-cyan);
+  border: none;
+  /* border-radius: 50px;  */
+  border-radius: 0.25rem;
 }
 
 .algorithm-card:hover .card-category {
@@ -566,11 +598,18 @@ section h2 span {
   margin-left: 5px;
 }
 
-.card-title {
+/* .card-title {
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 1rem;
     flex: 1;
+} */
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin-bottom: 1rem;
+  flex: 1;
 }
 
 .card-footer {

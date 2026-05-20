@@ -39,14 +39,14 @@ function Login() {
       });
 
       const result = await res.json();
-
+console.log("Cấu trúc JSON server trả về:", JSON.stringify(result, null, 2));
       if (!res.ok) {
         toast.error(result.message || 'Login failed');
         return;
       }
 
       // lưu token
-      localStorage.setItem('accessToken', result.accessToken);
+      localStorage.setItem('accessToken', result.access_token);
       localStorage.setItem('user', JSON.stringify(result.user));
 
       window.dispatchEvent(new Event('authChange'));
