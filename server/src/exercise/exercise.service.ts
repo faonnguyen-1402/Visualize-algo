@@ -94,4 +94,15 @@ export class ExerciseService {
 
     return exercises;
   }
+
+  async findById(id: string) {
+    // Chuyển string sang number, nếu không hợp lệ thì trả về null
+    const numericId = parseInt(id, 10);
+    // if (isNaN(numericId)) return null;
+
+    return await this.prisma.exercise.findUnique({
+      where: { id: numericId }, // Sử dụng số nguyên
+      include: { testCases: true },
+    });
+  }
 }

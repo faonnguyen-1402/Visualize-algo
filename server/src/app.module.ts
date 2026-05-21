@@ -15,6 +15,7 @@ import { ExerciseModule } from './exercise/exercise.module';
     EmailModule,
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
     AuthModule,
     AlgorithmsModule,
