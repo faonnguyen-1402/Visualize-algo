@@ -93,7 +93,7 @@ export class AuthService {
       };
     }
 
-    const verifyResult = this.emailService.verifyOtp(email, otpInput);
+    const verifyResult = await this.emailService.verifyOtp(email, otpInput);
 
     if (!verifyResult.success) {
       throw new BadRequestException('Invalid or expired OTP');

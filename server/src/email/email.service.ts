@@ -5,9 +5,12 @@ import {
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import * as nodemailer from 'nodemailer';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class EmailService {
+  constructor(private readonly prisma: PrismaService) {}
+
   private readonly otps = new Map<string, { otp: string; exp: number }>();
   private readonly verifyLinks = new Map<
     string,
@@ -100,9 +103,11 @@ export class EmailService {
         from: `"${fromName}" <${fromEmail}>`,
         to: email,
         subject: '[SANDBOX] Verify OTP',
-        text: `Your OTP is: ${otp}. This OTP will expire in ${Math.floor(this.expiredMs / 60000)} minutes.`,
+        text: `Your OTP is: ${otp}. This OTP will expire in ${Math.floor(
+          this.expiredMs / 60000,
+        )} minutes.`,
       });
-
+      console.log('YOUR OTP: ', otp);
       return {
         success: true,
         message: `Send OTP success to ${email}`,
@@ -114,7 +119,7 @@ export class EmailService {
     }
   }
 
-  verifyOtp(email: string, otpInput: string) {
+  async verifyOtp(email: string, otpInput: string) {
     const otpRecord = this.otps.get(email);
 
     if (!otpRecord) {
@@ -130,12 +135,33 @@ export class EmailService {
       throw new BadRequestException('OTP is incorrect');
     }
 
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const updatedUser = await this.prisma.user.update({
+      where: { email },
+      data: {
+        isVerified: true,
+      },
+    });
+
     this.otps.delete(email);
 
     return {
       success: true,
       message: 'Verify OTP success',
       email,
+      user: {
+        id: updatedUser.id,
+        username: updatedUser.username,
+        email: updatedUser.email,
+        isVerified: updatedUser.isVerified,
+      },
     };
   }
 
