@@ -28,10 +28,11 @@ export class ExerciseService {
 
   async findOne(slug: string, difficultyStr: string) {
     const difficulty = difficultyStr.toUpperCase() as Difficulty;
-    const exercise = await this.prisma.exercise.findFirst({
+    const correctExerciseSlug = `${slug}-${difficultyStr.toLowerCase()}`;
+    const exercise = await this.prisma.exercise.findUnique({
       where: {
-        algorithm: { slug: slug },
-        difficulty: difficulty,
+        slug: correctExerciseSlug,
+        // difficulty: difficulty,
       },
       include: {
         testCases: {
@@ -50,8 +51,47 @@ export class ExerciseService {
       },
     });
     if (!exercise) {
-      throw new NotFoundException(`There is no exercise in ${slug}`);
+      throw new NotFoundException(
+        `There is no exercise in ${correctExerciseSlug}`,
+      );
+    }
+    if (exercise.difficulty !== difficulty) {
+      throw new NotFoundException(`Exercise difficulty mismatch`);
     }
     return exercise;
+  }
+
+  // server/src/exercise/exercise.service.ts
+
+  async getAllExercises() {
+    console.log('Đang lấy toàn bộ danh sách bài tập cho trang Practice...');
+
+    const exercises = await this.prisma.exercise.findMany({
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        difficulty: true,
+        // 🔥 Bắt buộc select thêm cái này để Frontend có tên thuật toán chạy bộ lọc
+        algorithm: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+            category: {
+              select: {
+                id: true,
+                name: true, // Nơi chứa chữ "Sorting" hoặc "Searching"
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    return exercises;
   }
 }

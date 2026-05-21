@@ -1,11 +1,41 @@
-export type Algorithm = {
-  id: string;
+// export type Algorithm = {
+//   id: id;
+//   name: string;
+//   title: string,
+//   slug: string,
+//   category: string;
+//   difficulty: string;
+//   description: string;
+//   timeComplexity: string;
+//   spaceComplexity: string;
+//   pseudocode: string;
+//   code: string;
+// }
+
+export enum Difficulty {
+  EASY = "EASY",
+  MEDIUM = "MEDIUM",
+  HARD = "HARD"
+}
+
+export interface Algorithm {
+  id: number;
   name: string;
-  category: string;
-  difficulty: string;
+  title: string;
+  slug: string;
   description: string;
-  timeComplexity: string;
-  spaceComplexity: string;
-  pseudocode: string;
-  code: string;
+  pseudoCode: string;
+  timeComplexity?: string;
+  spaceComplexity?: string;
+  difficulty: Difficulty;
+  categoryId: number;
+  category: {
+    id: number;
+    name: string;
+    description?: string;
+  };
+  cppCode?: string;
+  pythonCode?: string;
+  javascriptCode?: string;
+  csharpCode?: string;
 }

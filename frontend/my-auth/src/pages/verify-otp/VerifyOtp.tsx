@@ -11,6 +11,7 @@ type OtpFormValues = {
 
 function VerifyOtp() {
   const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
   const [resending, setResending] = useState(false);
   const [sendingLink, setSendingLink] = useState(false);
@@ -44,6 +45,7 @@ function VerifyOtp() {
         email: registerData.email,
         otp: data.otp,
       });
+
       toast.success('OTP verified successfully');
       sessionStorage.removeItem('register_form');
       navigate('/login');
@@ -107,85 +109,118 @@ function VerifyOtp() {
 
   if (!registerData?.email) {
     return (
-      <div className='container-register'>
-        <div className='register-form'>
-          <h1>Verify OTP</h1>
-          <p>Không có dữ liệu đăng ký.</p>
-          <button
-            type='button'
-            className='submit-button'
-            onClick={() => navigate('/register')}
-          >
-            Quay lại Register
-          </button>
+      <div className='login-page'>
+        <div className='background'>
+          <img src='/bg3.jpg' alt='background' />
+        </div>
+
+        <div className='login-modal'>
+          <div className='modal-content'>
+            <button
+              type='button'
+              className='back-button'
+              onClick={() => navigate('/register')}
+            >
+              ←
+            </button>
+
+            <h2 className='modal-title'>Verify OTP</h2>
+
+            <p className='verify-desc'>Không có dữ liệu đăng ký.</p>
+
+            <button
+              type='button'
+              className='login-button'
+              onClick={() => navigate('/register')}
+            >
+              Quay lại Register
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className='container-register'>
-      <form className='register-form' onSubmit={handleSubmit(handleVerifyOtp)}>
-        <button
-          type='button'
-          className='back-button'
-          onClick={() => navigate('/register')}
-        >
-          &lt;
-        </button>
+    <div className='login-page'>
+      <div className='background'>
+        <img src='/bg3.jpg' alt='background' />
+      </div>
 
-        <h1>Verify OTP</h1>
+      <div className='login-modal'>
+        <div className='modal-content'>
+          <button
+            type='button'
+            className='back-button'
+            onClick={() => navigate('/register')}
+          >
+            ←
+          </button>
 
-        <div className='input-group'>
-          <label>Email:</label>
-          <input type='text' value={registerData.email} disabled />
+          <h2 className='modal-title'>Verify OTP</h2>
+
+          <p className='verify-desc'>Enter the OTP code sent to your email.</p>
+
+          <form onSubmit={handleSubmit(handleVerifyOtp)} className='login-form'>
+            <div className='input-group'>
+              <label>Email</label>
+              <div className='input-with-icon'>
+                <input type='text' value={registerData.email} disabled />
+              </div>
+            </div>
+
+            <div className='input-group'>
+              <label>OTP</label>
+              <div className='input-with-icon'>
+                <input
+                  id='otp'
+                  type='text'
+                  maxLength={6}
+                  placeholder='Enter 6-digit OTP'
+                  {...register('otp', {
+                    required: 'OTP is required',
+                    minLength: {
+                      value: 6,
+                      message: 'OTP must be 6 characters',
+                    },
+                    maxLength: {
+                      value: 6,
+                      message: 'OTP must be 6 characters',
+                    },
+                  })}
+                />
+              </div>
+              {errors.otp && (
+                <span className='error'>{errors.otp.message}</span>
+              )}
+            </div>
+            <div className='group-button'>
+              {' '}
+              <button type='submit' className='login-button' disabled={loading}>
+                {loading ? 'Verifying...' : 'Verify OTP'}
+              </button>
+              <button
+                type='button'
+                className='secondary-button'
+                onClick={handleResendOtp}
+                disabled={resending}
+              >
+                {resending ? 'Sending...' : 'Resend OTP'}
+              </button>
+            </div>
+
+            <p
+              className='register-link verify-link-text'
+              onClick={handleSendVerifyLink}
+              role='button'
+            >
+              {sendingLink
+                ? 'Sending verification link...'
+                : "Don't want to enter OTP? Get a verification link instead"}
+            </p>
+          </form>
         </div>
-
-        <div className='input-group'>
-          <label htmlFor='otp'>OTP:</label>
-          <input
-            id='otp'
-            type='text'
-            maxLength={6}
-            {...register('otp', {
-              required: 'OTP is required',
-              minLength: {
-                value: 6,
-                message: 'OTP must be 6 characters',
-              },
-              maxLength: {
-                value: 6,
-                message: 'OTP must be 6 characters',
-              },
-            })}
-          />
-          {errors.otp && <span className='errors'>{errors.otp.message}</span>}
-        </div>
-
-        <button type='submit' className='submit-button' disabled={loading}>
-          {loading ? 'Verifying...' : 'Verify OTP'}
-        </button>
-
-        <button
-          type='button'
-          className='submit-button'
-          onClick={handleResendOtp}
-          disabled={resending}
-          style={{ marginTop: '10px' }}
-        >
-          {resending ? 'Sending...' : 'Resend OTP'}
-        </button>
-
-        <span
-          className='verify-link-text'
-          onClick={handleSendVerifyLink}
-          role='button'
-        >
-          {sendingLink
-            ? 'Sending verification link...'
-            : "Don't want to enter OTP? Get a verification link instead"}
-        </span>
-      </form>
+      </div>
     </div>
   );
 }

@@ -1,37 +1,44 @@
-import { useState } from "react";
 import "../pages/home/mainapp.css";
 import { Algorithm } from "../types/algorithm";
 
 type Props = {
   algorithm: Algorithm;
+  highlightLine?: number;
 };
 
-export default function CodePanel({ algorithm }: Props) {
-  const [tab, setTab] = useState<"pseudo" | "code">("pseudo");
+export default function CodePanel({ algorithm, highlightLine }: Props) {
+  const pseudoLines = algorithm.pseudoCode ? algorithm.pseudoCode.split('\n') : [];
 
   return (
     <div className="code-panel">
-      {/* Tabs */}
-      <div className="code-tabs">
-        <button
-          className={`code-tab ${tab === "pseudo" ? "active" : ""}`}
-          onClick={() => setTab("pseudo")}
-        >
-          Pseudocode
-        </button>
-        <button
-          className={`code-tab ${tab === "code" ? "active" : ""}`}
-          onClick={() => setTab("code")}
-        >
-          JavaScript
-        </button>
+      {/* 1. Đã bỏ phần <div className="code-tabs"> vì không còn tab nữa */}
+      
+      {/* 2. Hiển thị nội dung Pseudocode trực tiếp */}
+      <div className="code-header">
+        <h3>Pseudocode</h3>
       </div>
-
-      {/* Content */}
       <div className="code-content">
-        <pre>
-          {tab === "pseudo" ? algorithm.pseudocode : algorithm.code}
-        </pre>
+        <div className="pseudocode-lines-container">
+          {pseudoLines.length > 0 ? (
+            pseudoLines.map((lineContent, index) => {
+              const isCurrentLineActive = index === highlightLine;
+
+              return (
+                <div
+                  key={index}
+                  className={`code-line ${isCurrentLineActive ? "active-highlight" : ""}`}
+                >
+                  <span className="line-number">{index + 1}</span>
+                  <span className="line-text" style={{ whiteSpace: 'pre' }}>
+                    {lineContent}
+                  </span>
+                </div>
+              );
+            })
+          ) : (
+            <div className="code-line">Loading pseudocode...</div>
+          )}
+        </div>
       </div>
     </div>
   );

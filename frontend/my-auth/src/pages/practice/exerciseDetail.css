@@ -1,0 +1,333 @@
+/* ==========================================================================
+   --- TỔNG THỂ KHUNG CHỨA (ĐỒNG BỘ THEO HEADER VIZALGO) ---
+   ========================================================================== */
+.leetcode-container {
+  height: calc(100vh - 70px); 
+  background-color: #0d0e12; /* Màu đen tuyền sâu thẳm, khớp với nền Header */
+  overflow: hidden;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.exercise-detail {
+  display: flex;
+  height: 100%;
+}
+
+/* --- BÊN TRÁI: ĐỀ BÀI (PROBLEM DESCRIPTION) --- */
+.exercise-left {
+  color: #cbd5e1; /* Màu chữ xám sáng dễ đọc trên nền đen */
+  overflow-y: auto;
+  padding: 28px;
+  line-height: 1.6;
+}
+
+.exercise-left h1, .exercise-left h2, .exercise-left h3 {
+  color: #ffffff;
+  margin-top: 24px;
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+
+/* --- ĐỘ KHÓ PHÁT SÁNG (GLOWING TAGS) --- */
+.difficulty {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Đổi màu nhãn có độ phát sáng nhẹ (Neon style) */
+.difficulty.easy {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.15);
+}
+.difficulty.medium {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 0 8px rgba(245, 158, 11, 0.15);
+}
+.difficulty.hard {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.15);
+}
+
+/* Khối ví dụ (Example Box) */
+.example-box {
+  background: #16171b; /* Màu khối xám đen sẫm */
+  border: 1px solid #272930;
+  padding: 20px;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+/* ==========================================================================
+   --- BÊN PHẢI: TRÌNH SOẠN THẢO (CODE EDITOR & CONSOLE) ---
+   ========================================================================== */
+.exercise-right {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Thanh Header của Editor - Tone-sur-tone với Header chính */
+.editor-header {
+  height: 52px; 
+  background: #111216; /* Đồng bộ vùng tối */
+  border-bottom: 1px solid #232429;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+/* Bộ chọn ngôn ngữ phẳng tinh tế */
+.editor-header select {
+  background: #16171b;
+  color: #f8fafc;
+  border: 1px solid #2d3039;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editor-header select:hover {
+  border-color: #00f0ff; /* Sáng màu Cyan khi rê chuột giống logo VIZALGO */
+}
+
+.editor-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+/* --- NÚT BẤM CYAN & GREEN PHONG CÁCH CHUYÊN NGHIỆP --- */
+.run-btn {
+  background: transparent;
+  border: 1px solid #00f0ff; /* Viền neon Cyan trùng màu Header */
+  color: #00f0ff;
+  padding: 6px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+}
+
+.run-btn:hover {
+  background: rgba(0, 240, 255, 0.15);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+.submit-btn {
+  background: #00f0ff; /* Màu Cyan đặc trưng làm nút Submit chính */
+  border: none;
+  color: #000000; /* Chữ đen tương phản cực cao */
+  padding: 7px 20px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  background: #33f3ff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Khung Code Editor */
+.editor-split {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 52px);
+}
+
+.editor-container {
+  overflow: hidden;
+  background-color: #16171b; 
+}
+
+/* ==========================================================================
+   --- PANEL BÊN DƯỚI (CONSOLE/TESTCASE/RESULT) ---
+   ========================================================================== */
+.bottom-panel {
+  background: #0d0e12; /* Nền đen đồng bộ layout */
+  border-top: 1px solid #232429;
+  color: #e2e8f0;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+/* Các tab chuyển đổi Testcase */
+.testcase-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.testcase-tab {
+  background: #16171b;
+  border: 1px solid #2d3039;
+  color: #94a3b8;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.testcase-tab:hover {
+  color: #ffffff;
+  border-color: #475569;
+}
+
+.testcase-tab.active {
+  background: rgba(0, 240, 255, 0.08);
+  color: #00f0ff; /* Đổi sang màu Cyan chủ đạo */
+  border-color: #00f0ff;
+}
+
+/* Hộp Console Box */
+.console-box {
+  background: #111216;
+  border: 1px solid #232429;
+  padding: 18px;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+/* --- THANH GUTTER PHÂN CHIA SẮC NÉT --- */
+.gutter {
+  background: #111216;
+  position: relative;
+  transition: background-color 0.2s ease;
+}
+
+.gutter:hover {
+  background: #00f0ff; /* Phát sáng màu Cyan khi di chuột vào viền để kéo */
+}
+
+.gutter.gutter-vertical {
+  cursor: row-resize;
+  height: 4px !important;
+  border-top: 1px solid #232429;
+  border-bottom: 1px solid #232429;
+}
+
+.gutter.gutter-horizontal {
+  cursor: col-resize;
+  width: 4px !important;
+  border-left: 1px solid #232429;
+  border-right: 1px solid #232429;
+}
+
+/* --- TRẠNG THÁI KẾT QUẢ RUN/SUBMIT --- */
+.result-panel {
+  margin-top: 16px;
+}
+
+.result-status {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.result-grid {
+  display: flex;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Thẻ kết quả nhỏ */
+.result-card {
+  background: #16171b;
+  border: 1px solid #2d3039;
+  padding: 16px;
+  border-radius: 6px;
+  min-width: 150px;
+}
+
+.result-card p {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+}
+
+.result-card h3 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Trạng thái Đang chạy */
+.running-box {
+  background: rgba(0, 240, 255, 0.05);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  padding: 18px;
+  border-radius: 6px;
+  color: #00f0ff;
+  font-weight: 600;
+}
+
+/* Case chạy lỗi */
+.failed-case {
+  background: rgba(220, 38, 38, 0.05);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+  padding: 18px;
+  border-radius: 6px;
+  margin-top: 16px;
+}
+
+.failed-case code {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 14px;
+  color: #fca5a5;
+  font-family: monospace;
+}
+
+/* Box chạy thành công */
+.passed-box {
+  margin-top: 12px;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+/* Lịch sử nộp bài */
+.history-panel {
+  margin-top: 28px;
+}
+
+.history-item {
+  background: #16171b;
+  border: 1px solid #2d3039;
+  margin-top: 10px;
+  padding: 14px 20px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: border-color 0.2s ease;
+}
+
+.history-item:hover {
+  border-color: #00f0ff;
+}

@@ -10,11 +10,16 @@ export class ExerciseController {
     @Param('slug') slug: string,
     @Param('difficulty') difficulty: string,
   ) {
-    return this.exerciseService.findOne(slug, difficulty);
+    return this.exerciseService.findOne(slug, difficulty.toUpperCase());
   }
 
   @Get(':slug')
   findAll(@Param('slug') slug: string) {
     return this.exerciseService.findAll(slug);
+  }
+
+  @Get()
+  async getAll() {
+    return this.exerciseService.getAllExercises();
   }
 }
