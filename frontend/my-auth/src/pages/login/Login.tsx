@@ -55,7 +55,7 @@ console.log("Cấu trúc JSON server trả về:", JSON.stringify(result, null, 
       // 🔥 toast success
       toast.success('Đăng nhập thành công');
 
-      navigate('/');
+      navigate('/home');
     } catch (error) {
       console.error(error);
       toast.error('Không kết nối được server');
@@ -73,7 +73,7 @@ console.log("Cấu trúc JSON server trả về:", JSON.stringify(result, null, 
           <button
             type='button'
             className='back-button'
-            onClick={() => navigate('/register')}
+            onClick={() => navigate('/home')}
           >
             ←
           </button>
