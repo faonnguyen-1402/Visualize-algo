@@ -7,6 +7,7 @@ import EditProfileModal from '../../components/profile/EditProfileModal';
 import { mockUser, mockExercises } from '../../data/mockdata';
 import { User } from '../../types/user';
 import './profilepage.css';
+import Header from '../../components/header';
 
 function ProfilePage() {
   const [user, setUser] = useState<User>(mockUser);
@@ -18,11 +19,10 @@ function ProfilePage() {
   const handleSaveUser = (updatedUser: User) => setUser(updatedUser);
 
   return (
+    <>
+    <Header />
+
     <div className="container">
-      <div className="header">
-        <h1>Hồ sơ học tập</h1>
-        <p>Theo dõi tiến độ học tập của bạn</p>
-      </div>
 
       <div className="main-layout">
         <ProfileCard user={user} onEditClick={handleEditClick} />
@@ -47,6 +47,7 @@ function ProfilePage() {
         onSave={handleSaveUser}
       />
     </div>
+    </>
   );
 }
 
