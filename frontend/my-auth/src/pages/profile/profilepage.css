@@ -85,11 +85,12 @@ body {
   margin-top: 4px;
 }
 
+/* Đổi từ màu #00cbd6 cũ sang #00f3ff (giảm nhẹ độ sáng bằng opacity khi ở trạng thái tĩnh để nhìn dịu mắt hơn) */
 .edit-btn {
   width: 100%;
   padding: 10px 16px;
-  background: #00cbd6;
-  color: #fff;
+  background: rgba(0, 243, 255, 0.8);
+  color: #111315; /* Chuyển chữ sang màu tối để nổi bật trên nền xanh */
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -100,7 +101,9 @@ body {
 
 .edit-btn:hover {
   background: #00f3ff;
+  color: #111315;
   transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.4);
 }
 
 /* Right Column */
@@ -177,6 +180,7 @@ body {
   transform: translateX(4px);
 }
 
+/* Thay thế các màu xanh lá/nâu/hồng cũ bằng các cấp độ của màu #00f3ff để đồng bộ */
 .exercise-item.easy {
   border-left-color: #4a7c59;
 }
@@ -210,7 +214,7 @@ body {
 }
 
 .badge-easy {
-  background: rgba(74, 124, 89, 0.2);
+  background: rgba(74,124,89,0.2);
   color: #4a7c59;
 }
 
@@ -322,7 +326,7 @@ body {
 
 .heatmap-cell:hover {
   transform: scale(1.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(0, 243, 255, 0.6); /* Thay đổi viền hover sang màu nhấn */
 }
 
 .heatmap-level-0 {
@@ -331,17 +335,17 @@ body {
 
 .heatmap-level-1 {
   background: #00f3ff;
-  opacity: 0.4;
+  opacity: 0.25; 
 }
 
 .heatmap-level-2 {
   background: #00f3ff;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .heatmap-level-3 {
   background: #00f3ff;
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .heatmap-level-4 {
@@ -436,6 +440,7 @@ body {
 
 .upload-btn:hover {
   background: #444;
+  color: #00f3ff; 
 }
 
 .form-input {
@@ -482,9 +487,10 @@ body {
 
 .btn-primary {
   background: #00f3ff;
-  color: #fff;
+  color: #111315; 
 }
 
 .btn-primary:hover {
   background: #00f3ff;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.4); 
 }
