@@ -1196,6 +1196,41 @@ footer {
     margin-top: auto;
 }
 
+/* Container giữ các nút hành động (nếu chưa có flex) */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px; /* Khoảng cách giữa Search, Lang, và Login/Avatar */
+}
+
+/* Style cho nút Language */
+.lang-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a1a; /* Màu nền tối để hòa hợp với Header */
+    border: 1px solid #333333; /* Đường viền tối mờ mặc định */
+    border-radius: 8px; /* Bo góc khớp với Search Input */
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 0.85rem; /* Size chữ nhỏ lại chút */
+    font-weight: 600; /* Làm đậm chữ */
+    color: #e2e8f0; /* Màu chữ trắng/xám mặc định */
+    transition: all 0.25s ease; /* Hiệu ứng mượt mà */
+    text-transform: uppercase; /* Chữ US/VN viết hoa */
+}
+/* Hiệu ứng khi di chuột vào */
+.lang-btn:hover {
+    background-color: transparent; /* Nền trong suốt */
+    border-color: #22d3ee; /* Màu xanh Cyan Neon nổi bật */
+    color: #22d3ee; /* Chữ chuyển màu xanh Cyan */
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.4); /* Thêm hiệu ứng glow neon nhẹ */
+}
+/* Hiệu ứng khi nhấn vào */
+.lang-btn:active {
+    transform: translateY(0);
+    background-color: #cbd5e1;
+}
 
 /* ==================== CUSTOM SCROLLBAR ==================== */
 ::-webkit-scrollbar {
