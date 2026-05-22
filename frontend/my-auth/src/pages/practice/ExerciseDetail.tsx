@@ -397,58 +397,82 @@ const handleRunCode = async () => {
   //   setIsRunning(false);
   // };
 
-    const handleSubmit = async () => {
-  if (realTestCases.length === 0 || !exercise?.id) return;
+  const handleSubmit = async () => {
+    if (realTestCases.length === 0 || !exercise?.id) return;
 
-  setIsRunning(true);
-  setPassedCount(0);
-  setFailedCase(null);
-  setSubmitResult('Testing...'); // Thêm trạng thái để người dùng biết đang chạy
-  
-  let passed = 0;
+    setIsRunning(true);
+    setPassedCount(0);
+    setFailedCase(null);
+    setSubmitResult('Testing...'); // Thêm trạng thái để người dùng biết đang chạy
+    
+    let passed = 0;
 
-  for (const tc of realTestCases) {
+    for (const tc of realTestCases) {
+      try {
+        const response = await fetch('http://localhost:3001/exercise/run', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            language: selectedLanguage.monaco,
+            code: code,
+            input: tc.input,
+            exerciseId: exercise.id // Đã chính xác
+          })
+        });
+
+        const result = await response.json();
+        
+        // Backend của bạn trả về: { success: boolean, actual: string, expected: string }
+        if (result.success) {
+          passed++;
+          setPassedCount(passed);
+          setRuntime(result.runtime || 'N/A');
+          setMemory(result.memory || 'N/A');
+        } else {
+          setFailedCase({
+            input: tc.input,
+            expected: result.expected, 
+            output: result.actual      
+          });
+          setSubmitResult('Wrong Answer ❌');
+          setIsRunning(false);
+          return; 
+        }
+      } catch (err) {
+        console.error("Lỗi kết nối:", err);
+        setSubmitResult('Server Error ❌');
+        setIsRunning(false);
+        return;
+      }
+    }
+
     try {
-      const response = await fetch('http://localhost:3001/exercise/run', {
+      const token = localStorage.getItem('accessToken'); // Hoặc cách bạn lưu token
+      const submitResponse = await fetch('http://localhost:3001/exercise/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
         body: JSON.stringify({
-          language: selectedLanguage.monaco,
-          code: code,
-          input: tc.input,
-          exerciseId: exercise.id // Đã chính xác
+          exerciseId: exercise.id,
+          code: code
         })
       });
 
-      const result = await response.json();
-      
-      // Backend của bạn trả về: { success: boolean, actual: string, expected: string }
-      if (result.success) {
-        passed++;
-        setPassedCount(passed);
-        setRuntime(result.runtime || 'N/A');
-  setMemory(result.memory || 'N/A');
+      if (submitResponse.ok) {
+        setSubmitResult('Accepted ✅');
       } else {
-        setFailedCase({
-          input: tc.input,
-          expected: result.expected, 
-          output: result.actual      
-        });
-        setSubmitResult('Wrong Answer ❌');
-        setIsRunning(false);
-        return; 
+        setSubmitResult('Accepted, but failed to save progress ⚠️');
       }
     } catch (err) {
-      console.error("Lỗi kết nối:", err);
-      setSubmitResult('Server Error ❌');
-      setIsRunning(false);
-      return;
+      setSubmitResult('Accepted, but connection error on save ⚠️');
     }
-  }
 
-  setSubmitResult('Accepted ✅');
-  setIsRunning(false);
-};
+
+    // setSubmitResult('Accepted ✅');
+    setIsRunning(false);
+  };
 
   // =========================
   // CHANGE LANGUAGE

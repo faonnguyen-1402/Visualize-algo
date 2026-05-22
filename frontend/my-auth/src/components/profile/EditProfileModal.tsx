@@ -15,7 +15,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   onSave,
 }) => {
   const [formData, setFormData] = useState<User>(user);
-  const [imagePreview, setImagePreview] = useState<string>(user.image);
+  const [imagePreview, setImagePreview] = useState<string>(user.image || "");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,12 +40,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
       <div className="modal">
         <div className="modal-header">
-          <h2 className="modal-title">Chỉnh sửa Profile</h2>
+          <h2 className="modal-title">Edit Profile</h2>
         </div>
         <div className="modal-content">
           <div className="form-group">
-            <label className="form-label">Ảnh đại diện</label>
-            <div className="file-input-wrapper">
+            <label className="form-label">Avatar</label>
+            {/* <div className="file-input-wrapper">
               <img src={imagePreview} alt="Preview" className="avatar-preview" />
               <input
                 ref={fileInputRef}
@@ -60,18 +60,41 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               >
                 Chọn ảnh
               </button>
+            </div> */}
+            <div className="file-input-wrapper">
+              {/* Kiểm tra imagePreview có tồn tại và không rỗng */}
+              {imagePreview && imagePreview.trim() !== "" ? (
+                <img src={imagePreview} alt="Preview" className="avatar-preview" />
+              ) : (
+                <div className="avatar-placeholder">Chưa chọn ảnh</div>
+              )}
+              
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="file-input"
+                style={{ display: 'none' }} // Ẩn input file đi cho gọn
+              />
+              <button
+                className="upload-btn"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                Chọn ảnh
+              </button>
             </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="name" className="form-label">
-              Tên
+              Name
             </label>
             <input
               id="name"
               type="text"
               className="form-input"
-              value={formData.name}
+              value={formData.username}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, name: e.target.value }))
               }
@@ -82,10 +105,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
         <div className="modal-actions">
           <button className="btn btn-secondary" onClick={onClose}>
-            Hủy
+            Cancel
           </button>
           <button className="btn btn-primary" onClick={handleSave}>
-            Lưu thay đổi
+            Save
           </button>
         </div>
       </div>

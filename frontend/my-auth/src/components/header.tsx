@@ -129,9 +129,6 @@ const currentLanguage = (i18n as any).language;
               </div>
             </div>
           ):(
-            // <button className='login-btn' onClick={() => navigate('/login')}>
-            //   Login
-            // </button>
             <button className='login-btn' onClick={() => navigate('/login')}>
       {t('nav.login')}
     </button>
