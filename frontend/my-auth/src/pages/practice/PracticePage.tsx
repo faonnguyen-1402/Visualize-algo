@@ -6,15 +6,23 @@ import { getExercises, Exercise } from '../../services/exerciseService';
 import {toast} from 'react-toastify'
 import PracticeSkeleton from '../../components/PracticeSkeleton';
 
+import { useTranslation } from "react-i18next";
+
 function PracticePage() {
+  const { t } = useTranslation();
 
   const [allExercises, setAllExercises] = useState<Exercise[]>([]);
   const [filteredExercises, setFilteredExercises] = useState<Exercise[]>([]);
-
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
-
   const [loading, setLoading] = useState<boolean>(true);
+
+  const formatAlgoName = (name: string) => {
+    return name
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+};
 
   useEffect(() => {
 
@@ -107,7 +115,7 @@ function PracticePage() {
     setFilteredExercises(data);
 
   }, [selectedAlgorithm, selectedDifficulty, allExercises]);
-
+console.log("Dữ liệu exercise đầu tiên:", allExercises[0]?.algorithm);
   return (
 
     <>
@@ -117,7 +125,8 @@ function PracticePage() {
       <div className='practice-page'>
 
         <h1 className='practice-title'>
-          Practice Algorithms
+          {/* Practice Algorithms */}
+          {t('practice.title')}
         </h1>
 
         <div className='filter-container'>
@@ -129,7 +138,7 @@ function PracticePage() {
             }
           >
 
-            <option value='All'>
+            {/* <option value='All'>
               All Algorithms
             </option>
 
@@ -139,7 +148,10 @@ function PracticePage() {
 
             <option value='Searching'>
               Searching
-            </option>
+            </option> */}
+            <option value='All'>{t('practice.filters.all_algo')}</option>
+            <option value='Sorting'>{t('practice.filters.sorting')}</option>
+            <option value='Searching'>{t('practice.filters.searching')}</option>
 
           </select>
 
@@ -150,7 +162,7 @@ function PracticePage() {
             }
           >
 
-            <option value='All'>
+            {/* <option value='All'>
               All Difficulty
             </option>
 
@@ -164,7 +176,11 @@ function PracticePage() {
 
             <option value='Hard'>
               Hard
-            </option>
+            </option> */}
+            <option value='All'>{t('practice.filters.all_diff')}</option>
+            <option value='Easy'>{t('practice.filters.easy')}</option>
+            <option value='Medium'>{t('practice.filters.medium')}</option>
+            <option value='Hard'>{t('practice.filters.hard')}</option>
 
           </select>
 
@@ -181,30 +197,29 @@ function PracticePage() {
               className='exercise-card'
               key={exercise.id}
             >
-
               <h3>{exercise.title}</h3>
 
               {/* <p>
                 Algorithm: {exercise.algorithm?.name}
               </p>
-
-                
-
               <p>
                 Difficulty: {exercise.difficulty}
               </p> */}
 
               <div className="card-info-row">
-                <span className="card-info-label">Algorithm:</span>
+                {/* <span className="card-info-label">Algorithm:</span> */}
+                <span className="card-info-label">{t('practice.algo_label')}:</span>
                 <span className="algo-tag">
-                  {exercise.algorithm?.name || 'N/A'}
+                  {formatAlgoName(exercise.algorithm?.name || 'N/A')}
                 </span>
               </div>
 
               <div className="card-info-row">
-                <span className="card-info-label">Difficulty:</span>
+                {/* <span className="card-info-label">Difficulty:</span> */}
+                <span className="card-info-label">{t('practice.diff_label')}:</span>
                 <span className={`difficulty-tag ${exercise.difficulty?.toLowerCase()}`}>
-                  {exercise.difficulty}
+                  {/* {exercise.difficulty} */}
+                  {t(`difficulty.${exercise.difficulty?.toLowerCase()}`)}
                 </span>
               </div>
 
@@ -212,9 +227,10 @@ function PracticePage() {
                 to={`/practice/${exercise.algorithm.slug}/${exercise.difficulty}`}
               >
 
-                <button>
+                {/* <button>
                   Start Practice
-                </button>
+                </button> */}
+                <button>{t('practice.start_btn')}</button>
 
               </Link>
 

@@ -8,6 +8,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AlgorithmsModule } from './algorithm/algorithms.module';
 import { ExerciseModule } from './exercise/exercise.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -15,10 +16,12 @@ import { ExerciseModule } from './exercise/exercise.module';
     EmailModule,
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
     AuthModule,
     AlgorithmsModule,
     ExerciseModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

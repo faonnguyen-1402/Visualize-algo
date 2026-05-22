@@ -1,12 +1,15 @@
 import React from 'react';
 import { Exercise } from '../../types/user';
 import { generateHeatmapDays } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 interface ActivityHeatmapProps {
   exercises: Exercise[];
 }
 
 const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ exercises }) => {
+  const { t } = useTranslation();
+
   const heatmapDays = generateHeatmapDays(exercises);
 
   const getLevel = (count: number): number => {
@@ -19,13 +22,15 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ exercises }) => {
 
   return (
     <div className="heatmap-card">
-      <h3 className="heatmap-title">Hoạt động (365 ngày)</h3>
+      {/* <h3 className="heatmap-title">Activity (365 days)</h3> */}
+      <h3 className="heatmap-title">{t('profile.stats.heatmap')}</h3>
       <div className="heatmap">
         {heatmapDays.map((day, idx) => (
           <div
             key={idx}
             className={`heatmap-cell heatmap-level-${getLevel(day.count)}`}
-            title={`${day.date}: ${day.count} bài tập`}
+            // title={`${day.date}: ${day.count} exercise`}
+            title={`${day.date}: ${t('profile.exercise_count', { count: day.count })}`}
           />
         ))}
       </div>

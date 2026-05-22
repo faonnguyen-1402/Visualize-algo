@@ -8,6 +8,15 @@ export interface Exercise {
   title: string;
   difficulty: Difficulty;
   slug: string;
+  algorithm: {
+    id: number;
+    name: string;
+    slug: string;
+    title: string;
+    category?: {
+        name: string;
+    }
+  };
 }
 
 export interface ExerciseSummary {
@@ -33,5 +42,6 @@ export interface ExerciseDetail {
   algorithm: {
     name: string;
     slug: string;
+    title: string;
   };
 }

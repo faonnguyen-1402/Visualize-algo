@@ -1,8 +1,20 @@
 import "../pages/home/mainapp.css";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import React, {useEffect, useState} from "react";
+import { useTranslation } from "react-i18next";
+import i18n from '../i18n'; // Đường dẫn tới file i18n.ts của bạn
+import { i18n as I18nType } from 'i18next';
+
 
 const Header = () => {
+
+  const { t } = useTranslation();
+  const toggleLanguage = () => {
+    const i18nInstance = i18n as any; // Ép kiểu để gọi hàm
+    const newLang = i18nInstance.language === 'en' ? 'vi' : 'en';
+    i18nInstance.changeLanguage(newLang); 
+    localStorage.setItem('lang', newLang);
+  };
 
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
@@ -37,7 +49,7 @@ const Header = () => {
 
     navigate('/home');
   };
-
+const currentLanguage = (i18n as any).language;
   return (
     <header className="header">
       <nav className="navbar">
@@ -50,20 +62,23 @@ const Header = () => {
           <li>
             {/* NavLink sẽ tự động thêm class "active" nếu URL là /home hoặc / */}
             <NavLink to='/home' end className={({ isActive }) => (isActive ? 'active' : '')}>
-              Home
+              {/* Home */}
+              {t('nav.home')}
             </NavLink>
           </li>
 
           <li>
             {/* Tương tự cho /algo */}
             <NavLink to='/algorithms' className={({ isActive }) => (isActive ? 'active' : '')}>
-              Algorithms
+              {/* Algorithms */}
+              {t('nav.algo')}
             </NavLink>
           </li>
 
           <li>
             <NavLink to='/practice' className={({ isActive }) => (isActive ? 'active' : '')}>
-              Practice
+              {/* Practice */}
+              {t('nav.practice')}
             </NavLink>
           </li>
 
@@ -76,6 +91,11 @@ const Header = () => {
 
          {/* RIGHT - ACTIONS */}
         <div className='nav-actions'>
+
+           {/* <button onClick={toggleLanguage} className="lang-btn">
+       {currentLanguage === 'en' ? '🇻🇳' : '🇺🇸'}
+    </button> */}
+
           {/* <button className='search-btn'>🔍</button> */}
           <div className="search-bar-container">
             {/* <span className="search-icon">🔍</span> */}
@@ -110,10 +130,12 @@ const Header = () => {
             </div>
           ):(
             <button className='login-btn' onClick={() => navigate('/login')}>
-              Login
-            </button>
+      {t('nav.login')}
+    </button>
           )}
-
+             <button onClick={toggleLanguage} className="lang-btn">
+       {currentLanguage === 'en' ? '🇻🇳' : '🇺🇸'}
+    </button>
           {/* <button className='login-btn'>Login</button> */}
         </div>
 
