@@ -1,6 +1,8 @@
 import { useMemo } from 'react';
 import React from 'react';
 import { Exercise } from '../../types/user';
+import { useTranslation } from 'react-i18next';
+
 
 const difficultyMap: Record<string, string> = { 
   'Easy': 'EASY', 
@@ -25,6 +27,8 @@ interface ExerciseTabProps {
 }
 
 const ExerciseTab: React.FC<ExerciseTabProps> = ({ exercises, activeTab, onTabChange }) => {
+  const { t } = useTranslation();
+
   const difficulties: Array<'EASY' | 'MEDIUM' | 'HARD'> = ['EASY', 'MEDIUM', 'HARD'];
 
   const currentExercises = useMemo(() => 
@@ -54,7 +58,7 @@ const ExerciseTab: React.FC<ExerciseTabProps> = ({ exercises, activeTab, onTabCh
 
   return (
     <div className="exercises-card">
-      <h3 className="exercises-title">Exercises</h3>
+      <h3 className="exercises-title">{t('profile.exercises')}</h3>
       <div className="tabs">
         {difficulties.map((diff) => (
           <button
@@ -62,29 +66,11 @@ const ExerciseTab: React.FC<ExerciseTabProps> = ({ exercises, activeTab, onTabCh
             className={`tab-btn ${activeTab === diff ? 'active' : ''}`}
             onClick={() => onTabChange(diff)}
           >
-            {diff} ({getExercisesByDifficulty(diff).length})
+            {/* {diff} ({getExercisesByDifficulty(diff).length}) */}
+            {t(`profile.tabs.${diff.toLowerCase()}`)} ({getExercisesByDifficulty(diff).length})
           </button>
         ))}
       </div>
-      {/* <div className="exercise-list">
-        {currentExercises.length > 0}
-        {currentExercises.map((exercise) => (
-          <div
-            key={exercise.id}
-            className={`exercise-item ${getDifficultyClass(exercise.difficulty)}`}
-          >
-            <div className="exercise-info">
-              <h3>{exercise.title}</h3>
-              <div className="exercise-date">
-                {new Date(exercise.completedDate).toLocaleDateString('vi-VN')}
-              </div>
-            </div>
-            <span className={`exercise-badge ${getBadgeClass(exercise.difficulty)}`}>
-              {exercise.difficulty}
-            </span>
-          </div>
-        ))}
-      </div> */}
       <div className="exercise-list">
         {currentExercises.length > 0 ? (
           currentExercises.map((sub) => (
@@ -94,19 +80,19 @@ const ExerciseTab: React.FC<ExerciseTabProps> = ({ exercises, activeTab, onTabCh
             >
               <div className="exercise-info">
                 <h3>{sub.exercise.title}</h3>
-                {/* Lưu ý: Nếu không có trường completedDate trong Submission, 
-                    bạn có thể bỏ dòng này hoặc thay bằng sub.createdAt */}
                 <div className="exercise-date">
                   {new Date().toLocaleDateString('vi-VN')} 
                 </div>
               </div>
               <span className={`exercise-badge ${getBadgeClass(sub.exercise.difficulty)}`}>
-                {sub.exercise.difficulty}
+                {/* {sub.exercise.difficulty} */}
+                {t(`profile.tabs.${sub.exercise.difficulty.toLowerCase()}`)}
               </span>
             </div>
           ))
         ) : (
-          <div className="no-exercises">There are no exercises at this level yet!</div>
+          // <div className="no-exercises">There are no exercises at this level yet!</div>
+          <div className="no-exercises">{t('profile.no_exercises')}</div>
         )}
       </div>
     </div>

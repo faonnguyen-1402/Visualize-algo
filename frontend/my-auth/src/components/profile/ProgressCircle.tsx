@@ -1,5 +1,6 @@
 import React from 'react';
 import { Exercise } from '../../types/user';
+import { useTranslation } from 'react-i18next';
 
 interface ProgressCircleProps {
   exercises: Exercise[];
@@ -8,13 +9,13 @@ interface ProgressCircleProps {
 }
 
 const ProgressCircle: React.FC<ProgressCircleProps> = ({ exercises, total=0, completed = 0 }) => {
-  // const totalExercises = 40; 
-  // const completedExercises = exercises.length;
+  const { t } = useTranslation();
+
   const percentage = total > 0 ? Math.min(Math.round((completed / total) * 100), 100) : 0;
 
   return (
     <div className="progress-card">
-      <h3 className="progress-title">Overall Progress</h3>
+      <h3 className="progress-title">{t('profile.stats.progress')}</h3>
       <div className="progress-container">
         <svg width="150" height="150" viewBox="0 0 150 150">
           {/* Background circle */}
@@ -54,11 +55,11 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({ exercises, total=0, com
       </div>
       <div className="progress-stats">
         <div className="progress-stat">
-          <div className="progress-stat-label">Completed Exercises</div>
+          <div className="progress-stat-label">{t('profile.stats.completed')}</div>
           <div className="progress-stat-value">{completed}/{total}</div>
         </div>
         <div className="progress-stat">
-          <div className="progress-stat-label">Left</div>
+          <div className="progress-stat-label">{t('profile.stats.left')}</div>
           <div className="progress-stat-value">{total - completed}</div>
         </div>
       </div>

@@ -65,6 +65,26 @@ const resources = {
         history: "Submission History"
       },
       category: { sorting: "SORTING", searching: "SEARCHING" },
+      profile: {
+        title: "Profile",
+        edit: "Edit Profile",
+        total: "Total Exercises Completed",
+        tabs: { easy: "Easy", medium: "Medium", hard: "Hard" },
+        stats: { heatmap: "Activity (365 days)", progress: "Overall Progress", completed: "Completed Exercises", left: "Left", completedpc: "Completed assignments", join_year: "Join year" },
+        exercises: "Exercises",
+        no_exercises: "There are no exercises at this level yet!",
+        exercise_count: "{{count}} exercises",
+        modal: {
+          edit_title: "Edit Profile",
+          avatar: "Avatar",
+          placeholder_no_photo: "No photo selected",
+          select_photo: "Select photo",
+          name: "Name",
+          name_placeholder: "Type your name here ...",
+          cancel: "Cancel",
+          save: "Save"
+        }
+      },
 
     }
   },
@@ -130,6 +150,31 @@ const resources = {
         history: "Lịch sử nộp bài"
       },
       category: { sorting: "SẮP XẾP", searching: "TÌM KIẾM" },
+      profile: {
+        title: "Hồ sơ cá nhân",
+        edit: "Chỉnh sửa hồ sơ",
+        total: "Tổng số bài tập đã hoàn thành",
+        tabs: { easy: "Dễ", medium: "Trung bình", hard: "Khó" },
+        stats: { heatmap: "Hoạt động (365 ngày)", progress: "Tiến độ tổng quát",
+          completed: "Bài tập đã hoàn thành",
+          left: "Còn lại",
+          completedpc: "Bài tập đã hoàn thành",
+          join_year: "Năm tham gia" 
+        },
+        exercises: "Bài tập",
+        no_exercises: "Chưa có bài tập nào ở mức độ này!",
+        exercise_count: "{{count}} bài tập",
+        modal: {
+          edit_title: "Chỉnh sửa hồ sơ",
+          avatar: "Ảnh đại diện",
+          placeholder_no_photo: "Chưa chọn ảnh",
+          select_photo: "Chọn ảnh",
+          name: "Tên",
+          name_placeholder: "Nhập tên của bạn tại đây ...",
+          cancel: "Hủy",
+          save: "Lưu"
+        }
+      },
 
     }
   }
