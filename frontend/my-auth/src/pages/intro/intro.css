@@ -41,6 +41,7 @@
 }
 
 .hero-tag{
+
   color: #22d3ee;
   letter-spacing: 4px;
   font-size: 14px;
@@ -48,6 +49,7 @@
 }
 
 .hero-content h1{
+  color: white;
   font-size: 80px;
   font-weight: 800;
   margin-bottom: 25px;
