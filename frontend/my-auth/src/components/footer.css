@@ -1,0 +1,80 @@
+/* Ép buộc trình duyệt tuân thủ layout này mà không cần sửa App.css */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* Footer sẽ tự động dính xuống dưới nhờ margin-top: auto trên chính footer */
+
+.main-footer {
+  margin-top: auto; /* Dòng này cực kỳ quan trọng để đẩy footer xuống đáy */
+  width: 100%;
+  height: 70px;
+  background: #111315;
+  border-top: 1px solid #333;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  width: 100%; /* Đảm bảo chiếm đủ không gian */
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* Các class còn lại giữ nguyên... */
+
+.footer-copyright {
+  font-size: 14px;
+  color: #888;
+}
+
+.brand-neon {
+  color: #00f3ff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 0 0 8px rgba(0, 243, 255, 0.4);
+}
+
+.footer-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-link {
+  color: #888;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.footer-link:hover {
+  color: #00f3ff;
+}
+
+.footer-divider {
+  color: #333;
+}
+
+/* Responsive cho điện thoại */
+@media (max-width: 600px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+}

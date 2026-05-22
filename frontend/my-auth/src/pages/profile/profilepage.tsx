@@ -11,9 +11,11 @@ import Header from '../../components/header';
 import { useEffect } from 'react';
 import axios from 'axios';
 import LoadingSkeleton from '../../components/profile/LoadingSkeleton';
-
+import { useTranslation } from 'react-i18next';
 
 function ProfilePage() {
+  const { t } = useTranslation();
+  
   const [user, setUser] = useState<User | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'EASY' | 'MEDIUM' | 'HARD'>('EASY');
@@ -77,41 +79,40 @@ function ProfilePage() {
   return (
     <>
     <Header />
-
-    <div className="container">
-      {isLoading ? (
-        <LoadingSkeleton />):(
-          <div className="main-layout">
-            {/* <ProfileCard user={user} onEditClick={handleEditClick} /> */}
-            {user &&(
-            <ProfileCard 
-              user={user} 
-              totalExercises={completedCount} // Truyền độ dài của danh sách bài tập thật
-              onEditClick={handleEditClick} 
-            />
-            )}
-            <div className="right-column">
-              <ExerciseTab
-                exercises={completedList}
-                activeTab={activeTab}
-                onTabChange={setActiveTab}
+      <div className="container">
+        {isLoading ? (
+          <LoadingSkeleton />):(
+            <div className="main-layout">
+              {/* <ProfileCard user={user} onEditClick={handleEditClick} /> */}
+              {user &&(
+              <ProfileCard 
+                user={user} 
+                totalExercises={completedCount} // Truyền độ dài của danh sách bài tập thật
+                onEditClick={handleEditClick} 
               />
-              <div className="progress-heatmap">
-                <ProgressCircle exercises={exercises} total={totalExercises} completed={completedCount}/>
-                <ActivityHeatmap exercises={exercises} />
-              </div>
-            </div>
-              {user && (
-                <EditProfileModal
-                  isOpen={isModalOpen}
-                  user={user} // Lúc này user đã đảm bảo là kiểu 'User' (không còn null)
-                  onClose={handleCloseModal}
-                  onSave={handleSaveUser}
-                />
               )}
-          </div>
-        )}
-    </div>
+              <div className="right-column">
+                <ExerciseTab
+                  exercises={completedList}
+                  activeTab={activeTab}
+                  onTabChange={setActiveTab}
+                />
+                <div className="progress-heatmap">
+                  <ProgressCircle exercises={exercises} total={totalExercises} completed={completedCount}/>
+                  <ActivityHeatmap exercises={exercises} />
+                </div>
+              </div>
+                {user && (
+                  <EditProfileModal
+                    isOpen={isModalOpen}
+                    user={user} // Lúc này user đã đảm bảo là kiểu 'User' (không còn null)
+                    onClose={handleCloseModal}
+                    onSave={handleSaveUser}
+                  />
+                )}
+            </div>
+          )}
+      </div>
     </>
   );
 }
