@@ -1,6 +1,7 @@
 import React from 'react';
 import { User } from '../../types/user';
 import { useTranslation } from 'react-i18next';
+import { getAvatarUrl } from '../../utils/avatarHelper';
 
 interface ProfileCardProps {
   user: User;
@@ -11,9 +12,10 @@ interface ProfileCardProps {
 const ProfileCard: React.FC<ProfileCardProps> = ({ user, totalExercises, onEditClick }) => {
   const { t } = useTranslation();
 
-  const avatarSrc = user.image && user.image.trim() !== "" 
-    ? user.image 
-    : `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${user.username}`;
+  // const avatarSrc = user.image && user.image.trim() !== "" 
+  //   ? user.image 
+  //   : `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${user.username}`;
+  const avatarSrc = getAvatarUrl(user);
     console.log("Dữ liệu user trong ProfileCard:", user);
   return (
     <div className="profile-card">

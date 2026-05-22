@@ -104,7 +104,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               className="form-input"
               value={formData.username}
               onChange={(e) =>
-                setFormData((prev) => ({ ...prev, name: e.target.value }))
+                setFormData((prev) => ({ ...prev, username: e.target.value }))
               }
               placeholder={t('profile.modal.name_placeholder')}
             />

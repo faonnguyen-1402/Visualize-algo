@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider  = "mysql"
+  provider  = "postgresql"
   url       = env("DATABASE_URL")
 }
 
@@ -12,6 +12,7 @@ model User {
   username   String
   email      String  @unique
   password   String
+  image      String?
   role       Role    @default(USER)
   isVerified Boolean @default(false)
 
