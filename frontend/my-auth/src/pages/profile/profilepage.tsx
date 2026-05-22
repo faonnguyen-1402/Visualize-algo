@@ -147,15 +147,16 @@ function ProfilePage() {
               />
               )}
               <div className="right-column">
-                <ExerciseTab
-                  exercises={completedList}
-                  activeTab={activeTab}
-                  onTabChange={setActiveTab}
-                />
-                <div className="progress-heatmap">
+                
+                <div className="progress-exercise-row">
                   <ProgressCircle exercises={exercises} total={totalExercises} completed={completedCount}/>
-                  <ActivityHeatmap exercises={exercises} />
+                  <ExerciseTab
+                    exercises={completedList}
+                    activeTab={activeTab}
+                    onTabChange={setActiveTab}
+                  />
                 </div>
+                <ActivityHeatmap exercises={exercises} />
               </div>
                 {user && (
                   <EditProfileModal
