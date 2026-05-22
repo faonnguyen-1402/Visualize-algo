@@ -28,15 +28,17 @@ function ProfilePage() {
         <ProfileCard user={user} onEditClick={handleEditClick} />
 
         <div className="right-column">
-          <ExerciseTab
-            exercises={mockExercises}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
-          <div className="progress-heatmap">
+          
+          <div className="progress-exercise-row">
             <ProgressCircle exercises={mockExercises} />
-            <ActivityHeatmap exercises={mockExercises} />
+            <ExerciseTab
+              exercises={mockExercises}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
+            
           </div>
+          <ActivityHeatmap exercises={mockExercises} />
         </div>
       </div>
 

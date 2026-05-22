@@ -14,13 +14,14 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  padding:20px;
 }
 
 .main-layout {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 320px 2fr;
   gap: 24px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {
@@ -34,17 +35,17 @@ body {
   background: #1a1a1a;
   border: 1px solid #333;
   border-radius: 12px;
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .profile-avatar {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   border: 3px solid #00f3ff;
   overflow: hidden;
@@ -52,7 +53,7 @@ body {
 }
 
 .profile-name {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
   text-align: center;
@@ -120,6 +121,7 @@ body {
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  height: fit-content;
 }
 
 .exercises-title {
@@ -228,15 +230,14 @@ body {
   color: #c97675;
 }
 
-/* Progress & Heatmap Section */
-.progress-heatmap {
+.progress-exercise-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr 1.45fr;   /* Progress nhỏ hơn, Exercise rộng hơn */
+  gap: 20px;
 }
 
 @media (max-width: 1024px) {
-  .progress-heatmap {
+  .progress-exercise-row {
     grid-template-columns: 1fr;
   }
 }
@@ -251,6 +252,7 @@ body {
   flex-direction: column;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  height: fit-content;
 }
 
 .progress-title {
@@ -262,8 +264,8 @@ body {
 }
 
 .progress-container {
-  width: 150px;
-  height: 150px;
+  width: 145px;
+  height: 145px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -310,14 +312,14 @@ body {
 
 .heatmap {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(16px, 1fr));
-  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(14px, 1fr));
+  gap: 3px;
   max-width: 100%;
 }
 
 .heatmap-cell {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s;
