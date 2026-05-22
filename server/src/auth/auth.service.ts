@@ -93,7 +93,7 @@ export class AuthService {
       };
     }
 
-    const verifyResult = this.emailService.verifyOtp(email, otpInput);
+    const verifyResult = await this.emailService.verifyOtp(email, otpInput);
 
     if (!verifyResult.success) {
       throw new BadRequestException('Invalid or expired OTP');
@@ -123,39 +123,7 @@ export class AuthService {
       throw new BadRequestException('Token is required');
     }
 
-    const verifyResult = this.emailService.verifyEmailByLink(token);
-
-    if (!verifyResult.success || !verifyResult.email) {
-      throw new BadRequestException('Verify link is invalid or expired');
-    }
-
-    const user = await this.prisma.user.findUnique({
-      where: { email: verifyResult.email },
-    });
-
-    if (!user) {
-      throw new BadRequestException('User not found');
-    }
-
-    if (user.isVerified) {
-      throw new BadRequestException('Email is already verified');
-    }
-
-    const updatedUser = await this.prisma.user.update({
-      where: { email: verifyResult.email },
-      data: { isVerified: true },
-    });
-
-    return {
-      success: true,
-      message: 'Email verified successfully by link',
-      user: {
-        id: updatedUser.id,
-        username: updatedUser.username,
-        email: updatedUser.email,
-        isVerified: updatedUser.isVerified,
-      },
-    };
+    return await this.emailService.verifyEmailByLink(token);
   }
 
   async resendOtp(email: string) {

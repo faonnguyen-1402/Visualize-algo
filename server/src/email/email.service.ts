@@ -5,9 +5,12 @@ import {
 } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import * as nodemailer from 'nodemailer';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class EmailService {
+  constructor(private readonly prisma: PrismaService) {}
+
   private readonly otps = new Map<string, { otp: string; exp: number }>();
   private readonly verifyLinks = new Map<
     string,
@@ -95,14 +98,16 @@ export class EmailService {
         otp,
         exp: Date.now() + this.expiredMs,
       });
-
+      console.log('YOUR OTP: ', otp);
       await transporter.sendMail({
         from: `"${fromName}" <${fromEmail}>`,
         to: email,
         subject: '[SANDBOX] Verify OTP',
-        text: `Your OTP is: ${otp}. This OTP will expire in ${Math.floor(this.expiredMs / 60000)} minutes.`,
+        text: `Your OTP is: ${otp}. This OTP will expire in ${Math.floor(
+          this.expiredMs / 60000,
+        )} minutes.`,
       });
-
+      console.log('YOUR OTP: ', otp);
       return {
         success: true,
         message: `Send OTP success to ${email}`,
@@ -114,7 +119,7 @@ export class EmailService {
     }
   }
 
-  verifyOtp(email: string, otpInput: string) {
+  async verifyOtp(email: string, otpInput: string) {
     const otpRecord = this.otps.get(email);
 
     if (!otpRecord) {
@@ -130,12 +135,33 @@ export class EmailService {
       throw new BadRequestException('OTP is incorrect');
     }
 
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      throw new BadRequestException('User not found');
+    }
+
+    const updatedUser = await this.prisma.user.update({
+      where: { email },
+      data: {
+        isVerified: true,
+      },
+    });
+
     this.otps.delete(email);
 
     return {
       success: true,
       message: 'Verify OTP success',
       email,
+      user: {
+        id: updatedUser.id,
+        username: updatedUser.username,
+        email: updatedUser.email,
+        isVerified: updatedUser.isVerified,
+      },
     };
   }
 
@@ -160,7 +186,7 @@ export class EmailService {
         subject: '[SANDBOX] Verify email by link',
         text: `Click this link to verify your email: ${verifyLink}`,
       });
-
+      console.log('your link to verify: ', verifyLink);
       return {
         success: true,
         message: `Send verify link success to ${email}`,
@@ -172,7 +198,7 @@ export class EmailService {
     }
   }
 
-  verifyEmailByLink(token: string) {
+  async verifyEmailByLink(token: string) {
     const record = this.verifyLinks.get(token);
 
     if (!record) {
@@ -184,12 +210,34 @@ export class EmailService {
       throw new BadRequestException('Verify link has expired');
     }
 
+    const user = await this.prisma.user.findUnique({
+      where: { email: record.email },
+    });
+
+    if (!user) {
+      this.verifyLinks.delete(token);
+      throw new BadRequestException('User not found');
+    }
+
+    const updatedUser = await this.prisma.user.update({
+      where: { email: record.email },
+      data: {
+        isVerified: true,
+      },
+    });
+
     this.verifyLinks.delete(token);
 
     return {
       success: true,
       message: 'Verify email by link success',
-      email: record.email,
+      email: updatedUser.email,
+      user: {
+        id: updatedUser.id,
+        username: updatedUser.username,
+        email: updatedUser.email,
+        isVerified: updatedUser.isVerified,
+      },
     };
   }
 

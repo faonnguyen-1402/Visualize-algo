@@ -1,13 +1,15 @@
 export interface User {
-  name: string;
-  image: string;
-  joinyear: string;
+  id: number;
+  username: string;
+  email: string;
+  image?: string;    // Thêm nếu bạn có lưu ảnh
+  joinyear?: number; // Thêm nếu bạn có lưu năm gia nhập
 }
 
 export interface Exercise {
   id: string;
   title: string;
-  difficulty: 'Dễ' | 'Trung bình' | 'Khó';
+  difficulty: 'Easy' | 'Trung bình' | 'Khó';
   completedDate: string;
 }
 

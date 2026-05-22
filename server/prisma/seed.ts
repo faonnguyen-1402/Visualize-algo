@@ -208,7 +208,7 @@ async function main() {
     },
     create: {
       title: 'Bubble Sort Medium',
-      slug: 'bubble-sort-easy',
+      slug: 'bubble-sort-medium',
       difficulty: 'MEDIUM',
       algorithmId: algorithms[0].id,
       description:

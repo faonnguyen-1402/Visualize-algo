@@ -8,6 +8,7 @@ import './exerciseDetail.css';
 import ExerciseSkeleton from '../../components/ExerciseSkeleton';
 import { useTranslation } from "react-i18next";
 
+
 function ExerciseDetail() {
   const { t } = useTranslation();
 
@@ -21,28 +22,84 @@ function ExerciseDetail() {
       name: 'JavaScript',
       id: 63,
       monaco: 'javascript',
-      starter: `function solve(arr){\n  return arr.sort((a,b)=>a-b);\n}\nconsole.log(JSON.stringify(solve([5,4,3,2,1])));\n`,
+      starter:`const fs = require('fs');
+function solve(arr) {
+  return arr.sort((a, b) => a - b);
+}
+// Đọc từ input thay vì để mảng cố định
+const input = fs.readFileSync(0, 'utf8');
+const arr = JSON.parse(input); 
+console.log(JSON.stringify(solve(arr)));`
+      // starter: `function solve(arr){\n  return arr.sort((a,b)=>a-b);\n}\nconsole.log(JSON.stringify(solve([5,4,3,2,1])));\n`,
     },
 
     {
       name: 'Python',
       id: 71,
       monaco: 'python',
-      starter: `def solve(arr):\n    return sorted(arr)\nprint(solve([5,4,3,2,1]))\n`,
+      starter: `import sys, json
+def solve(arr):
+    return sorted(arr)
+
+# Đọc từ stdin
+input_data = sys.stdin.read()
+arr = json.loads(input_data)
+print(solve(arr))`
+      // starter: `def solve(arr):\n    return sorted(arr)\nprint(solve([5,4,3,2,1]))\n`,
     },
 
     {
       name: 'C++',
       id: 54,
       monaco: 'cpp',
-      starter: `#include <bits/stdc++.h>\nusing namespace std;\nvector<int> solve(vector<int> arr){\n    sort(arr.begin(), arr.end());\n    return arr;\n}\nint main(){\n    vector<int> arr = {5,4,3,2,1};\n    vector<int> ans = solve(arr);\n    for(int x : ans) cout << x << " ";\n    return 0;\n}\n`,
+      starter: `#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <sstream>
+
+using namespace std;
+
+vector<int> solve(vector<int> arr) {
+    sort(arr.begin(), arr.end());
+    return arr;
+}
+
+int main() {
+    int n;
+    vector<int> arr;
+    // Đọc số lượng phần tử hoặc đọc đến hết
+    while (cin >> n) {
+        arr.push_back(n);
+    }
+    vector<int> ans = solve(arr);
+    for(int x : ans) cout << x << " ";
+    return 0;
+}`
+      // starter: `#include <bits/stdc++.h>\nusing namespace std;\nvector<int> solve(vector<int> arr){\n    sort(arr.begin(), arr.end());\n    return arr;\n}\nint main(){\n    vector<int> arr = {5,4,3,2,1};\n    vector<int> ans = solve(arr);\n    for(int x : ans) cout << x << " ";\n    return 0;\n}\n`,
     },
 
     {
       name: 'Java',
       id: 62,
       monaco: 'java',
-      starter: `import java.util.*;\npublic class Main {\n    static int[] solve(int[] arr){\n        Arrays.sort(arr);\n        return arr;\n    }\n    public static void main(String[] args){\n        int[] arr = {5,4,3,2,1};\n        int[] ans = solve(arr);\n        System.out.println(Arrays.toString(ans));\n    }\n}\n`,
+      starter: `import java.util.*;
+public class Main {
+    static int[] solve(int[] arr) {
+        Arrays.sort(arr);
+        return arr;
+    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        List<Integer> list = new ArrayList<>();
+        while(sc.hasNextInt()){
+            list.add(sc.nextInt());
+        }
+        int[] arr = list.stream().mapToInt(i->i).toArray();
+        int[] ans = solve(arr);
+        System.out.println(Arrays.toString(ans));
+    }
+}`
+      // starter: `import java.util.*;\npublic class Main {\n    static int[] solve(int[] arr){\n        Arrays.sort(arr);\n        return arr;\n    }\n    public static void main(String[] args){\n        int[] arr = {5,4,3,2,1};\n        int[] ans = solve(arr);\n        System.out.println(Arrays.toString(ans));\n    }\n}\n`,
     },
   ];
 
@@ -103,165 +160,317 @@ function ExerciseDetail() {
   // RUN CODE
   // =========================
 
-  const handleRunCode = async () => {
+  // const handleRunCode = async () => {
+  //   try {
+  //     setIsRunning(true);
+  //     setOutput('Running...');
+  //     const response = await fetch(
+  //       'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //           source_code: code,
+  //           language_id: selectedLanguage.id,
+  //         }),
+  //       }
+  //     );
+
+  //     const result = await response.json();
+
+  //     console.log(result);
+
+  //     if (result.stdout) {
+  //       setOutput(result.stdout);
+
+
+  //       setRuntime(
+  //         result.time
+  //           ? `${result.time}s`
+  //           : 'N/A'
+  //       );
+
+  //       setMemory(
+  //         result.memory
+  //           ? `${result.memory} KB`
+  //           : 'N/A'
+  //       );
+
+  //       setStatus('Accepted');
+
+  //     } else if (result.stderr) {
+
+  //       setOutput(result.stderr);
+
+  //       setStatus('Runtime Error');
+
+  //     } else if (result.compile_output) {
+
+  //       setOutput(result.compile_output);
+
+  //       setStatus('Compile Error');
+
+  //     } else {
+
+  //       setOutput('No Output');
+  //     }
+
+  //     setIsRunning(false);
+
+  //   } catch (error) {
+
+  //     console.error(error);
+
+  //     setOutput('Compile Error');
+
+  //     setIsRunning(false);
+  //   }
+  // };
+
+  // const handleRunCode = async () => {
+  //   if (isRunning) return; // Chặn nếu đang chạy
+  //   setIsRunning(true);
+  //   try {
+  //     setIsRunning(true);
+  //     setOutput('Running via your Backend...');
+
+  //     // Gọi tới Backend NestJS thay vì Judge0
+  //     const response = await fetch('http://localhost:3001/exercise/run', {
+  //       method: 'POST',
+  //       headers: { 
+  //           'Content-Type': 'application/json' 
+  //       },
+  //       body: JSON.stringify({
+  //         language: selectedLanguage.monaco, // Đảm bảo trùng với logic bên Backend
+  //         code: code,
+  //         input: "",
+  //         exerciseId: exercise.id
+  //       }),
+  //     });
+
+  //     const result = await response.json();
+      
+  //           // Hiển thị kết quả trả về từ NestJS
+  //           if (result.stdout) {
+  //       setOutput(result.stdout);
+  //       setStatus('Accepted');
+  //     } else if (result.stderr) {
+  //       setOutput(result.stderr);
+  //       setStatus('Runtime Error');
+  //     } else {
+  //       // Trường hợp stdout bị null nhưng không có lỗi
+  //       setOutput("Code executed successfully, but no output produced.");
+  //       setStatus('Finished');
+  //     }
+  //         } catch (error) {
+  //           console.error("Lỗi khi gọi Backend:", error);
+  //           setOutput('Error: Could not connect to your server');
+  //         } finally {
+  //           setIsRunning(false);
+  //         }
+  // };
+const handleRunCode = async () => {
+    if (isRunning) return;
+    setIsRunning(true);
+    
+    // THAY VÌ ĐỂ "" , HÃY LẤY TEST CASE ĐẦU TIÊN LÀM MẪU
+    const sampleInput = realTestCases.length > 0 ? realTestCases[0].input : "[1,2,3], 2";
+
     try {
-      setIsRunning(true);
-      setOutput('Running...');
-      const response = await fetch(
-        'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            source_code: code,
-            language_id: selectedLanguage.id,
-          }),
-        }
-      );
+        const response = await fetch('http://localhost:3001/exercise/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                language: selectedLanguage.monaco,
+                code: code,
+                input: sampleInput, // Truyền sampleInput thay vì ""
+                exerciseId: exercise.id
+            }),
+        });
 
-      const result = await response.json();
-
-      console.log(result);
-
-      if (result.stdout) {
-        setOutput(result.stdout);
-
-
-        setRuntime(
-          result.time
-            ? `${result.time}s`
-            : 'N/A'
-        );
-
-        setMemory(
-          result.memory
-            ? `${result.memory} KB`
-            : 'N/A'
-        );
-
-        setStatus('Accepted');
-
-      } else if (result.stderr) {
-
-        setOutput(result.stderr);
-
-        setStatus('Runtime Error');
-
-      } else if (result.compile_output) {
-
-        setOutput(result.compile_output);
-
-        setStatus('Compile Error');
-
-      } else {
-
-        setOutput('No Output');
-      }
-
-      setIsRunning(false);
+        const result = await response.json();
+        
+        // Cập nhật thông số hiển thị
+        setRuntime(result.runtime || 'N/A');
+        setMemory(result.memory || 'N/A');
+        setOutput(result.actual || "No output");
+        setStatus(result.success ? 'Accepted' : 'Wrong Answer');
 
     } catch (error) {
-
-      console.error(error);
-
-      setOutput('Compile Error');
-
-      setIsRunning(false);
+        setOutput('Error: Could not connect to server');
+    } finally {
+        setIsRunning(false);
     }
-  };
-
+};
   // =========================
   // SUBMIT
   // =========================
 
-  const handleSubmit = async () => {
+  // const handleSubmit = async () => {
 
-    if (realTestCases.length === 0) {
-      setSubmitResult('No test cases available ❌');
-      return;
-    }
+  //   if (realTestCases.length === 0) {
+  //     setSubmitResult('No test cases available ❌');
+  //     return;
+  //   }
+
+  //   setIsRunning(true);
+
+  //   let passed = 0;
+
+  //   setFailedCase(null);
+
+  //   for (const tc of realTestCases) {
+  //     try {
+  //       const response = await fetch(
+  //         'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
+  //         {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: JSON.stringify({
+  //             source_code: code,
+  //             language_id:
+  //               selectedLanguage.id,
+  //             stdin: tc.input,
+  //           }),
+  //         }
+  //       );
+
+  //       const result = await response.json();
+
+  //       const userOutput = result.stdout?.trim();
+
+  //       const expected = (tc.expectedOutput || tc.expected || '').trim();
+
+  //       if (
+  //         userOutput?.includes(expected)
+  //       ) {
+
+  //         passed++;
+
+  //       } else {
+
+  //         setFailedCase({
+
+  //           input: tc.input,
+
+  //           expected: tc.expected,
+
+  //           output: userOutput || 'No Output / Error',
+
+  //         });
+
+  //         break;
+  //       }
+
+  //     } catch (error) {
+
+  //       console.error(error);
+
+  //       break;
+  //     }
+  //   }
+
+  //   setPassedCount(passed);
+
+  //   const finalResult =
+  //     passed === realTestCases.length
+  //       ? 'Accepted ✅'
+  //       : 'Wrong Answer ❌';
+
+  //   setSubmitResult(finalResult);
+
+  //   setSubmissionHistory(prev => [
+  //     {
+  //       result: finalResult,
+  //       runtime,
+  //       memory,
+  //       language: selectedLanguage.name,
+  //       date: new Date().toLocaleTimeString(),
+  //     },
+  //     ...prev,
+  //   ]);
+
+  //   setIsRunning(false);
+  // };
+
+  const handleSubmit = async () => {
+    if (realTestCases.length === 0 || !exercise?.id) return;
 
     setIsRunning(true);
-
-    let passed = 0;
-
+    setPassedCount(0);
     setFailedCase(null);
+    setSubmitResult('Testing...'); // Thêm trạng thái để người dùng biết đang chạy
+    
+    let passed = 0;
 
     for (const tc of realTestCases) {
       try {
-        const response = await fetch(
-          'https://judge0-ce.p.sulu.sh/submissions?base64_encoded=false&wait=true',
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              source_code: code,
-              language_id:
-                selectedLanguage.id,
-              stdin: tc.input,
-            }),
-          }
-        );
+        const response = await fetch('http://localhost:3001/exercise/run', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            language: selectedLanguage.monaco,
+            code: code,
+            input: tc.input,
+            exerciseId: exercise.id // Đã chính xác
+          })
+        });
 
         const result = await response.json();
-
-        const userOutput = result.stdout?.trim();
-
-        const expected = (tc.expectedOutput || tc.expected || '').trim();
-
-        if (
-          userOutput?.includes(expected)
-        ) {
-
+        
+        // Backend của bạn trả về: { success: boolean, actual: string, expected: string }
+        if (result.success) {
           passed++;
-
+          setPassedCount(passed);
+          setRuntime(result.runtime || 'N/A');
+          setMemory(result.memory || 'N/A');
         } else {
-
           setFailedCase({
-
             input: tc.input,
-
-            expected: tc.expected,
-
-            output: userOutput || 'No Output / Error',
-
+            expected: result.expected, 
+            output: result.actual      
           });
-
-          break;
+          setSubmitResult('Wrong Answer ❌');
+          setIsRunning(false);
+          return; 
         }
-
-      } catch (error) {
-
-        console.error(error);
-
-        break;
+      } catch (err) {
+        console.error("Lỗi kết nối:", err);
+        setSubmitResult('Server Error ❌');
+        setIsRunning(false);
+        return;
       }
     }
 
-    setPassedCount(passed);
+    try {
+      const token = localStorage.getItem('accessToken'); // Hoặc cách bạn lưu token
+      const submitResponse = await fetch('http://localhost:3001/exercise/submit', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` 
+        },
+        body: JSON.stringify({
+          exerciseId: exercise.id,
+          code: code
+        })
+      });
 
-    const finalResult =
-      passed === realTestCases.length
-        ? 'Accepted ✅'
-        : 'Wrong Answer ❌';
+      if (submitResponse.ok) {
+        setSubmitResult('Accepted ✅');
+      } else {
+        setSubmitResult('Accepted, but failed to save progress ⚠️');
+      }
+    } catch (err) {
+      setSubmitResult('Accepted, but connection error on save ⚠️');
+    }
 
-    setSubmitResult(finalResult);
 
-    setSubmissionHistory(prev => [
-      {
-        result: finalResult,
-        runtime,
-        memory,
-        language: selectedLanguage.name,
-        date: new Date().toLocaleTimeString(),
-      },
-      ...prev,
-    ]);
-
+    // setSubmitResult('Accepted ✅');
     setIsRunning(false);
   };
 

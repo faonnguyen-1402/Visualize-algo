@@ -19,7 +19,7 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ exercises }) => {
 
   return (
     <div className="heatmap-card">
-      <h3 className="heatmap-title">Hoạt động (365 ngày)</h3>
+      <h3 className="heatmap-title">Activity (365 days)</h3>
       <div className="heatmap">
         {heatmapDays.map((day, idx) => (
           <div

@@ -9,32 +9,11 @@ body {
   background: #111315;
   color: #e0e0e0;
   min-height: 100vh;
-  padding: 20px;
-}
-
-html {
-  background: #0f0f0f;
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-.header {
-  margin-bottom: 40px;
-}
-
-.header h1 {
-  font-size: 36px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 8px;
-}
-
-.header p {
-  font-size: 16px;
-  color: #888;
 }
 
 .main-layout {
@@ -67,7 +46,7 @@ html {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 3px solid #4a7c59;
+  border: 3px solid #00f3ff;
   overflow: hidden;
   object-fit: cover;
 }
@@ -97,7 +76,7 @@ html {
 .stat-value {
   font-size: 20px;
   font-weight: 700;
-  color: #4a7c59;
+  color: #00f3ff;
 }
 
 .stat-label {
@@ -106,11 +85,12 @@ html {
   margin-top: 4px;
 }
 
+/* Đổi từ màu #00cbd6 cũ sang #00f3ff (giảm nhẹ độ sáng bằng opacity khi ở trạng thái tĩnh để nhìn dịu mắt hơn) */
 .edit-btn {
   width: 100%;
   padding: 10px 16px;
-  background: #4a7c59;
-  color: #fff;
+  background: rgba(0, 243, 255, 0.8);
+  color: #111315; /* Chuyển chữ sang màu tối để nổi bật trên nền xanh */
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -120,8 +100,10 @@ html {
 }
 
 .edit-btn:hover {
-  background: #5a9169;
+  background: #00f3ff;
+  color: #111315;
   transform: translateY(-2px);
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.4);
 }
 
 /* Right Column */
@@ -169,7 +151,7 @@ html {
 
 .tab-btn.active {
   color: #fff;
-  border-bottom-color: #4a7c59;
+  border-bottom-color: #00f3ff;
 }
 
 .tab-btn:hover {
@@ -198,6 +180,7 @@ html {
   transform: translateX(4px);
 }
 
+/* Thay thế các màu xanh lá/nâu/hồng cũ bằng các cấp độ của màu #00f3ff để đồng bộ */
 .exercise-item.easy {
   border-left-color: #4a7c59;
 }
@@ -231,7 +214,7 @@ html {
 }
 
 .badge-easy {
-  background: rgba(74, 124, 89, 0.2);
+  background: rgba(74,124,89,0.2);
   color: #4a7c59;
 }
 
@@ -306,7 +289,7 @@ html {
 .progress-stat-value {
   font-size: 18px;
   font-weight: 700;
-  color: #4a7c59;
+  color: #00f3ff;
 }
 
 /* Heatmap Card */
@@ -343,7 +326,7 @@ html {
 
 .heatmap-cell:hover {
   transform: scale(1.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(0, 243, 255, 0.6); /* Thay đổi viền hover sang màu nhấn */
 }
 
 .heatmap-level-0 {
@@ -351,22 +334,22 @@ html {
 }
 
 .heatmap-level-1 {
-  background: #4a7c59;
-  opacity: 0.4;
+  background: #00f3ff;
+  opacity: 0.25; 
 }
 
 .heatmap-level-2 {
-  background: #4a7c59;
-  opacity: 0.6;
+  background: #00f3ff;
+  opacity: 0.5;
 }
 
 .heatmap-level-3 {
-  background: #4a7c59;
-  opacity: 0.8;
+  background: #00f3ff;
+  opacity: 0.75;
 }
 
 .heatmap-level-4 {
-  background: #4a7c59;
+  background: #00f3ff;
 }
 
 /* Modal Dialog */
@@ -427,7 +410,7 @@ html {
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  border: 2px solid #4a7c59;
+  border: 2px solid #00f3ff;
   overflow: hidden;
   margin: 0 auto 12px;
   object-fit: cover;
@@ -457,6 +440,7 @@ html {
 
 .upload-btn:hover {
   background: #444;
+  color: #00f3ff; 
 }
 
 .form-input {
@@ -472,7 +456,7 @@ html {
 
 .form-input:focus {
   outline: none;
-  border-color: #4a7c59;
+  border-color: #00f3ff;
   background: #2d2d2d;
 }
 
@@ -502,10 +486,12 @@ html {
 }
 
 .btn-primary {
-  background: #4a7c59;
-  color: #fff;
+  background: #00f3ff;
+  color: #111315; 
 }
 
 .btn-primary:hover {
-  background: #5a9169;
+  background: #00f3ff;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.4); 
 }
+

@@ -61,8 +61,6 @@ export class ExerciseService {
     return exercise;
   }
 
-  // server/src/exercise/exercise.service.ts
-
   async getAllExercises() {
     console.log('Đang lấy toàn bộ danh sách bài tập cho trang Practice...');
 
@@ -72,7 +70,6 @@ export class ExerciseService {
         title: true,
         slug: true,
         difficulty: true,
-        // 🔥 Bắt buộc select thêm cái này để Frontend có tên thuật toán chạy bộ lọc
         algorithm: {
           select: {
             id: true,
@@ -81,7 +78,7 @@ export class ExerciseService {
             category: {
               select: {
                 id: true,
-                name: true, // Nơi chứa chữ "Sorting" hoặc "Searching"
+                name: true,
               },
             },
           },
@@ -93,5 +90,67 @@ export class ExerciseService {
     });
 
     return exercises;
+  }
+
+  // Trong exercise.service.ts
+  async getCompletedCount(userId: number): Promise<number> {
+    // Tìm tất cả các bài tập mà user đã có submission thành công
+    const completedSubmissions = await this.prisma.submission.findMany({
+      where: {
+        userId: userId,
+        status: 'ACCEPTED',
+      },
+      select: {
+        exerciseId: true, // Chỉ cần lấy ID để đếm
+      },
+      distinct: ['exerciseId'], // Đảm bảo đếm mỗi bài 1 lần duy nhất
+    });
+
+    return completedSubmissions.length;
+  }
+
+  async findOneById(id: string) {
+    const numericId = parseInt(id, 10);
+
+    return await this.prisma.exercise.findUnique({
+      where: { id: numericId },
+      include: { testCases: true },
+    });
+  }
+
+  async getTotalExercisesCount(): Promise<number> {
+    return await this.prisma.exercise.count();
+  }
+
+  async saveSubmission(
+    userId: number,
+    exerciseId: number,
+    code: string,
+    runtime: number,
+    memory: number,
+  ) {
+    return await this.prisma.submission.create({
+      data: {
+        userId,
+        exerciseId,
+        status: 'ACCEPTED', // Hoặc giá trị mặc định của bạn
+        code: code,
+        executionTime: runtime, // Khớp với trường 'executionTime' trong schema
+        memory: memory, // KHỚP VỚI TRƯỜNG 'memory' TRONG SCHEMA (Thay vì 'memoryUsed')
+      },
+    });
+  }
+
+  async getCompletedList(userId: number) {
+    return await this.prisma.submission.findMany({
+      where: {
+        userId: userId,
+        status: 'ACCEPTED',
+      },
+      include: {
+        exercise: true, // Lấy toàn bộ thông tin bài tập (trong đó có difficulty)
+      },
+      distinct: ['exerciseId'], // Chỉ lấy 1 lần cho mỗi bài tập
+    });
   }
 }

@@ -58,7 +58,7 @@ header {
     border-bottom: 1px solid var(--border-color);
     background-color: var(--bg-secondary);
     padding: 1rem 0;
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: 100;
     animation: slideDown 0.6s ease-out;
@@ -71,7 +71,7 @@ header {
     width: 100% !important;
     max-width: 1280px;
     margin: 0 auto;
-    /* padding: 1rem 1.5rem; */
+   
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -690,7 +690,7 @@ section h2 span {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: 0rem;
     border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
@@ -698,8 +698,9 @@ section h2 span {
 }
 
 .modal-header h2 {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin: 0;
+    margin-top: -20px;
 }
 
 .close-btn {
@@ -709,6 +710,7 @@ section h2 span {
     background: none;
     border: none;
     transition: all 0.2s ease;
+    margin-top:-50px;
 }
 
 .close-btn:hover {
@@ -717,7 +719,7 @@ section h2 span {
 }
 
 .modal-body {
-    padding: 1rem;
+    padding: 0.75rem;
     overflow-y: auto;
     overflow-x: hidden;
     flex: 1;
@@ -731,7 +733,7 @@ section h2 span {
 .algo-info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: 0.5rem;
     margin-bottom: 1rem;
     margin-top: 0.5rem;
 }
@@ -740,18 +742,18 @@ section h2 span {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    padding: 0.9rem;
+    padding: 0.7rem;
     text-align: center;
 }
 
 .info-label {
     color: var(--text-secondary);
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.3rem;
 }
 
 .info-value {
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--accent-cyan);
 }
@@ -761,10 +763,10 @@ section h2 span {
 
     grid-template-columns:
         minmax(0, 2fr)
-        minmax(320px, 1fr);
+        minmax(310px, 1fr);
 
-    gap: 2rem;
-    margin: 2rem 0;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
 
     align-items: start;
 
@@ -779,20 +781,20 @@ section h2 span {
 .visual-right {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
 
-    min-width: 320px;
+    min-width: 310px;
 }
 .visualization-area {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
 
-    padding: 1rem;
+    padding: 0.75rem;
 
     min-height: 450px;
     max-height: 650px;
-    height: 500px;
+    height: 480px;
 
     overflow: hidden;
 
@@ -923,7 +925,7 @@ section h2 span {
     background: var(--bg-tertiary);
     border: 1px solid var(--border-color);
     border-radius: 0.5rem;
-    padding: 1.5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -1033,7 +1035,6 @@ input[type="range"] {
     background: var(--bg-secondary);
     outline: none;
     -webkit-appearance: none;
-    appearance: none;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -1172,10 +1173,11 @@ input[type="range"]::-moz-range-thumb {
     background: none;
     border: none;
     color: var(--text-secondary);
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-weight: 500;
     transition: all 0.2s ease;
     position: relative;
+    margin-bottom: -20px;
 }
 
 .code-header h3 {

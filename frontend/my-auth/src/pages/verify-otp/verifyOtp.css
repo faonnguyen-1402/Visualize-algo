@@ -10,3 +10,12 @@
   font-size: 20px;
   padding: 10px;
 }
+.group-button {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.secondary-button:hover {
+  background: #222;
+  color: white;
+}
