@@ -1,13 +1,36 @@
-import { Controller, Get, Body, Param, Post } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Body,
+  Param,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ExerciseService } from './exercise.service';
 import { CodeExecutionService } from './code-execution/code-execution.service';
 import { InternalServerErrorException } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 interface RunCodeDto {
   language: string;
   code: string;
   input: string;
   exerciseId: string;
+}
+interface UserRequest {
+  user: { id: number };
+}
+
+interface Exercise {
+  id: number;
+  testCases: { expectedOutput: string }[];
+}
+
+interface ExecutionResult {
+  stdout: string;
+  executionTime?: number;
+  memoryUsed?: number;
 }
 
 @Controller('exercise')
@@ -21,7 +44,7 @@ export class ExerciseController {
   @Post('run')
   async run(@Body() body: RunCodeDto) {
     // 1. Tìm exercise
-    const exercise = await this.exerciseService.findById(body.exerciseId);
+    const exercise = await this.exerciseService.findOneById(body.exerciseId);
     if (!exercise) throw new InternalServerErrorException('Exercise not found');
 
     // 2. Chạy code
@@ -42,19 +65,50 @@ export class ExerciseController {
       testCases.length > 0
         ? testCases[0].expectedOutput.trim().replace(/\s+/g, '')
         : '';
-console.log("DEBUG: Nội dung biến result là:", JSON.stringify(result));
+    console.log('DEBUG: Nội dung biến result là:', JSON.stringify(result));
     // 5. So sánh
     return {
       success: actualOutput === expectedOutput,
       actual: actualOutput,
       expected: expectedOutput,
-    runtime: (result as any).executionTime ? `${(result as any).executionTime}ms` : '0ms',
-  memory: (result as any).memoryUsed ? `${Math.round((result as any).memoryUsed / 1024)} MB` : '0 MB'
+      runtime: (result as any).executionTime
+        ? `${(result as any).executionTime}ms`
+        : '0ms',
+      memory: (result as any).memoryUsed
+        ? `${Math.round((result as any).memoryUsed / 1024)} MB`
+        : '0 MB',
     };
   }
 
+  @Post('submit')
+  @UseGuards(JwtAuthGuard)
+  async submitExercise(
+    @Req() req,
+    @Body() body: { exerciseId: number; code: string },
+  ) {
+    const userId = req.user.id;
+    // Truyền đủ 3 tham số: userId, exerciseId, và code
+    return await this.exerciseService.saveSubmission(
+      userId,
+      body.exerciseId,
+      body.code || '',
+      0,
+      0,
+    );
+  }
+
+  @Get('count')
+  async getCount() {
+    return await this.exerciseService.getTotalExercisesCount();
+  }
+
+  @Get()
+  async getAll() {
+    return this.exerciseService.getAllExercises();
+  }
+
   @Get(':slug/:difficulty')
-  findOne(
+  findExerciseBySlugAndDifficulty(
     @Param('slug') slug: string,
     @Param('difficulty') difficulty: string,
   ) {
@@ -66,8 +120,28 @@ console.log("DEBUG: Nội dung biến result là:", JSON.stringify(result));
     return this.exerciseService.findAll(slug);
   }
 
-  @Get()
-  async getAll() {
-    return this.exerciseService.getAllExercises();
+  @Get(':id')
+  async findExerciseById(@Param('id') id: string) {
+    return await this.exerciseService.findOneById(id);
   }
+
+  // Trong exercise.controller.ts
+  @Get('user/:userId/completed-count')
+  async getCompletedCount(@Param('userId') userId: string) {
+    return await this.exerciseService.getCompletedCount(parseInt(userId));
+  }
+
+  @Get('user/:userId/completed-list')
+  @UseGuards(JwtAuthGuard)
+  async getCompletedList(@Param('userId') userId: string) {
+    return await this.exerciseService.getCompletedList(Number(userId));
+  }
+
+  // @Patch(':id')
+  // update(
+  //   @Param('id') id: string,
+  //   @Body() updateExerciseDto: UpdateExerciseDto,
+  // ) {
+  //   return this.exerciseService.update(+id, updateExerciseDto);
+  // }
 }

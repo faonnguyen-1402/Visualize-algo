@@ -8,6 +8,8 @@ import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { AlgorithmsModule } from './algorithm/algorithms.module';
 import { ExerciseModule } from './exercise/exercise.module';
+import { UsersModule } from './users/users.module';
+import { UsersController } from './users/users.controller';
 
 @Module({
   imports: [
@@ -20,8 +22,9 @@ import { ExerciseModule } from './exercise/exercise.module';
     AuthModule,
     AlgorithmsModule,
     ExerciseModule,
+    UsersModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}

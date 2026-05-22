@@ -14,12 +14,12 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding:20px;
+  padding: 20px;
 }
 
 .main-layout {
   display: grid;
-  grid-template-columns: 320px 2fr;
+  grid-template-columns: 320px 1fr;
   gap: 24px;
   margin-top: 20px;
 }
@@ -86,12 +86,11 @@ body {
   margin-top: 4px;
 }
 
-/* Đổi từ màu #00cbd6 cũ sang #00f3ff (giảm nhẹ độ sáng bằng opacity khi ở trạng thái tĩnh để nhìn dịu mắt hơn) */
 .edit-btn {
   width: 100%;
   padding: 10px 16px;
   background: rgba(0, 243, 255, 0.8);
-  color: #111315; /* Chuyển chữ sang màu tối để nổi bật trên nền xanh */
+  color: #111315;
   border: none;
   border-radius: 8px;
   font-size: 14px;
@@ -182,17 +181,16 @@ body {
   transform: translateX(4px);
 }
 
-/* Thay thế các màu xanh lá/nâu/hồng cũ bằng các cấp độ của màu #00f3ff để đồng bộ */
 .exercise-item.easy {
-  border-left-color: #4a7c59;
+  border-left-color: rgba(0, 243, 255, 0.4);
 }
 
 .exercise-item.medium {
-  border-left-color: #d4a574;
+  border-left-color: rgba(0, 243, 255, 0.7);
 }
 
 .exercise-item.hard {
-  border-left-color: #c97675;
+  border-left-color: #00f3ff;
 }
 
 .exercise-info h3 {
@@ -215,24 +213,25 @@ body {
   text-transform: uppercase;
 }
 
+/* ĐÃ SỬA: Đồng bộ nhãn trạng thái (Badge) sang tông #00f3ff */
 .badge-easy {
-  background: rgba(74,124,89,0.2);
-  color: #4a7c59;
+  background: rgba(0, 243, 255, 0.1);
+  color: rgba(0, 243, 255, 0.6);
 }
 
 .badge-medium {
-  background: rgba(212, 165, 116, 0.2);
-  color: #d4a574;
+  background: rgba(0, 243, 255, 0.15);
+  color: rgba(0, 243, 255, 0.85);
 }
 
 .badge-hard {
-  background: rgba(201, 118, 117, 0.2);
-  color: #c97675;
+  background: rgba(0, 243, 255, 0.2);
+  color: #00f3ff;
 }
 
 .progress-exercise-row {
   display: grid;
-  grid-template-columns: 1fr 1.45fr;   /* Progress nhỏ hơn, Exercise rộng hơn */
+  grid-template-columns: 1fr 1.6fr;
   gap: 20px;
 }
 
@@ -299,37 +298,52 @@ body {
   background: #1a1a1a;
   border: 1px solid #333;
   border-radius: 12px;
-  padding: 24px;
+  padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-.heatmap-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 16px;
+.heatmap-months {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  margin-left: 40px;
+  margin-bottom: 8px;
+  color: #888;
+  font-size: 12px;
 }
 
-.heatmap {
+.heatmap-wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.heatmap-weekdays {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 110px;
+  color: #888;
+  font-size: 12px;
+}
+
+.heatmap-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(14px, 1fr));
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
   gap: 3px;
-  max-width: 100%;
 }
 
 .heatmap-cell {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 2px;
+  transition: 0.2s;
   cursor: pointer;
-  transition: all 0.3s;
-  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .heatmap-cell:hover {
-  transform: scale(1.2);
-  border-color: rgba(0, 243, 255, 0.6); /* Thay đổi viền hover sang màu nhấn */
+  outline: 1px solid #00f3ff; 
 }
+
 
 .heatmap-level-0 {
   background: #262626;
@@ -337,7 +351,7 @@ body {
 
 .heatmap-level-1 {
   background: #00f3ff;
-  opacity: 0.25; 
+  opacity: 0.25;
 }
 
 .heatmap-level-2 {
@@ -354,25 +368,68 @@ body {
   background: #00f3ff;
 }
 
+/* FOOTER & LEGEND  */
+.heatmap-footer {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #888;
+  font-size: 12px;
+}
+
+.legend-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+}
+
+.level-0 {
+  background: #262626;
+}
+
+.level-1 {
+  background: rgba(0, 243, 255, 0.25);
+}
+
+.level-2 {
+  background: rgba(0, 243, 255, 0.5);
+}
+
+.level-3 {
+  background: rgba(0, 243, 255, 0.75);
+}
+
+.level-4 {
+  background: #00f3ff;
+}
+
 /* Modal Dialog */
-.modal-overlay {
+.profile-modal-overlay {
   display: none;
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  width: 100vw;   
+  height: 100vh;  
+  background: rgba(0, 0, 0, 0.75); 
   z-index: 1000;
+  
   align-items: center;
   justify-content: center;
 }
 
-.modal-overlay.open {
+.profile-modal-overlay.open {
   display: flex;
 }
 
-.modal {
+.profile-modal {
   background: #1a1a1a;
   border: 1px solid #333;
   border-radius: 12px;
@@ -382,17 +439,17 @@ body {
   box-shadow: 0 20px 25px rgba(0, 0, 0, 0.5);
 }
 
-.modal-header {
+.profile-modal-header {
   margin-bottom: 20px;
 }
 
-.modal-title {
+.profile-modal-title {
   font-size: 20px;
   font-weight: 700;
   color: #fff;
 }
 
-.modal-content {
+.profile-modal-content {
   margin-bottom: 24px;
 }
 
@@ -447,7 +504,7 @@ body {
 
 .form-input {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 12px;
   background: #252525;
   border: 1px solid #333;
   border-radius: 6px;
@@ -462,7 +519,7 @@ body {
   background: #2d2d2d;
 }
 
-.modal-actions {
+.profile-modal-actions {
   display: flex;
   gap: 12px;
   justify-content: flex-end;

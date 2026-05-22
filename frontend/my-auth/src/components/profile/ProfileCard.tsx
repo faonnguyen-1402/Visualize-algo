@@ -1,30 +1,44 @@
 import React from 'react';
 import { User } from '../../types/user';
+import { useTranslation } from 'react-i18next';
+import { getAvatarUrl } from '../../utils/avatarHelper';
 
 interface ProfileCardProps {
   user: User;
+  totalExercises: number; // Thêm prop này
   onEditClick: () => void;
 }
 
-const ProfileCard: React.FC<ProfileCardProps> = ({ user, onEditClick }) => {
-  const totalExercises = 4; //truyền dữ liệu vào đê
+const ProfileCard: React.FC<ProfileCardProps> = ({ user, totalExercises, onEditClick }) => {
+  const { t } = useTranslation();
 
+  // const avatarSrc = user.image && user.image.trim() !== "" 
+  //   ? user.image 
+  //   : `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${user.username}`;
+  const avatarSrc = getAvatarUrl(user);
+    console.log("Dữ liệu user trong ProfileCard:", user);
   return (
     <div className="profile-card">
-      <img src={user.image} alt={user.name} className="profile-avatar" />
-      <h2 className="profile-name">{user.name}</h2>
+      {/* {user.image && user.image.length > 0 ? (
+        <img src={user.image} alt={user.username} className="profile-avatar" />
+      ) : (
+        <div className="profile-avatar-placeholder">No Avatar</div>
+      )} */}
+      <img src={avatarSrc} alt={user.username} className="profile-avatar" />
+      
+      <h2 className="profile-name">{user.username}</h2>
       <div className="profile-stats">
         <div className="stat-item">
           <div className="stat-value">{totalExercises}</div>
-          <div className="stat-label">Bài tập đã làm</div>
+          <div className="stat-label">{t('profile.stats.completedpc')}</div>
         </div>
         <div className="stat-item">
-          <div className="stat-value">{user.joinyear}</div>
-          <div className="stat-label">Gia nhập năm</div>
+          <div className="stat-value">{user.joinyear || "N/A"}</div>
+          <div className="stat-label">{t('profile.stats.join_year')}</div>
         </div>
       </div>
       <button className="edit-btn" onClick={onEditClick}>
-        Chỉnh sửa Profile
+        {t('profile.edit')}
       </button>
     </div>
   );

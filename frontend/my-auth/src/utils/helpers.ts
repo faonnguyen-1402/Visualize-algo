@@ -1,21 +1,34 @@
 import { Exercise, ActivityDay } from '../types/user';
 
-export const generateHeatmapDays = (exercises: Exercise[]): ActivityDay[] => {
-  const today = new Date('2025-05-12');
-  const activityMap = new Map<string, number>();
+export const generateHeatmapDays = (exercises: any[]) => {
 
-  exercises.forEach((ex) => {
-    const count = activityMap.get(ex.completedDate) || 0;
-    activityMap.set(ex.completedDate, count + 1);
-  });
+  const days = [];
 
-  const days: ActivityDay[] = [];
-  for (let i = 365; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(date.getDate() - i);
-    const dateStr = date.toISOString().split('T')[0];
-    const count = activityMap.get(dateStr) || 0;
-    days.push({ date: dateStr, count });
+  const today = new Date();
+
+  for (let i = 370; i >= 0; i--) {
+
+    const date = new Date();
+
+    date.setDate(today.getDate() - i);
+
+    const dateString = date
+      .toISOString()
+      .split('T')[0];
+
+    const count = exercises.filter((exercise) => {
+
+      return (
+        exercise.completedAt === dateString
+      );
+
+    }).length;
+
+    days.push({
+      date: dateString,
+      count,
+    });
   }
+
   return days;
 };

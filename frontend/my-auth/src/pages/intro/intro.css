@@ -283,3 +283,15 @@
     flex-direction: column;
   }
 }
+
+/* Làm cho thẻ a trong suốt và không ảnh hưởng layout */
+.team-link-wrapper {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Giữ nguyên layout grid */
+}
+
+/* Đảm bảo khi hover vào thẻ a, hiệu ứng hover của team-card vẫn chạy */
+.team-link-wrapper:hover {
+  text-decoration: none;
+}
