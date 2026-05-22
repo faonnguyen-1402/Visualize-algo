@@ -2,6 +2,7 @@ import React from 'react';
 import { Exercise } from '../../types/user';
 import { generateHeatmapDays } from '../../utils/helpers';
 import { useTranslation } from 'react-i18next';
+import { ActivityDay } from '../../types/user';
 
 interface ActivityHeatmapProps {
   exercises: Exercise[];
@@ -32,6 +33,13 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
   const { t } = useTranslation();
 
   const heatmapDays = generateHeatmapDays(exercises);
+
+  console.log("Dữ liệu Heatmap sau khi xử lý:", heatmapDays);
+  // 2. Chia mảng thành các tuần (cột dọc)
+  // const weeks: ActivityDay[][] = [];
+  // for (let i = 0; i < heatmapDays.length; i += 7) {
+  //   weeks.push(heatmapDays.slice(i, i + 7));
+  // }
 
   const getLevel = (count: number): number => {
     if (count === 0) return 0;
@@ -81,6 +89,8 @@ const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
         </div>
 
       </div>
+
+          
 
       <div className='heatmap-footer'>
 

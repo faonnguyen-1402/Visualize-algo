@@ -156,7 +156,7 @@ function ProfilePage() {
                     onTabChange={setActiveTab}
                   />
                 </div>
-                <ActivityHeatmap exercises={exercises} />
+                <ActivityHeatmap exercises={completedList} />
               </div>
                 {user && (
                   <EditProfileModal

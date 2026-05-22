@@ -37,7 +37,7 @@ function Intro() {
               <span>
                 <ScrambleText 
                   text={t('hero.highlight')} 
-                  delay={900} 
+                  delay={300} 
                 />
               </span>
             </h1>

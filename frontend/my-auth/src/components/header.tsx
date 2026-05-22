@@ -35,26 +35,34 @@ const Header = () => {
   };
 
   useEffect(() => {
-
-    const checkAuth = () => {
+  // Hàm này gọi để cập nhật state từ localStorage
+  const loadUserFromStorage = () => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       try {
-        const parsed = JSON.parse(storedUser);
-        setUser(parsed); // Header update state -> React render lại -> Avatar mới hiện ra
-      } catch (e) { setUser(null); }
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        setUser(null);
+      }
+    } else {
+      setUser(null);
     }
   };
 
-  checkAuth(); // Chạy ngay khi load
+  // 1. Chạy khi component mount
+  loadUserFromStorage();
 
-  // Lắng nghe sự kiện custom
-  window.addEventListener('authChange', checkAuth);
+  // 2. Lắng nghe Custom Event (khi bạn gọi trong ProfilePage)
+  window.addEventListener('authChange', loadUserFromStorage);
   
+  // 3. Lắng nghe sự kiện Storage (khi localStorage thay đổi)
+  window.addEventListener('storage', loadUserFromStorage);
+
   return () => {
-    window.removeEventListener('authChange', checkAuth);
+    window.removeEventListener('authChange', loadUserFromStorage);
+    window.removeEventListener('storage', loadUserFromStorage);
   };
-  }, []);
+}, []);
 
   const handleLogout = () =>{
     localStorage.removeItem('accessToken');
