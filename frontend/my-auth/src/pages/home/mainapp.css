@@ -1262,6 +1262,31 @@ footer {
     scrollbar-color: #232932 var(--bg-primary);
 }
 
+.lang-btn {
+  background: transparent; /* Bỏ màu nền */
+  border: none;            /* Bỏ viền */
+  padding: 0px;            /* Khoảng cách nhỏ để không bị dính sát */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  outline: none;
+}
+
+.lang-btn:hover {
+  transform: scale(1.1);   /* Hiệu ứng phóng to nhẹ khi di chuột vào */
+}
+
+/* Đảm bảo icon cờ bên trong hiển thị đúng kích thước */
+.lang-btn svg {
+  width: 28px;
+  height: 20px;
+  border-radius: 2px;
+  display: block;
+}
+
+
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {
     .visualization-container {

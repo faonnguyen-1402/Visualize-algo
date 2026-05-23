@@ -1,5 +1,7 @@
 import React from 'react';
 import { User } from '../../types/user';
+import { useTranslation } from 'react-i18next';
+import { getAvatarUrl } from '../../utils/avatarHelper';
 
 interface ProfileCardProps {
   user: User;
@@ -8,9 +10,12 @@ interface ProfileCardProps {
 }
 
 const ProfileCard: React.FC<ProfileCardProps> = ({ user, totalExercises, onEditClick }) => {
-  const avatarSrc = user.image && user.image.trim() !== "" 
-    ? user.image 
-    : `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${user.username}`;
+  const { t } = useTranslation();
+
+  // const avatarSrc = user.image && user.image.trim() !== "" 
+  //   ? user.image 
+  //   : `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${user.username}`;
+  const avatarSrc = getAvatarUrl(user);
     console.log("Dữ liệu user trong ProfileCard:", user);
   return (
     <div className="profile-card">
@@ -25,15 +30,15 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ user, totalExercises, onEditC
       <div className="profile-stats">
         <div className="stat-item">
           <div className="stat-value">{totalExercises}</div>
-          <div className="stat-label">Completed assignments</div>
+          <div className="stat-label">{t('profile.stats.completedpc')}</div>
         </div>
         <div className="stat-item">
           <div className="stat-value">{user.joinyear || "N/A"}</div>
-          <div className="stat-label">Join year</div>
+          <div className="stat-label">{t('profile.stats.join_year')}</div>
         </div>
       </div>
       <button className="edit-btn" onClick={onEditClick}>
-        Edit Profile
+        {t('profile.edit')}
       </button>
     </div>
   );

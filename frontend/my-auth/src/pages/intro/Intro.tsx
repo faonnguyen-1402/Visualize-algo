@@ -1,7 +1,7 @@
 import Header from "../../components/header";
 import "./intro.css";
 import GeometricBackground from "../../components/background/geometricBackground";
-
+import ScrambleText from "../../components/ScrambleText";
 import { useTranslation } from "react-i18next";
 
 function Intro() {
@@ -26,9 +26,20 @@ function Intro() {
 
             <h1>
               {/* Learn Algorithms */}
-              {t('hero.title')}
+              {/* {t('hero.title')} */}
               {/* <span> Visually</span> */}
-              <span>{t('hero.highlight')}</span>
+              {/* <span>{t('hero.highlight')}</span> */}
+              {/* Chỉ thay phần này */}
+              <ScrambleText 
+                text={t('hero.title')} 
+                delay={300} 
+              />
+              <span>
+                <ScrambleText 
+                  text={t('hero.highlight')} 
+                  delay={300} 
+                />
+              </span>
             </h1>
 
             <p className="hero-description">
@@ -182,26 +193,33 @@ function Intro() {
 
           <div className="team-grid">
 
-            <div className="team-card">
-              <h3>Nguyễn Ngọc Tuấn</h3>
-              <p>Frontend Developer</p>
-            </div>
+            <a href="https://github.com/tuancosac" target="_blank" rel="noopener noreferrer" className="team-link-wrapper">
+              <div className="team-card">
+                <h3>Nguyễn Ngọc Tuấn</h3>
+                <p>Frontend Developer</p>
+              </div>
+            </a>  
 
-            <div className="team-card">
-              <h3>Huỳnh Lê Kim Yến</h3>
-              <p>Database & Backend Developer</p>
-            </div>
+            <a href="https://github.com/Chick25" target="_blank" rel="noopener noreferrer" className="team-link-wrapper">
+              <div className="team-card">
+                <h3>Huỳnh Lê Kim Yến</h3>
+                <p>Database & Backend Developer</p>
+              </div>
+            </a>
 
+            <a href="https://github.com/kimoanh2005" target="_blank" rel="noopener noreferrer" className="team-link-wrapper">
             <div className="team-card">
               <h3>Nguyễn Thị Kim Oanh</h3>
               <p>Frontend Developer & Tester</p>
             </div>
+            </a>
 
-            <div className="team-card">
-              <h3>Phạm Nguyễn Phúc Hào</h3>
-              <p>Backend & Frontend Developer</p>
-            </div>
-
+            <a href="https://github.com/faonnguyen-1402" target="_blank" rel="noopener noreferrer" className="team-link-wrapper">
+              <div className="team-card">
+                <h3>Phạm Nguyễn Phúc Hào</h3>
+                <p>Backend & Frontend Developer</p>
+              </div>
+            </a>
           </div>
 
         </section>

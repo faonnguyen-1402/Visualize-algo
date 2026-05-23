@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { User } from '../../types/user';
+import { useTranslation } from 'react-i18next';
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -14,8 +15,15 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   onClose,
   onSave,
 }) => {
+  const { t } = useTranslation();
+
+  const defaultAvatar = user.image && user.image.trim() !== "" 
+    ? user.image 
+    : `https://api.dicebear.com/9.x/adventurer-neutral/svg?seed=${user.username}`;
+
   const [formData, setFormData] = useState<User>(user);
-  const [imagePreview, setImagePreview] = useState<string>(user.image || "");
+  // const [imagePreview, setImagePreview] = useState<string>(user.image || "");
+  const [imagePreview, setImagePreview] = useState<string>(defaultAvatar);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,14 +45,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
-      <div className="modal">
-        <div className="modal-header">
-          <h2 className="modal-title">Edit Profile</h2>
+    <div className={`profile-modal-overlay ${isOpen ? 'open' : ''}`}>
+      <div className="profile-modal">
+        <div className="profile-modal-header">
+          <h2 className="profile-modal-title">{t('profile.modal.edit_title')}</h2>
         </div>
-        <div className="modal-content">
+        <div className="profile-modal-content">
           <div className="form-group">
-            <label className="form-label">Avatar</label>
+            <label className="form-label">{t('profile.modal.avatar')}</label>
             {/* <div className="file-input-wrapper">
               <img src={imagePreview} alt="Preview" className="avatar-preview" />
               <input
@@ -66,7 +74,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               {imagePreview && imagePreview.trim() !== "" ? (
                 <img src={imagePreview} alt="Preview" className="avatar-preview" />
               ) : (
-                <div className="avatar-placeholder">Chưa chọn ảnh</div>
+                <div className="avatar-placeholder">{t('profile.modal.placeholder_no_photo')}</div>
               )}
               
               <input
@@ -81,14 +89,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
                 className="upload-btn"
                 onClick={() => fileInputRef.current?.click()}
               >
-                Chọn ảnh
+                {t('profile.modal.select_photo')}
               </button>
             </div>
           </div>
 
           <div className="form-group">
             <label htmlFor="name" className="form-label">
-              Name
+              {t('profile.modal.name')}
             </label>
             <input
               id="name"
@@ -96,19 +104,19 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               className="form-input"
               value={formData.username}
               onChange={(e) =>
-                setFormData((prev) => ({ ...prev, name: e.target.value }))
+                setFormData((prev) => ({ ...prev, username: e.target.value }))
               }
-              placeholder="Nhập tên của bạn"
+              placeholder={t('profile.modal.name_placeholder')}
             />
           </div>
         </div>
 
-        <div className="modal-actions">
+        <div className="profile-modal-actions">
           <button className="btn btn-secondary" onClick={onClose}>
-            Cancel
+            {t('profile.modal.cancel')}
           </button>
           <button className="btn btn-primary" onClick={handleSave}>
-            Save
+            {t('profile.modal.save')}
           </button>
         </div>
       </div>

@@ -4,7 +4,8 @@ import React, {useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import i18n from '../i18n'; // Đường dẫn tới file i18n.ts của bạn
 import { i18n as I18nType } from 'i18next';
-
+import { getAvatarUrl } from "../utils/avatarHelper";
+import { VN, US } from 'country-flag-icons/react/3x2';
 
 const Header = () => {
 
@@ -34,12 +35,34 @@ const Header = () => {
   };
 
   useEffect(() => {
-    checkAuth();
-    window.addEventListener('authChange', checkAuth);
-    return () =>{
-      window.removeEventListener('authChange', checkAuth);
+  // Hàm này gọi để cập nhật state từ localStorage
+  const loadUserFromStorage = () => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (e) {
+        setUser(null);
+      }
+    } else {
+      setUser(null);
     }
-  }, []);
+  };
+
+  // 1. Chạy khi component mount
+  loadUserFromStorage();
+
+  // 2. Lắng nghe Custom Event (khi bạn gọi trong ProfilePage)
+  window.addEventListener('authChange', loadUserFromStorage);
+  
+  // 3. Lắng nghe sự kiện Storage (khi localStorage thay đổi)
+  window.addEventListener('storage', loadUserFromStorage);
+
+  return () => {
+    window.removeEventListener('authChange', loadUserFromStorage);
+    window.removeEventListener('storage', loadUserFromStorage);
+  };
+}, []);
 
   const handleLogout = () =>{
     localStorage.removeItem('accessToken');
@@ -112,9 +135,23 @@ const currentLanguage = (i18n as any).language;
 
           {user ?(
             <div className="user-profile-dropdown">
-              <div className="avatar-placeholder" onClick={() => navigate('/profile')}>
+              {/* <div className="avatar-placeholder" onClick={() => navigate('/profile')}>
                 {user.username ? user.username.charAt(0).toUpperCase() : 'U'}
-              </div>
+              </div> */}
+
+              {/* Thay thế đoạn <div className="avatar-placeholder"> cũ bằng đoạn này */}
+            <div className="avatar-placeholder" onClick={() => navigate('/profile')}>
+              <img 
+                src={getAvatarUrl(user)} 
+                alt="avatar" 
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  borderRadius: '50%', 
+                  objectFit: 'cover' 
+                }} 
+              />
+            </div>
 
               <div className="dropdown-content">
                 <div className="dropdown-user-info">
@@ -130,12 +167,16 @@ const currentLanguage = (i18n as any).language;
             </div>
           ):(
             <button className='login-btn' onClick={() => navigate('/login')}>
-      {t('nav.login')}
-    </button>
+              {t('nav.login')}
+            </button>
           )}
-             <button onClick={toggleLanguage} className="lang-btn">
-       {currentLanguage === 'en' ? '🇻🇳' : '🇺🇸'}
-    </button>
+            <button onClick={toggleLanguage} className="lang-btn" aria-label="Toggle Language">
+              {currentLanguage === 'en' ? (
+                <US title="English"  />
+              ) : (
+                <VN title="VietNamese"  />
+              )}
+            </button>
           {/* <button className='login-btn'>Login</button> */}
         </div>
 
