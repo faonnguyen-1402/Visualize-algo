@@ -6,6 +6,7 @@ import i18n from '../i18n'; // Đường dẫn tới file i18n.ts của bạn
 import { i18n as I18nType } from 'i18next';
 import { getAvatarUrl } from "../utils/avatarHelper";
 import { VN, US } from 'country-flag-icons/react/3x2';
+import { Menu, X } from "lucide-react";
 
 const Header = () => {
 
@@ -19,6 +20,7 @@ const Header = () => {
 
   const navigate = useNavigate();
   const [user, setUser] = useState<any>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const checkAuth = () =>{
     const storedUser = localStorage.getItem('user');
@@ -73,7 +75,7 @@ const currentLanguage = (i18n as any).language;
           <span className="logo-subtitle">Visualizer Algorithm</span>
         </Link>
 
-        <ul className='nav-links'>
+        <ul className={`nav-links ${menuOpen ? 'mobile-open' : ''}`}>
           <li>
             {/* NavLink sẽ tự động thêm class "active" nếu URL là /home hoặc / */}
             <NavLink to='/home' end className={({ isActive }) => (isActive ? 'active' : '')}>
@@ -103,7 +105,12 @@ const currentLanguage = (i18n as any).language;
             </NavLink>
           </li> */}
         </ul>
-
+            <button
+              className="menu-toggle"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X size={26} /> : <Menu size={26} />}
+            </button>
          {/* RIGHT - ACTIONS */}
         <div className='nav-actions'>
 
