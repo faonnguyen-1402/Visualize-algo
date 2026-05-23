@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   background: #111315;
@@ -552,4 +556,104 @@ body {
 .btn-primary:hover {
   background: #00f3ff;
   box-shadow: 0 0 12px rgba(0, 243, 255, 0.4); 
+}
+
+/* =========================
+   TABLET RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .main-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .progress-exercise-row {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card {
+    width: 100%;
+  }
+
+  .right-column {
+    width: 100%;
+  }
+}
+
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+.main-layout,
+.right-column,
+.progress-exercise-row,
+.profile-card,
+.progress-card,
+.exercises-card,
+.heatmap-card {
+  min-width: 0;
+  width: 100%;
+}
+
+/* FIX grid children overflow */
+.progress-exercise-row > * {
+  min-width: 0;
+}
+
+/* FIX text kéo ngang */
+.exercise-info {
+  min-width: 0;
+  width: 100%;
+}
+
+.exercise-info h3,
+.exercise-date {
+  word-break: break-word;
+}
+
+/* FIX heatmap */
+.heatmap-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.heatmap-grid {
+  width: max-content;
+}
+
+/* FIX svg progress */
+svg,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* FIX tabs */
+.tabs {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* FIX flex/grid overflow */
+* {
+  min-width: 0;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+  .container {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .progress-exercise-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .exercise-item {
+    width: 100%;
+  }
 }

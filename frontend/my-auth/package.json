@@ -19,6 +19,7 @@
     "d3": "^7.9.0",
     "i18next": "^26.2.0",
     "katex": "^0.16.46",
+    "lucide-react": "^1.16.0",
     "motion": "^12.38.0",
     "react": "^19.2.4",
     "react-calendar-heatmap": "^1.10.0",
