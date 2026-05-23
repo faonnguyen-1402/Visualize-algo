@@ -216,7 +216,7 @@ function ProfilePage() {
             </div>
           )}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

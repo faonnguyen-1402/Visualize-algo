@@ -35,13 +35,13 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className='footer-info'>
+        {/* <div className='footer-info'>
           <h3>Project</h3>
 
           <p>Tay Nguyen University</p>
           <p>Information Technology Students</p>
           <p>Built for learning algorithms visually.</p>
-        </div>
+        </div> */}
       </div>
 
       <div className='footer-bottom'>
@@ -53,12 +53,12 @@ const Footer: React.FC = () => {
         <p>Designed for modern algorithm learning.</p>
       </div>
 
-      <div className='footer-bottom'>
+      {/* <div className='footer-bottom'>
         <p>
           &copy; {currentYear} <span className='brand-neon'>VIZALGO</span>. All rights reserved.
         </p>
         <p>Designed for modern algorithm learning.</p>
-      </div>
+      </div> */}
     </footer>
   );
 };

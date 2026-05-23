@@ -4,7 +4,8 @@ import GeometricBackground from "../../components/background/geometricBackground
 import ScrambleText from "../../components/ScrambleText";
 import { useTranslation } from "react-i18next";
 import { FO } from "country-flag-icons/react/3x2";
-import Footer from "../../components/Footer";
+// import Footer from "../../components/Footer";
+
 
 function Intro() {
   const { t } = useTranslation();
@@ -227,7 +228,7 @@ function Intro() {
         </section>
 
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }

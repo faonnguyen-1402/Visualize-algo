@@ -116,7 +116,7 @@ const Home = () => {
           onClose={() => setSelectedAlgo(null)}
         />
       )}
-      <Footer />
+      {/* <Footer /> */}
     </div>
   
   );
