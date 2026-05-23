@@ -1,4 +1,4 @@
-.geometric-bg{
+.geometric-bg {
   position: fixed;
 
   top: 0;
@@ -14,7 +14,7 @@
   background: #000;
 }
 
-.intro-page{
+.intro-page {
   position: relative;
   z-index: 1;
 
@@ -24,7 +24,7 @@
 
 /* HERO */
 
-.intro-hero{
+.intro-hero {
   min-height: 90vh;
 
   display: flex;
@@ -36,7 +36,7 @@
   padding: 0 30px;
 }
 
-.hero-content{
+.hero-content {
   max-width: 900px;
 }
 
@@ -46,6 +46,8 @@
   letter-spacing: 4px;
   font-size: 14px;
   margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .hero-content h1{
@@ -53,19 +55,22 @@
   font-size: 80px;
   font-weight: 800;
   margin-bottom: 25px;
+  line-height: 1.08;
 }
 
-.hero-content h1 span{
+.hero-content h1 span {
+  display: block;
   color: #00d4ff;
+  text-shadow: 0 0 22px rgba(0, 212, 255, 0.35);
 }
 
-.hero-description{
+.hero-description {
   font-size: 22px;
   color: #94a3b8;
   line-height: 1.8;
 }
 
-.hero-buttons{
+.hero-buttons {
   margin-top: 40px;
 
   display: flex;
@@ -73,7 +78,7 @@
   gap: 20px;
 }
 
-.hero-btn-primary{
+.hero-btn-primary {
   background: #06b6d4;
   border: none;
   color: white;
@@ -90,12 +95,13 @@
   transition: 0.3s;
 }
 
-.hero-btn-primary:hover{
+.hero-btn-primary:hover {
   transform: translateY(-3px);
   background: #0891b2;
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.25);
 }
 
-.hero-btn-secondary{
+.hero-btn-secondary {
   background: transparent;
 
   border: 1px solid #334155;
@@ -111,129 +117,152 @@
   transition: 0.3s;
 }
 
-.hero-btn-secondary:hover{
+.hero-btn-secondary:hover {
   background: #111827;
+  border-color: #22d3ee;
 }
 
 /* SECTION */
 
-.intro-section{
-  padding: 100px 80px;
+.intro-section {
+  padding: 95px 80px;
 }
 
-.section-title{
+.intro-section:last-child {
+  padding-bottom: 70px;
+}
+
+.section-title {
   font-size: 40px;
   font-weight: bold;
 
   margin-bottom: 50px;
+  line-height: 1.2;
 }
 
-.section-title span{
+.section-title span {
   margin-right: 12px;
 }
 
 /* GRID */
 
-.intro-grid{
+.intro-grid {
   display: grid;
 
-  grid-template-columns:
-    repeat(auto-fit, minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
   gap: 30px;
 }
 
-.intro-card{
-  background:
-    rgba(255,255,255,0.05);
+.intro-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.03)
+  );
 
-  border:
-    1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   padding: 30px;
 
   border-radius: 20px;
 
   transition: 0.3s;
+  backdrop-filter: blur(8px);
 }
 
-.intro-card:hover{
+.intro-card:hover {
   transform: translateY(-6px);
 
   border-color: #22d3ee;
+  box-shadow: 0 18px 45px rgba(34, 211, 238, 0.08);
 }
 
-.intro-card h3{
+.intro-card h3 {
   margin-bottom: 18px;
   color: #22d3ee;
 }
 
-.intro-card p{
+.intro-card p {
   color: #cbd5e1;
   line-height: 1.7;
 }
 
 /* ALGORITHMS */
 
-.algo-wrapper{
+.algo-wrapper {
   display: grid;
 
-  grid-template-columns: repeat(auto-fit,minmax(350px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 
   gap: 30px;
 }
 
-.algo-box{
-  background:
-    rgba(255,255,255,0.04);
+.algo-box {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.025)
+  );
 
   padding: 35px;
 
   border-radius: 20px;
 
-  border:
-    1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  transition: 0.3s;
+  backdrop-filter: blur(8px);
 }
 
-.algo-box h2{
+.algo-box:hover {
+  transform: translateY(-6px);
+  border-color: rgba(34, 211, 238, 0.75);
+  box-shadow: 0 18px 45px rgba(34, 211, 238, 0.08);
+}
+
+.algo-box h2 {
   margin-bottom: 20px;
 }
 
-.algo-box p{
+.algo-box p {
   color: #cbd5e1;
   line-height: 1.7;
   margin-bottom: 20px;
 }
 
-.algo-box ul{
+.algo-box ul {
   padding-left: 20px;
 }
 
-.algo-box li{
+.algo-box li {
   margin-bottom: 12px;
   color: #22d3ee;
 }
 
 /* TEAM */
 
-.team-intro{
+.team-intro {
   color: #94a3b8;
   margin-bottom: 40px;
   font-size: 18px;
+  line-height: 1.7;
 }
 
-.team-grid{
+.team-grid {
   display: grid;
 
-  grid-template-columns:
-    repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 
   gap: 30px;
 }
 
-.team-card{
-  background:
-    rgba(255,255,255,0.05);
+.team-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.07),
+    rgba(255, 255, 255, 0.03)
+  );
 
   border-radius: 20px;
 
@@ -241,47 +270,73 @@
 
   text-align: center;
 
-  border:
-    1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 
   transition: 0.3s;
+  backdrop-filter: blur(8px);
 }
 
-.team-card:hover{
+.team-card:hover {
   transform: translateY(-6px);
 
   border-color: #22d3ee;
+  box-shadow: 0 18px 45px rgba(34, 211, 238, 0.08);
 }
 
-.team-card h3{
+.team-card h3 {
   margin-bottom: 12px;
+  color: #ffffff;
+  line-height: 1.35;
 }
 
-.team-card p{
+.team-card p {
   color: #22d3ee;
+  line-height: 1.5;
 }
 
 /* RESPONSIVE */
 
-@media(max-width:768px){
+@media (max-width: 992px) {
+  .hero-content h1 {
+    font-size: 64px;
+  }
 
-  .hero-content h1{
+  .intro-section {
+    padding: 80px 45px;
+  }
+
+  .algo-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro-hero {
+    min-height: 82vh;
+    padding: 0 22px;
+  }
+
+  .hero-content h1 {
     font-size: 50px;
   }
 
-  .hero-description{
+  .hero-description {
     font-size: 18px;
   }
 
-  .intro-section{
+  .intro-section {
     padding: 70px 25px;
   }
 
-  .section-title{
+  .intro-section:last-child {
+    padding-bottom: 50px;
+  }
+
+  .section-title {
     font-size: 32px;
   }
 
-  .hero-buttons{
+  .hero-buttons {
     flex-direction: column;
   }
 }
@@ -296,4 +351,39 @@
 /* Đảm bảo khi hover vào thẻ a, hiệu ứng hover của team-card vẫn chạy */
 .team-link-wrapper:hover {
   text-decoration: none;
+}
+@media (max-width: 480px) {
+  .hero-tag {
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  .hero-content h1 {
+    font-size: 42px;
+  }
+
+  .hero-description {
+    font-size: 16px;
+  }
+
+  .intro-section {
+    padding: 60px 18px;
+  }
+
+  .section-title {
+    font-size: 28px;
+  }
+
+  .algo-wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .algo-box {
+    padding: 26px;
+  }
+
+  .intro-card,
+  .team-card {
+    padding: 26px;
+  }
 }

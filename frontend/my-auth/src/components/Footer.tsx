@@ -7,7 +7,6 @@ const Footer: React.FC = () => {
   return (
     <footer className='main-footer'>
       <div className='footer-container'>
-
         <div className='footer-brand'>
           <h2 className='footer-logo'>VIZALGO</h2>
           <p className='footer-slogan'>Visualizer Algorithm Platform</p>
@@ -35,6 +34,23 @@ const Footer: React.FC = () => {
             <p>Built for learning algorithms visually.</p>
           </div>
         </div>
+
+        <div className='footer-info'>
+          <h3>Project</h3>
+
+          <p>Tay Nguyen University</p>
+          <p>Information Technology Students</p>
+          <p>Built for learning algorithms visually.</p>
+        </div>
+      </div>
+
+      <div className='footer-bottom'>
+        <p>
+          &copy; {currentYear} <span className='brand-neon'>VIZALGO</span>. All
+          rights reserved.
+        </p>
+
+        <p>Designed for modern algorithm learning.</p>
       </div>
 
       <div className='footer-bottom'>

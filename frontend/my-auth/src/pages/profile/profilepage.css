@@ -90,6 +90,7 @@ body {
   margin-top: 4px;
 }
 
+/* Đổi từ màu #00cbd6 cũ sang #00f3ff (giảm nhẹ độ sáng bằng opacity khi ở trạng thái tĩnh để nhìn dịu mắt hơn) */
 .edit-btn {
   width: 100%;
   padding: 10px 16px;
@@ -185,6 +186,7 @@ body {
   transform: translateX(4px);
 }
 
+/* Thay thế các màu xanh lá/nâu/hồng cũ bằng các cấp độ của màu #00f3ff để đồng bộ */
 .exercise-item.easy {
   border-left-color: rgba(0, 243, 255, 0.4);
 }

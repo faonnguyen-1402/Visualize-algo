@@ -86,6 +86,52 @@ function ProfilePage() {
   }
 };
 
+//   const easyDone = completedList.filter(item => item.exercise.difficulty === 'EASY');
+//   const mediumDone = completedList.filter(item => item.exercise.difficulty === 'MEDIUM');
+//   const hardDone = completedList.filter(item => item.exercise.difficulty === 'HARD');
+
+//   useEffect(() => {
+//   const getProfile = async () => {
+//     setIsLoading(true);
+//     try {
+//       const token = localStorage.getItem('accessToken');
+
+//       const userRes = await axios.get('http://localhost:3001/users/profile', { 
+//         headers: { Authorization: `Bearer ${token}` } 
+//       });
+//       const userId = userRes.data.id; 
+
+//       const fetchedUser = userRes.data;
+//       const userWithYear = {
+//         ...fetchedUser,
+//         joinyear: fetchedUser.createdAt 
+//           ? new Date(fetchedUser.createdAt).getFullYear() 
+//           : new Date().getFullYear()
+//       };
+   
+//       const [exerRes, countRes, completedRes, completedListRes] = await Promise.all([
+//         axios.get('http://localhost:3001/exercise', { headers: { Authorization: `Bearer ${token}` } }),
+//         axios.get('http://localhost:3001/exercise/count', { headers: { Authorization: `Bearer ${token}` } }),
+//         axios.get(`http://localhost:3001/exercise/user/${userId}/completed-count`, { headers: { Authorization: `Bearer ${token}` } }),
+//         axios.get(`http://localhost:3001/exercise/user/${userId}/completed-list`, { headers: { Authorization: `Bearer ${token}` } })
+//       ]);
+
+
+//       setUser(userWithYear);
+//       setExercises(exerRes.data);
+//       setTotalExercises(countRes.data); // Tổng bài tập (ví dụ 40)
+//       setCompletedCount(completedRes.data); // Số bài đã làm (ví dụ 18)
+//       setCompletedList(completedListRes.data);
+
+//     } catch (err) {
+//       console.error("Lỗi lấy dữ liệu:", err);
+//     }finally {
+//       setIsLoading(false); 
+//     }
+//   };
+//   getProfile();
+// }, []);
+
   const easyDone = completedList.filter(item => item.exercise.difficulty === 'EASY');
   const mediumDone = completedList.filter(item => item.exercise.difficulty === 'MEDIUM');
   const hardDone = completedList.filter(item => item.exercise.difficulty === 'HARD');
