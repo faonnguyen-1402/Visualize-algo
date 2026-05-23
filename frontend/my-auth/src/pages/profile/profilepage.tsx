@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import LoadingSkeleton from '../../components/profile/LoadingSkeleton';
 import { useTranslation } from 'react-i18next';
+import Footer from '../../components/Footer';
 
 function ProfilePage() {
   const { t } = useTranslation();
@@ -169,6 +170,7 @@ function ProfilePage() {
             </div>
           )}
       </div>
+      <Footer />
     </>
   );
 }
