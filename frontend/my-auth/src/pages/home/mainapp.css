@@ -268,6 +268,108 @@ header {
   padding: 8px 0;
 }
 
+.menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #00f3ff;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+
+    header {
+        padding: 0.8rem 0;
+    }
+
+    .navbar {
+        padding: 0 16px;
+        position: relative;
+    }
+
+    /* Hamburger hiện */
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Ẩn search */
+    .search-bar-container {
+        display: none;
+    }
+
+    /* Menu mobile */
+    .nav-links {
+        position: absolute;
+
+        top: 72px;
+        left: 0;
+
+        width: 100%;
+
+        background: #111;
+
+        border-top: 1px solid #222;
+        border-bottom: 1px solid #222;
+
+        padding: 20px;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 20px;
+
+        display: none;
+
+        z-index: 999;
+    }
+
+    /* Khi mở */
+    .nav-links.mobile-open {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        width: 100%;
+        display: block;
+
+        font-size: 1rem;
+
+        padding: 10px 0;
+    }
+
+    /* bỏ margin desktop */
+    .nav-links {
+        margin: 0;
+    }
+
+    /* login nhỏ hơn */
+    .login-btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+    }
+
+    .nav-actions {
+        gap: 12px;
+    }
+
+    /* subtitle logo ẩn cho gọn */
+    .logo-subtitle {
+        display: none;
+    }
+
+    .logo-section {
+        font-size: 1.4rem;
+    }
+}
+
 .user-profile-dropdown {
     position: relative;
 }
@@ -1189,15 +1291,167 @@ input[type="range"]::-moz-range-thumb {
     letter-spacing: 0.05em;
 }
 /* ==================== FOOTER ==================== */
-footer {
-    border-top: 1px solid var(--border-color);
-    padding: 2rem;
-    text-align: center;
-    color: var(--text-secondary);
-    font-size: 0.875rem;
-    margin-top: auto;
+.main-footer {
+  position: relative;
+  z-index: 5;
+  margin-top: 40px;
+  padding: 30px 40px 20px;
+  background: #111315;
+  border-top: 1px solid #262626;
+  box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.4);
 }
 
+
+.footer-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 60px; 
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.footer-content-right {
+  display: grid;
+  grid-template-columns: auto auto; /* Thay 1fr 1fr thành auto auto để vừa vặn với chữ */
+  gap: 80px;                        /* Khoảng cách giữa cột Platform và Project */
+  justify-content: end;             /* ĐỂ NÓ BỊ ĐẨY SÁT SANG BÊN PHẢI */
+}
+
+.footer-logo {
+  margin: 0;
+  color: #00f3ff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.25);
+}
+
+.footer-slogan {
+  margin: 4px 0 10px;
+  color: #666666;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.footer-description {
+  max-width: 380px; /* Tăng nhẹ chiều rộng tối đa để text dàn đều mượt hơn ở tỷ lệ 50% */
+  margin: 0;
+  color: #8892b0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.footer-links-group h3,
+.footer-info h3 {
+  margin: 0 0 12px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: relative;
+  padding-bottom: 6px;
+  text-align: left;
+}
+
+.footer-links-group h3::after,
+.footer-info h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  height: 1px;
+  border-bottom: 2px solid rgba(0, 243, 255, 0.4);
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.footer-link {
+  width: fit-content;
+  color: #8892b0;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #00f3ff;
+  transform: translateX(3px);
+}
+
+.footer-info p {
+  margin: 0 0 8px;
+  color: #8892b0;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.footer-info p:last-child {
+  color: rgba(0, 243, 255, 0.6);
+  font-size: 12px;
+}
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: 30px auto 0;
+  padding-top: 10px;
+  border-top: 1px solid #1f2326;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #4b5563;
+  font-size: 10px;
+}
+
+.brand-neon {
+  color: #00f3ff;
+  font-weight: 700;
+}
+
+/* Responsive tinh chỉnh cho giao diện 2 khối */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr; /* Trở về 1 cột trên màn hình nhỏ */
+    gap: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content-right {
+    grid-template-columns: 1fr; /* Các cột nhỏ xếp chồng lên nhau ở màn hình điện thoại dọc */
+    gap: 28px;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 24px;
+  }
+}
+/* ==================== HEADER ACTIONS ==================== */
 /* Container giữ các nút hành động (nếu chưa có flex) */
 .nav-actions {
     display: flex;
@@ -1261,6 +1515,31 @@ footer {
     scrollbar-width: thin;
     scrollbar-color: #232932 var(--bg-primary);
 }
+
+.lang-btn {
+  background: transparent; /* Bỏ màu nền */
+  border: none;            /* Bỏ viền */
+  padding: 0px;            /* Khoảng cách nhỏ để không bị dính sát */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  outline: none;
+}
+
+.lang-btn:hover {
+  transform: scale(1.1);   /* Hiệu ứng phóng to nhẹ khi di chuột vào */
+}
+
+/* Đảm bảo icon cờ bên trong hiển thị đúng kích thước */
+.lang-btn svg {
+  width: 28px;
+  height: 20px;
+  border-radius: 2px;
+  display: block;
+}
+
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 768px) {

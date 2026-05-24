@@ -40,7 +40,7 @@ function Login() {
       });
 
       const result = await res.json();
-console.log("Cấu trúc JSON server trả về:", JSON.stringify(result, null, 2));
+      console.log("Cấu trúc JSON server trả về:", JSON.stringify(result, null, 2));
       if (!res.ok) {
         toast.error(result.message || 'Login failed');
         return;
@@ -48,7 +48,20 @@ console.log("Cấu trúc JSON server trả về:", JSON.stringify(result, null, 
 
       // lưu token
       localStorage.setItem('accessToken', result.access_token);
-      localStorage.setItem('user', JSON.stringify(result.user));
+      const profileRes = await fetch('http://localhost:3001/users/profile', {
+        headers: { Authorization: `Bearer ${result.access_token}` }
+      });
+
+      if (profileRes.ok) {
+        const fullProfile = await profileRes.json();
+        // 3. Lưu profile đầy đủ vào localStorage
+        localStorage.setItem('user', JSON.stringify(fullProfile));
+      } else {
+        // Nếu không lấy được profile, dùng tạm dữ liệu từ Login
+        localStorage.setItem('user', JSON.stringify(result.user));
+      }    
+
+      // localStorage.setItem('user', JSON.stringify(result.user));
 
       window.dispatchEvent(new Event('authChange'));
 

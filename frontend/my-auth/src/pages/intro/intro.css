@@ -12,6 +12,9 @@
   pointer-events: none;
 
   background: #000;
+
+  
+
 }
 
 .intro-page {
@@ -40,7 +43,8 @@
   max-width: 900px;
 }
 
-.hero-tag {
+.hero-tag{
+
   color: #22d3ee;
   letter-spacing: 4px;
   font-size: 14px;
@@ -49,7 +53,8 @@
   text-transform: uppercase;
 }
 
-.hero-content h1 {
+.hero-content h1{
+  color: white;
   font-size: 80px;
   font-weight: 800;
   margin-bottom: 25px;
@@ -339,6 +344,17 @@
   }
 }
 
+/* Làm cho thẻ a trong suốt và không ảnh hưởng layout */
+.team-link-wrapper {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Giữ nguyên layout grid */
+}
+
+/* Đảm bảo khi hover vào thẻ a, hiệu ứng hover của team-card vẫn chạy */
+.team-link-wrapper:hover {
+  text-decoration: none;
+}
 @media (max-width: 480px) {
   .hero-tag {
     font-size: 12px;

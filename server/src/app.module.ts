@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { AlgorithmsModule } from './algorithm/algorithms.module';
 import { ExerciseModule } from './exercise/exercise.module';
 import { UsersModule } from './users/users.module';
+import { UsersController } from './users/users.controller';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { UsersModule } from './users/users.module';
     ExerciseModule,
     UsersModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, UsersController],
   providers: [AppService],
 })
 export class AppModule {}
