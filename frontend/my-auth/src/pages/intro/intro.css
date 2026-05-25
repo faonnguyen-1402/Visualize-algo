@@ -12,9 +12,6 @@
   pointer-events: none;
 
   background: #000;
-
-  
-
 }
 
 .intro-page {
@@ -43,8 +40,7 @@
   max-width: 900px;
 }
 
-.hero-tag{
-
+.hero-tag {
   color: #22d3ee;
   letter-spacing: 4px;
   font-size: 14px;
@@ -53,7 +49,7 @@
   text-transform: uppercase;
 }
 
-.hero-content h1{
+.hero-content h1 {
   color: white;
   font-size: 80px;
   font-weight: 800;
@@ -389,4 +385,15 @@
   .team-card {
     padding: 26px;
   }
+}
+.algo-box ul li a {
+  color: #22d3ee;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.algo-box ul li a:hover {
+  color: #67e8f9;
+  padding-left: 6px;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.7);
 }
