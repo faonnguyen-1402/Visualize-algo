@@ -23,7 +23,7 @@ Execute your code instantly and get immediate, comprehensive feedback. This incl
 
 ### 4. Comprehensive Algorithm Categories
 Explore a wide array of algorithms categorized for easy navigation:
--   **Sorting Algorithms:** Understand the mechanics of Bubble Sort, Quick Sort, Merge Sort, and more.
+-   **Sorting Algorithms:** Understand the mechanics of Bubble Sort, Quick Sort, and more.
 -   **Searching Algorithms:** Master Linear Search, Binary Search, and other search techniques.
 
 ### 5. Multilingual Support
