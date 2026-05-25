@@ -2,38 +2,114 @@ import React from 'react';
 import { Exercise } from '../../types/user';
 import { generateHeatmapDays } from '../../utils/helpers';
 import { useTranslation } from 'react-i18next';
+import { ActivityDay } from '../../types/user';
 
 interface ActivityHeatmapProps {
   exercises: Exercise[];
 }
 
-const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({ exercises }) => {
+const months = [
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+];
+
+const weekDays = ['Mon', 'Wed', 'Fri'];
+
+const ActivityHeatmap: React.FC<ActivityHeatmapProps> = ({
+  exercises,
+}) => {
+
   const { t } = useTranslation();
 
   const heatmapDays = generateHeatmapDays(exercises);
 
+  console.log("Dữ liệu Heatmap sau khi xử lý:", heatmapDays);
+  // 2. Chia mảng thành các tuần (cột dọc)
+  // const weeks: ActivityDay[][] = [];
+  // for (let i = 0; i < heatmapDays.length; i += 7) {
+  //   weeks.push(heatmapDays.slice(i, i + 7));
+  // }
+
   const getLevel = (count: number): number => {
     if (count === 0) return 0;
-    if (count === 1) return 1;
-    if (count === 2) return 2;
-    if (count === 3) return 3;
+    if (count <= 1) return 1;
+    if (count <= 2) return 2;
+    if (count <= 3) return 3;
     return 4;
   };
 
   return (
-    <div className="heatmap-card">
-      {/* <h3 className="heatmap-title">Activity (365 days)</h3> */}
-      <h3 className="heatmap-title">{t('profile.stats.heatmap')}</h3>
-      <div className="heatmap">
-        {heatmapDays.map((day, idx) => (
-          <div
-            key={idx}
-            className={`heatmap-cell heatmap-level-${getLevel(day.count)}`}
-            // title={`${day.date}: ${day.count} exercise`}
-            title={`${day.date}: ${t('profile.exercise_count', { count: day.count })}`}
-          />
+    <div className='heatmap-card'>
+
+      <div className='heatmap-months'>
+
+        {months.map((month, index) => (
+          <span key={index}>
+            {month}
+          </span>
         ))}
+
       </div>
+
+      <div className='heatmap-wrapper'>
+
+        <div className='heatmap-weekdays'>
+
+          {weekDays.map((day) => (
+            <span key={day}>
+              {day}
+            </span>
+          ))}
+
+        </div>
+
+        <div className='heatmap-grid'>
+
+          {heatmapDays.map((day, idx) => (
+
+            <div
+              key={idx}
+              className={`heatmap-cell heatmap-level-${getLevel(day.count)}`}
+              title={`${day.date}: ${day.count} exercises`}
+            />
+
+          ))}
+
+        </div>
+
+      </div>
+
+          
+
+      <div className='heatmap-footer'>
+
+        <div className='heatmap-legend'>
+
+          <span>Less</span>
+
+          <div className='legend-cell level-0'></div>
+          <div className='legend-cell level-1'></div>
+          <div className='legend-cell level-2'></div>
+          <div className='legend-cell level-3'></div>
+          <div className='legend-cell level-4'></div>
+
+          <span>More</span>
+
+        </div>
+
+      </div>
+
     </div>
   );
 };

@@ -1,7 +1,5 @@
-// src/components/Footer.tsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './footer.css';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -18,35 +16,32 @@ const Footer: React.FC = () => {
           </p>
         </div>
 
-        <div className='footer-links-group'>
-          <h3>Platform</h3>
+        <div className='footer-content-right'>
+          <div className='footer-links-group'>
+            <h3>Platform</h3>
+            <nav className='footer-nav'>
+              <Link to='/home' className='footer-link'>Home</Link>
+              <Link to='/algorithms' className='footer-link'>Algorithms</Link>
+              <Link to='/practice' className='footer-link'>Practice</Link>
+              <Link to='/profile' className='footer-link'>Profile</Link>
+            </nav>
+          </div>
 
-          <nav className='footer-nav'>
-            <Link to='/home' className='footer-link'>
-              Home
-            </Link>
-
-            <Link to='/algorithms' className='footer-link'>
-              Algorithms
-            </Link>
-
-            <Link to='/practice' className='footer-link'>
-              Practice
-            </Link>
-
-            <Link to='/profile' className='footer-link'>
-              Profile
-            </Link>
-          </nav>
+          <div className='footer-info'>
+            <h3>Project</h3>
+            <p>Tay Nguyen University</p>
+            <p>Information Technology Students</p>
+            <p>Built for learning algorithms visually.</p>
+          </div>
         </div>
 
-        <div className='footer-info'>
+        {/* <div className='footer-info'>
           <h3>Project</h3>
 
           <p>Tay Nguyen University</p>
           <p>Information Technology Students</p>
           <p>Built for learning algorithms visually.</p>
-        </div>
+        </div> */}
       </div>
 
       <div className='footer-bottom'>
@@ -57,6 +52,13 @@ const Footer: React.FC = () => {
 
         <p>Designed for modern algorithm learning.</p>
       </div>
+
+      {/* <div className='footer-bottom'>
+        <p>
+          &copy; {currentYear} <span className='brand-neon'>VIZALGO</span>. All rights reserved.
+        </p>
+        <p>Designed for modern algorithm learning.</p>
+      </div> */}
     </footer>
   );
 };

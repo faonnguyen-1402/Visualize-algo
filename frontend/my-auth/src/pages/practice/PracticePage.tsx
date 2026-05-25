@@ -7,6 +7,7 @@ import {toast} from 'react-toastify'
 import PracticeSkeleton from '../../components/PracticeSkeleton';
 
 import { useTranslation } from "react-i18next";
+// import Footer from '../../components/Footer';
 
 function PracticePage() {
   const { t } = useTranslation();
@@ -277,7 +278,7 @@ console.log("Dữ liệu exercise đầu tiên:", allExercises[0]?.algorithm);
         </div> */}
 
       </div>
-
+      {/* <Footer /> */}
     </>
 
   );

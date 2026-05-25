@@ -45,12 +45,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   };
 
   return (
-    <div className={`modal-overlay ${isOpen ? 'open' : ''}`}>
-      <div className="modal">
-        <div className="modal-header">
-          <h2 className="modal-title">{t('profile.modal.edit_title')}</h2>
+    <div className={`profile-modal-overlay ${isOpen ? 'open' : ''}`}>
+      <div className="profile-modal">
+        <div className="profile-modal-header">
+          <h2 className="profile-modal-title">{t('profile.modal.edit_title')}</h2>
         </div>
-        <div className="modal-content">
+        <div className="profile-modal-content">
           <div className="form-group">
             <label className="form-label">{t('profile.modal.avatar')}</label>
             {/* <div className="file-input-wrapper">
@@ -104,14 +104,14 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
               className="form-input"
               value={formData.username}
               onChange={(e) =>
-                setFormData((prev) => ({ ...prev, name: e.target.value }))
+                setFormData((prev) => ({ ...prev, username: e.target.value }))
               }
               placeholder={t('profile.modal.name_placeholder')}
             />
           </div>
         </div>
 
-        <div className="modal-actions">
+        <div className="profile-modal-actions">
           <button className="btn btn-secondary" onClick={onClose}>
             {t('profile.modal.cancel')}
           </button>

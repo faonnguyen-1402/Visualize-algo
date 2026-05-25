@@ -1,6 +1,14 @@
-import { Controller, Get, UseGuards, Request } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request,
+  Patch,
+  Body,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 // Định nghĩa cấu trúc của Request sau khi qua Guard
 interface AuthenticatedRequest extends Request {
@@ -16,9 +24,16 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  // Sử dụng kiểu dữ liệu đã định nghĩa
   getProfile(@Request() req: AuthenticatedRequest) {
-    // Bây giờ TypeScript hiểu rõ req.user.id là số
     return this.usersService.findOne(req.user.id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('profile')
+  updateProfile(
+    @Request() req: AuthenticatedRequest,
+    @Body() updateData: UpdateUserDto,
+  ) {
+    return this.usersService.update(req.user.id, updateData);
   }
 }

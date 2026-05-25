@@ -50,6 +50,7 @@
 }
 
 .hero-content h1 {
+  color: white;
   font-size: 80px;
   font-weight: 800;
   margin-bottom: 25px;
@@ -339,6 +340,17 @@
   }
 }
 
+/* Làm cho thẻ a trong suốt và không ảnh hưởng layout */
+.team-link-wrapper {
+  text-decoration: none;
+  color: inherit;
+  display: block; /* Giữ nguyên layout grid */
+}
+
+/* Đảm bảo khi hover vào thẻ a, hiệu ứng hover của team-card vẫn chạy */
+.team-link-wrapper:hover {
+  text-decoration: none;
+}
 @media (max-width: 480px) {
   .hero-tag {
     font-size: 12px;
@@ -373,4 +385,15 @@
   .team-card {
     padding: 26px;
   }
+}
+.algo-box ul li a {
+  color: #22d3ee;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.algo-box ul li a:hover {
+  color: #67e8f9;
+  padding-left: 6px;
+  text-shadow: 0 0 10px rgba(34, 211, 238, 0.7);
 }

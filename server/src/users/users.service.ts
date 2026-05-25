@@ -14,6 +14,7 @@ export class UsersService {
         id: true,
         username: true,
         email: true,
+        image: true,
         createdAt: true,
       },
     });
@@ -22,9 +23,17 @@ export class UsersService {
   // Cập nhật thông tin (cho EditProfileModal)
   async update(id: number, updateUserDto: UpdateUserDto) {
     delete updateUserDto.password;
+    console.log('Dữ liệu gửi vào Prisma:', updateUserDto);
     return await this.prisma.user.update({
       where: { id },
       data: updateUserDto,
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        image: true, // Thêm image vào đây để Frontend nhận được ảnh mới
+        createdAt: true,
+      },
     });
   }
 }
