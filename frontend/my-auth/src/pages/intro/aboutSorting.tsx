@@ -12,7 +12,6 @@ type SortingAlgorithm = {
   id: string;
   index: string;
   name: string;
-  vietnameseName: string;
   shortDescription: string;
   description: string;
   complexity: ComplexityRow[];
@@ -26,24 +25,23 @@ const sortingAlgorithms: SortingAlgorithm[] = [
     id: 'bubble-sort',
     index: 'Sorting Algorithm 01',
     name: 'Bubble Sort',
-    vietnameseName: 'Sắp xếp nổi bọt',
-    shortDescription: 'So sánh các phần tử liền kề',
+    shortDescription: 'Compare adjacent elements',
     description:
-      'Bubble Sort liên tục so sánh hai phần tử liền kề và hoán đổi nếu chúng sai thứ tự. Sau mỗi vòng lặp, phần tử lớn nhất sẽ dần nổi lên cuối mảng.',
+      'Bubble Sort repeatedly compares adjacent elements and swaps them if they are in the wrong order. After each pass, the largest element "bubbles up" to its correct position at the end of the array.',
     complexity: [
       { caseName: 'Best', time: 'O(n)' },
       { caseName: 'Average / Worst', time: 'O(n²)' },
       { caseName: 'Space', time: 'O(1)' },
     ],
     advantages: [
-      'Dễ hiểu, dễ cài đặt.',
-      'Phù hợp để học tư duy sắp xếp cơ bản.',
-      'Không cần thêm bộ nhớ phụ lớn.',
+      'Simple and easy to implement.',
+      'Good for learning basic sorting logic.',
+      'Requires no extra memory.',
     ],
     disadvantages: [
-      'Hiệu suất thấp với dữ liệu lớn.',
-      'Số lần so sánh và hoán đổi nhiều.',
-      'Ít được dùng trong thực tế cho dữ liệu lớn.',
+      'Low performance on large datasets.',
+      'High number of comparisons and swaps.',
+      'Rarely used in production for large data.',
     ],
     code: `function bubbleSort(arr: number[]): number[] {
   const result = [...arr];
@@ -65,23 +63,22 @@ console.log(bubbleSort([5, 3, 8, 4, 2]));`,
     id: 'selection-sort',
     index: 'Sorting Algorithm 02',
     name: 'Selection Sort',
-    vietnameseName: 'Sắp xếp chọn',
-    shortDescription: 'Chọn phần tử nhỏ nhất',
+    shortDescription: 'Select the smallest element',
     description:
-      'Selection Sort chia mảng thành phần đã sắp xếp và chưa sắp xếp. Ở mỗi lượt, thuật toán tìm phần tử nhỏ nhất trong phần chưa sắp xếp rồi đưa về đầu phần đó.',
+      'Selection Sort divides the array into a sorted and an unsorted region. In each iteration, it finds the smallest element in the unsorted region and moves it to the beginning.',
     complexity: [
       { caseName: 'Best / Average / Worst', time: 'O(n²)' },
       { caseName: 'Space', time: 'O(1)' },
     ],
     advantages: [
-      'Dễ hiểu và dễ triển khai.',
-      'Số lần hoán đổi ít hơn Bubble Sort.',
-      'Không cần thêm bộ nhớ phụ lớn.',
+      'Simple and easy to understand.',
+      'Fewer swaps compared to Bubble Sort.',
+      'No extra memory required.',
     ],
     disadvantages: [
-      'Thời gian chạy luôn là O(n²).',
-      'Không hiệu quả với dữ liệu lớn.',
-      'Không tận dụng được trường hợp mảng gần như đã sắp xếp.',
+      'Time complexity is always O(n²).',
+      'Not efficient for large datasets.',
+      'Does not benefit from partially sorted data.',
     ],
     code: `function selectionSort(arr: number[]): number[] {
   const result = [...arr];
@@ -107,24 +104,23 @@ console.log(selectionSort([5, 3, 8, 4, 2]));`,
     id: 'insertion-sort',
     index: 'Sorting Algorithm 03',
     name: 'Insertion Sort',
-    vietnameseName: 'Sắp xếp chèn',
-    shortDescription: 'Chèn phần tử vào đúng vị trí',
+    shortDescription: 'Insert element at correct position',
     description:
-      'Insertion Sort xây dựng dần một dãy đã sắp xếp. Mỗi phần tử mới sẽ được lấy ra và chèn vào vị trí phù hợp trong phần đã sắp xếp.',
+      'Insertion Sort builds a sorted list one item at a time. It takes each element from the unsorted portion and inserts it into the correct position within the sorted portion.',
     complexity: [
       { caseName: 'Best', time: 'O(n)' },
       { caseName: 'Average / Worst', time: 'O(n²)' },
       { caseName: 'Space', time: 'O(1)' },
     ],
     advantages: [
-      'Hiệu quả với dữ liệu nhỏ.',
-      'Tốt khi mảng gần như đã sắp xếp.',
-      'Cài đặt đơn giản.',
+      'Efficient for small datasets.',
+      'Works well with partially sorted arrays.',
+      'Simple to implement.',
     ],
     disadvantages: [
-      'Không hiệu quả với dữ liệu lớn.',
-      'Trường hợp xấu nhất vẫn là O(n²).',
-      'Cần dịch chuyển nhiều phần tử.',
+      'Inefficient for large datasets.',
+      'Worst-case performance remains O(n²).',
+      'Requires many element shifts.',
     ],
     code: `function insertionSort(arr: number[]): number[] {
   const result = [...arr];
@@ -147,77 +143,26 @@ console.log(selectionSort([5, 3, 8, 4, 2]));`,
 console.log(insertionSort([5, 3, 8, 4, 2]));`,
   },
   {
-    id: 'merge-sort',
-    index: 'Sorting Algorithm 04',
-    name: 'Merge Sort',
-    vietnameseName: 'Sắp xếp trộn',
-    shortDescription: 'Chia để trị',
-    description:
-      'Merge Sort là thuật toán chia để trị. Thuật toán chia mảng thành các mảng nhỏ hơn, sắp xếp từng phần rồi trộn các phần đã sắp xếp lại với nhau.',
-    complexity: [
-      { caseName: 'Best / Average / Worst', time: 'O(n log n)' },
-      { caseName: 'Space', time: 'O(n)' },
-    ],
-    advantages: [
-      'Hiệu suất ổn định O(n log n).',
-      'Phù hợp với dữ liệu lớn.',
-      'Dễ phân tích theo tư duy chia để trị.',
-    ],
-    disadvantages: [
-      'Cần thêm bộ nhớ phụ O(n).',
-      'Cài đặt dài hơn các thuật toán cơ bản.',
-      'Có thể không tối ưu với dữ liệu nhỏ.',
-    ],
-    code: `function mergeSort(arr: number[]): number[] {
-  if (arr.length <= 1) return arr;
-
-  const mid = Math.floor(arr.length / 2);
-  const left = mergeSort(arr.slice(0, mid));
-  const right = mergeSort(arr.slice(mid));
-
-  return merge(left, right);
-}
-
-function merge(left: number[], right: number[]): number[] {
-  const result: number[] = [];
-  let i = 0;
-  let j = 0;
-
-  while (i < left.length && j < right.length) {
-    if (left[i] <= right[j]) {
-      result.push(left[i++]);
-    } else {
-      result.push(right[j++]);
-    }
-  }
-
-  return result.concat(left.slice(i)).concat(right.slice(j));
-}
-
-console.log(mergeSort([5, 3, 8, 4, 2]));`,
-  },
-  {
     id: 'quick-sort',
-    index: 'Sorting Algorithm 05',
+    index: 'Sorting Algorithm 04',
     name: 'Quick Sort',
-    vietnameseName: 'Sắp xếp nhanh',
-    shortDescription: 'Pivot và phân hoạch',
+    shortDescription: 'Pivot and partition',
     description:
-      'Quick Sort chọn một phần tử làm pivot, sau đó phân hoạch mảng thành hai phần: nhỏ hơn pivot và lớn hơn pivot. Thuật toán tiếp tục đệ quy sắp xếp hai phần này.',
+      'Quick Sort picks a pivot element and partitions the array into two subarrays: those smaller than the pivot and those larger. It then recursively sorts the subarrays.',
     complexity: [
       { caseName: 'Average', time: 'O(n log n)' },
       { caseName: 'Worst', time: 'O(n²)' },
       { caseName: 'Space', time: 'O(log n)' },
     ],
     advantages: [
-      'Nhanh trong hầu hết trường hợp thực tế.',
-      'Phù hợp với dữ liệu lớn.',
-      'Không cần nhiều bộ nhớ phụ nếu cài đặt tối ưu.',
+      'Very fast in practice for most cases.',
+      'Suitable for large datasets.',
+      'Minimal extra memory usage compared to Merge Sort.',
     ],
     disadvantages: [
-      'Trường hợp xấu nhất có thể là O(n²).',
-      'Phụ thuộc vào cách chọn pivot.',
-      'Cài đặt đệ quy cần xử lý cẩn thận.',
+      'Worst-case performance can reach O(n²).',
+      'Performance depends on pivot selection.',
+      'Recursive implementation needs careful handling.',
     ],
     code: `function quickSort(arr: number[]): number[] {
   if (arr.length <= 1) return arr;
@@ -244,63 +189,52 @@ console.log(quickSort([5, 3, 8, 4, 2]));`,
 const SortingAlgorithms: React.FC = () => {
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
-
     if (hash) {
       setTimeout(() => {
         const element = document.getElementById(hash);
-        element?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start',
-        });
+        element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 120);
     }
   }, []);
 
   const scrollToSection = (id: string) => {
     window.history.pushState(null, '', `#${id}`);
-
     const element = document.getElementById(id);
-
-    element?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
+    element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const scrollToTop = () => {
-    window.history.pushState(null, '', window.location.pathname);
+ const scrollToTop = () => {
+    const container = document.querySelector('.algorithm-about-page');
+    
+    if (container) {
+      // Ép giá trị scrollTop về 0 trực tiếp
+      container.scrollTop = 0; 
+      console.log("Forced scroll to top");
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.history.pushState(null, '', window.location.pathname);
   };
 
   return (
     <>
       <GeometricBackground />
       <Header />
-
       <div className='algorithm-about-page'>
         <div className='algorithm-about-container'>
           <div className='algorithm-about-header'>
             <p className='algorithm-about-tag'>Algorithm Learning</p>
-
             <h1 className='algorithm-about-title'>📊 Sorting Algorithms</h1>
-
             <p className='algorithm-about-desc'>
-              Sorting algorithms are used to arrange data in a specific order,
-              such as ascending or descending. This section explains common
-              sorting algorithms with descriptions, complexity analysis and
-              TypeScript examples.
+              Sorting algorithms are used to arrange data in a specific order. 
+              This section explains common sorting algorithms with descriptions, 
+              complexity analysis, and TypeScript examples.
             </p>
           </div>
 
           <div className='algorithm-glass-card algorithm-nav'>
-            <h2 className='algorithm-nav-title'>
-              📚 Danh sách thuật toán sắp xếp
-            </h2>
-
+            <h2 className='algorithm-nav-title'>📚 Sorting Algorithm List</h2>
             <div className='algorithm-nav-grid sorting'>
               {sortingAlgorithms.map((algorithm) => (
                 <button
@@ -316,31 +250,19 @@ const SortingAlgorithms: React.FC = () => {
           </div>
 
           <div className='algorithm-glass-card algorithm-overview'>
-            <h2 className='algorithm-section-heading'>📌 Tổng quan</h2>
-
+            <h2 className='algorithm-section-heading'>📌 Overview</h2>
             <div className='algorithm-overview-grid'>
               <div className='algorithm-mini-card'>
-                <h3>Mục tiêu</h3>
-                <p>
-                  Sắp xếp các phần tử theo thứ tự tăng dần hoặc giảm dần để dữ
-                  liệu dễ xử lý hơn.
-                </p>
+                <h3>Objective</h3>
+                <p>Arrange elements in ascending or descending order for easier data processing.</p>
               </div>
-
               <div className='algorithm-mini-card'>
-                <h3>Ứng dụng</h3>
-                <p>
-                  Sắp xếp điểm số, sản phẩm, dữ liệu người dùng, kết quả tìm
-                  kiếm hoặc dữ liệu trong hệ thống.
-                </p>
+                <h3>Applications</h3>
+                <p>Ranking scores, organizing products, sorting user data, or managing database results.</p>
               </div>
-
               <div className='algorithm-mini-card'>
-                <h3>Ý nghĩa</h3>
-                <p>
-                  Sắp xếp giúp tối ưu tìm kiếm, phân tích dữ liệu và tổ chức
-                  thông tin hiệu quả hơn.
-                </p>
+                <h3>Significance</h3>
+                <p>Efficient sorting optimizes searching, data analysis, and information organization.</p>
               </div>
             </div>
           </div>
@@ -354,41 +276,25 @@ const SortingAlgorithms: React.FC = () => {
               <div className='algorithm-detail-top'>
                 <div>
                   <p className='algorithm-index'>{algorithm.index}</p>
-
-                  <h2 className='algorithm-detail-title'>
-                    {algorithm.name}
-                    <span> — {algorithm.vietnameseName}</span>
-                  </h2>
+                  <h2 className='algorithm-detail-title'>{algorithm.name}</h2>
                 </div>
-
-                <button onClick={scrollToTop} className='algorithm-top-button'>
-                  ↑ Top
-                </button>
+                <button onClick={scrollToTop} className='algorithm-top-button'>↑ Top</button>
               </div>
 
               <div className='algorithm-content-grid'>
                 <div className='algorithm-text-block'>
-                  <h3>Mô tả</h3>
+                  <h3>Description</h3>
                   <p>{algorithm.description}</p>
                 </div>
-
                 <div className='algorithm-complexity'>
-                  <h3>Độ phức tạp</h3>
-
+                  <h3>Complexity</h3>
                   <table className='algorithm-table'>
                     <thead>
-                      <tr>
-                        <th>Trường hợp</th>
-                        <th>Thời gian</th>
-                      </tr>
+                      <tr><th>Case</th><th>Time</th></tr>
                     </thead>
-
                     <tbody>
                       {algorithm.complexity.map((row) => (
-                        <tr key={row.caseName}>
-                          <td>{row.caseName}</td>
-                          <td>{row.time}</td>
-                        </tr>
+                        <tr key={row.caseName}><td>{row.caseName}</td><td>{row.time}</td></tr>
                       ))}
                     </tbody>
                   </table>
@@ -397,52 +303,29 @@ const SortingAlgorithms: React.FC = () => {
 
               <div className='algorithm-two-grid'>
                 <div className='algorithm-list-card positive'>
-                  <h3>✅ Ưu điểm</h3>
-
-                  <ul>
-                    {algorithm.advantages.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                  <h3>✅ Advantages</h3>
+                  <ul>{algorithm.advantages.map((item) => <li key={item}>{item}</li>)}</ul>
                 </div>
-
                 <div className='algorithm-list-card negative'>
-                  <h3>⚠️ Nhược điểm</h3>
-
-                  <ul>
-                    {algorithm.disadvantages.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
+                  <h3>⚠️ Disadvantages</h3>
+                  <ul>{algorithm.disadvantages.map((item) => <li key={item}>{item}</li>)}</ul>
                 </div>
               </div>
 
               <div className='algorithm-code-block'>
-                <h3>Ví dụ TypeScript</h3>
-
-                <pre>
-                  <code>{algorithm.code}</code>
-                </pre>
+                <h3>TypeScript Example</h3>
+                <pre><code>{algorithm.code}</code></pre>
               </div>
             </section>
           ))}
 
           <div className='algorithm-bottom-nav'>
-            <button onClick={() => scrollToSection('bubble-sort')}>
-              Bubble Sort
-            </button>
-
-            <button onClick={() => scrollToSection('merge-sort')}>
-              Merge Sort
-            </button>
-
-            <button onClick={() => scrollToSection('quick-sort')}>
-              Quick Sort
-            </button>
-
-            <button onClick={scrollToTop} className='secondary'>
-              Lên đầu trang
-            </button>
+            {sortingAlgorithms.map((algo) => (
+              <button key={algo.id} onClick={() => scrollToSection(algo.id)}>
+                {algo.name}
+              </button>
+            ))}
+            <button onClick={scrollToTop} className='secondary'>Back to Top</button>
           </div>
         </div>
       </div>
