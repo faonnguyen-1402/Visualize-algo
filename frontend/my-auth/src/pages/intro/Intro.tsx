@@ -4,6 +4,7 @@ import GeometricBackground from '../../components/background/geometricBackground
 import ScrambleText from '../../components/ScrambleText';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import Footer from '../../components/Footer';
 
 function Intro() {
   const { t } = useTranslation();
@@ -173,6 +174,7 @@ function Intro() {
           </div>
         </section>
       </div>
+      <Footer />
     </>
   );
 }

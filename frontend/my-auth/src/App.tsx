@@ -63,7 +63,7 @@ function App() {
         <Route path='*' element={<Navigate to='/home' replace />} />
       </Routes>
 
-      {!shouldHideFooter && <Footer />}
+      {/* {!shouldHideFooter && <Footer />} */}
 
       <ToastContainer position='top-right' autoClose={3000} />
     </div>

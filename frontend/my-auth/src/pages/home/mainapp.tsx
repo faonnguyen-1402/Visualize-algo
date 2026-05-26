@@ -33,7 +33,7 @@ const Home = () => {
     };
     loadData();
   }, []);
-
+  
   const sorting = allAlgos.filter((a:any) => a.category?.name === 'Sorting');
   const searching = allAlgos.filter((a:any) => a.category?.name === 'Searching');
 
@@ -116,7 +116,7 @@ const Home = () => {
           onClose={() => setSelectedAlgo(null)}
         />
       )}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   
   );
